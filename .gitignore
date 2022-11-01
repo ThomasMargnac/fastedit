@@ -1,1 +1,8 @@
+# Folders
 __pycache__/
+venv/
+videos/
+
+# Files
+Dockerfile
+requirements.txt
