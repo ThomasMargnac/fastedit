@@ -1,4 +1,7 @@
 import subprocess as sp
+import tempfile
+import shutil
+import os
 
 class Video():
 	def __init__(
@@ -14,9 +17,13 @@ class Video():
 		--------------------------
 		path: Path to the video.
 		"""
-		self.__original_video_path = path
-		self.__main_temp_video_path = ""
-		self.__second_temp_video_path = ""
+		# Creating temporary folder
+		cwd = os.getcwd()
+		temp_folder = tempfile.TemporaryDirectory(dir=cwd)
+		# Defining temporary files
+		self.__main_temp_video = tempfile.NamedTemporaryFile(dir=temp_folder.name, delete=False)
+		shutil.copy(path, self.__main_temp_video.name)
+		self.__second_temp_video = tempfile.NamedTemporaryFile(dir=temp_folder.name, delete=False)
 
 	def getDuration(
 		self
@@ -30,29 +37,23 @@ class Video():
 		command = [
 			"ffprobe",
 			"-i",
-			str(self.__main_temp_video_path),
+			str(self.__main_temp_video.name),
 			"-show_entries",
 			"format=duration",
 			"-v",
 			"quiet",
-			"-of",
-			"csv='p=0'"
+			#"-of",
+			#"csv=\"p=0\""
 		]
 		# Running command and getting output in pipe
-		run = sp.Popen(
-			command,
-			stdout=sp.PIPE,
-			stderr=sp.PIPE
+		run = sp.run(
+			command
 		)
 		# Reading stout
-		print(run.returncode)
-		out, err = run.communicate()
-		print(out, err)
 
-	def adjustDuration(
+	def loop(
 		self,
-		duration,
-		start = 0
+		duration
 	):
 		"""
 		Description
@@ -61,28 +62,55 @@ class Video():
 
 		Argument(s)
 		--------------------------
-		duration: Duration of the new video.
-		start: Start time of the video where the video start playing. Default 0.
+		duration: Duration of the loop.
 		"""
-		# Getting the user's desired duration
-		desiredDuration = start + duration
+		# Checking type of duration
+		if type(duration) not in [int, float]:
+			raise TypeError("Duration has to be an Integer or Float, actual duration type is " + type(duration))
 		# Getting the actual video duration
 		videoDuration = self.getDuration()
-		# Apply transformation on video based on 
-		if desiredDuration < videoDuration:
-			# ffmpeg -i <entry> -ss <start> -to <end> test.mp4
+		# Apply transformation on video based on desired duration
+		if duration != videoDuration:
+			# Preparing command
 			command = [
 				"ffmpeg",
+				"-stream_loop",
+				"-1",
+				"-t",
+				str(duration),
 				"-i",
-				str(self.__main_temp_video_path),
-				"-ss",
-				str(start),
-				"-to",
-				str(desiredDuration),
-				str(self.__second_temp_video_path)
+				str(self.__main_temp_video.name),
+				"-c",
+				"copy",
+				str(self.__second_temp_video.name),
+				"-y"
 			]
-		elif desiredDuration > videoDuration:
-			print("test")
+			# Running command and getting output in pipe
+			run = sp.Popen(
+				command
+			)
+			# Moving second file content to main file
+			shutil.move(
+				self.__second_temp_video.name,
+				self.__main_temp_video.name
+			)
+	
+	def clip(
+		self,
+		start,
+		end
+	):
+		"""
+		Description
+		--------------------------
+		Extract a part of the video
+
+		Argument(s)
+		--------------------------
+		start: Time where the clip starts.
+		end: Time where the clip ends.
+		"""
+		pass
 
 	def flip(
 		self,
@@ -113,3 +141,4 @@ class Composition():
 if __name__ == "__main__":
 	myvideo = Video("../videos/sample2.mp4")
 	myvideo.getDuration()
+	#myvideo.loop(40.5)
