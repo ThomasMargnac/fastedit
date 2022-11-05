@@ -6,3 +6,4 @@ medias/
 # Files
 Dockerfile
 requirements.txt
+.DS_Store
