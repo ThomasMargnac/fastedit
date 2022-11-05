@@ -1,11 +1,9 @@
 # VidEdit
-## Description
 
-A simple python library to edit videos
+VidEdit (which obviously stands for Video Editing) is a Python library to edit videos. Thanks to it you can manipulate videos and/or audios with actions such as cut, loop, or concatenate.
 
-## Versioning
+VidEdit is based on FFmpeg which means it has to be installed on your machine before using VidEdit.
 
-This project follows the MAJOR.MINOR.PATCH versioning method where:
-- MAJOR version when you make incompatible API changes
-- MINOR version when you add functionality in a backwards compatible manner
-- PATCH version when you make backwards compatible bug fixes
+## Install
+
+TODO
