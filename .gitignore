@@ -1,7 +1,7 @@
 # Folders
 __pycache__/
 venv/
-videos/
+medias/
 
 # Files
 Dockerfile
