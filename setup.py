@@ -1,5 +1,7 @@
 from setuptools import find_packages, setup
 
+requires = []
+
 setup(
     name='videdit',
     packages=find_packages(include=['videdit']),
