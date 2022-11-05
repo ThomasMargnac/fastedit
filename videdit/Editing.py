@@ -98,7 +98,7 @@ class Video():
 			run = sp.run(
 				command
 			)
-			# Moving second file content to main file
+			# Returning the video
 			if run.returncode != 0:
 				raise ValueError("Something went wrong with FFmpeg")
 			return Video(self.__second_temp_video)
@@ -118,7 +118,39 @@ class Video():
 		start: Time where the clip starts.
 		end: Time where the clip ends.
 		"""
-		pass
+		# Verifying arguments' types
+		if type(start) not in [int, float]:
+			raise TypeError("Start has to be an Integer or Float, actual start type is " + type(start))
+		if type(end) not in [int, float]:
+			raise TypeError("End has to be an Integer or Float, actual end type is " + type(end))
+		# Getting video duration to verify if end is actually lower than it
+		videoDuration = self.getDuration()
+		# Applying transformation
+		if end < videoDuration:
+			# Preparing command
+			command = [
+				"ffmpeg",
+				"-ss",
+				str(start),
+				"-i",
+				self.__main_temp_video,
+				"-to",
+				str(end),
+				"-c",
+				"copy",
+				"-v",
+				"quiet",
+				self.__second_temp_video,
+				"-y"
+			]
+			# Running command and getting output in pipe
+			run = sp.run(
+				command
+			)
+			# Returning the video
+			if run.returncode != 0:
+				raise ValueError("Something went wrong with FFmpeg")
+			return Video(self.__second_temp_video)
 
 	def flip(
 		self,
@@ -128,10 +160,38 @@ class Video():
 
 	def save(
 		self,
-		path,
-		codec
+		path: str,
+		codec: str = "copy"
 	):
-		pass
+		"""
+		Description
+		--------------------------
+		Saving the video to the file system
+
+		Argument(s)
+		--------------------------
+		path: Path to the file to save the video.
+		codec: Codec to encode the video. "copy" by default which copies the codec from the original video.
+		"""
+		# Preparing command
+		command = [
+			"ffmpeg",
+			"-i",
+			self.__main_temp_video,
+			"-c",
+			codec,
+			"-v",
+			"quiet",
+			path,
+			"-y"
+		]
+		# Running command and getting output in pipe
+		run = sp.run(
+			command
+		)
+		# Moving second file content to main file
+		if run.returncode != 0:
+			raise ValueError("Something went wrong with FFmpeg")
 
 class Audio():
 	def __init__(
@@ -168,5 +228,5 @@ if __name__ == "__main__":
 	print(run.stderr)"""
 	myvideo = Video("../videos/sample2.mp4")
 	print(myvideo.getDuration())
-	longer = myvideo.loop(100)
-	print(longer.getDuration())
+	longer = myvideo.clip(0,10)
+	longer.save("final.mp4")
