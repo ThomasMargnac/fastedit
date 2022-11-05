@@ -19,11 +19,12 @@ class Video():
 		"""
 		# Creating temporary folder
 		cwd = os.getcwd()
-		temp_folder = tempfile.TemporaryDirectory(dir=cwd)
+		self.__temp_folder = tempfile.TemporaryDirectory(dir=cwd)
 		# Defining temporary files
-		self.__main_temp_video = tempfile.NamedTemporaryFile(dir=temp_folder.name, delete=False)
-		shutil.copy(path, self.__main_temp_video.name)
-		self.__second_temp_video = tempfile.NamedTemporaryFile(dir=temp_folder.name, delete=False)
+		extension = os.path.splitext(path)[1]
+		self.__main_temp_video = os.path.join(self.__temp_folder.name, "main" + extension)
+		shutil.copy(path, self.__main_temp_video)
+		self.__second_temp_video = os.path.join(self.__temp_folder.name, "second" + extension)
 
 	def getDuration(
 		self
@@ -37,19 +38,25 @@ class Video():
 		command = [
 			"ffprobe",
 			"-i",
-			str(self.__main_temp_video.name),
+			str(self.__main_temp_video),
 			"-show_entries",
 			"format=duration",
 			"-v",
 			"quiet",
-			#"-of",
-			#"csv=\"p=0\""
+			"-of",
+			"default=noprint_wrappers=1:nokey=1"
 		]
 		# Running command and getting output in pipe
 		run = sp.run(
-			command
+			command,
+			stdout=sp.PIPE,
+			stderr=sp.PIPE
 		)
 		# Reading stout
+		if run.returncode != 0:
+			raise ValueError("Something went wrong with FFprobe")
+		duration = float(run.stdout.decode().split()[0])
+		return duration
 
 	def loop(
 		self,
@@ -79,21 +86,22 @@ class Video():
 				"-t",
 				str(duration),
 				"-i",
-				str(self.__main_temp_video.name),
+				str(self.__main_temp_video),
 				"-c",
 				"copy",
-				str(self.__second_temp_video.name),
+				"-v",
+				"quiet",
+				str(self.__second_temp_video),
 				"-y"
 			]
 			# Running command and getting output in pipe
-			run = sp.Popen(
+			run = sp.run(
 				command
 			)
 			# Moving second file content to main file
-			shutil.move(
-				self.__second_temp_video.name,
-				self.__main_temp_video.name
-			)
+			if run.returncode != 0:
+				raise ValueError("Something went wrong with FFmpeg")
+			return Video(self.__second_temp_video)
 	
 	def clip(
 		self,
@@ -139,6 +147,26 @@ class Composition():
 		pass
 
 if __name__ == "__main__":
+	"""command = [
+		"ffprobe",
+		"-i",
+		"../videos/sample2.mp4",
+		"-show_entries",
+		"format=duration",
+		"-v",
+		"quiet"
+	]
+	print(" ".join(command))
+	# Running command and getting output in pipe
+	run = sp.run(
+		command,
+		stdout=sp.PIPE,
+		stderr=sp.PIPE
+	)
+	print(run.returncode)
+	print(run.stdout)
+	print(run.stderr)"""
 	myvideo = Video("../videos/sample2.mp4")
-	myvideo.getDuration()
-	#myvideo.loop(40.5)
+	print(myvideo.getDuration())
+	longer = myvideo.loop(100)
+	print(longer.getDuration())
