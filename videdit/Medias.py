@@ -19,12 +19,12 @@ class Media():
 		"""
 		# Creating temporary folder
 		cwd = os.getcwd()
-		self.__temp_folder = tempfile.TemporaryDirectory(dir=cwd)
+		self._temp_folder = tempfile.TemporaryDirectory(dir=cwd)
 		# Defining temporary files
 		extension = os.path.splitext(path)[1]
-		self._main_temp = os.path.join(self.__temp_folder.name, "main" + extension)
+		self._main_temp = os.path.join(self._temp_folder.name, "main" + extension)
 		shutil.copy(path, self._main_temp)
-		self._second_temp = os.path.join(self.__temp_folder.name, "second" + extension)
+		self._second_temp = os.path.join(self._temp_folder.name, "second" + extension)
 	
 	def getDuration(
 		self
@@ -204,6 +204,79 @@ class Video(Media):
 				raise ValueError("Something went wrong with FFmpeg")
 			return Video(self._second_temp)
 
+class Image(Media):
+	def __init__(
+		self,
+		path
+	):
+		"""
+		Description
+		--------------------------
+		Initializing Image class
+
+		Argument(s)
+		--------------------------
+		path: Path to the Image file.
+		"""
+		# Initializing object
+		super().__init__(path)
+		self._video_temp = os.path.join(self._temp_folder.name, "video")
+
+	def toVideo(
+		self,
+		duration,
+		fps: int = 30,
+		height: int = 720,
+		width: int = 1280,
+		pix_fmt: str = "yuv420p",
+		format: str = "mp4"
+	):
+		"""
+		Description
+		--------------------------
+		Convert Image to Video
+
+		Argument(s)
+		--------------------------
+		duration: Duration of the video in seconds.
+		fps: Framerate of the video. Default 30.
+		height: Height of the video. Default 720.
+		width: Width of the video. Default 1280.
+		pix_fmt: Pixel format of the video. Default yuv420p.
+		"""
+		if duration > 0:
+			# Prepare files
+			video_temp = os.path.join(self._temp_folder.name, "video." + format)
+			# Preparing command
+			command = [
+				"ffmpeg",
+				"-loop",
+				"1",
+				"-framerate",
+				str(fps),
+				"-i",
+				str(self._main_temp),
+				"-t",
+				str(duration),
+				"-s",
+				str(width) + "x" + str(height),
+				"-pix_fmt",
+				pix_fmt,
+				str(video_temp),
+				"-v",
+				"error",
+				"-y"
+			]
+			# Running command
+			run = sp.run(
+				command
+			)
+			# Verifying if everything went well
+			if run.returncode != 0:
+				raise ValueError("Something went wrong with FFmpeg")
+			return Video(video_temp)
+
+
 class Audio(Media):
 	def __init__(
 		self,
@@ -257,7 +330,6 @@ class Audio(Media):
 				str(self._second_temp),
 				"-y"
 			]
-			print(" ".join(command))
 			# Running command
 			run = sp.run(
 				command

@@ -1,5 +1,7 @@
 from setuptools import find_packages, setup
 
+# Renaming as fastedit because videdit is already taken
+
 setup(
     name='videdit',
     packages=find_packages(include=['videdit']),
