@@ -204,7 +204,7 @@ class Video(Media):
 				raise ValueError("Something went wrong with FFmpeg")
 			return Video(self._second_temp)
 
-class Image(Media):
+class Image():
 	def __init__(
 		self,
 		path
