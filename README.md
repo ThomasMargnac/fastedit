@@ -1,8 +1,8 @@
-# VidEdit
+# FastEdit
 
-VidEdit (which obviously stands for Video Editing) is a Python library to edit videos. Thanks to it you can manipulate videos and/or audios with actions such as cut, loop, or concatenate.
+FastEdit is a Python library to edit videos. Thanks to it you can manipulate videos and/or audios with actions such as cut, loop, or concatenate.
 
-VidEdit is based on FFmpeg which means it has to be installed on your machine before using VidEdit.
+FastEdit is based on FFmpeg which means it has to be installed on your machine before using FastEdit.
 
 # Install
 
@@ -14,7 +14,7 @@ On videos
 
 ```python
 # Importing library
-from videdit.Medias import Video
+from fastedit.Medias import Video
 
 # Importing video
 video = Video("input.mp4")
@@ -36,7 +36,7 @@ On audios
 
 ```python
 # Importing library
-from videdit.Medias import Audio
+from fastedit.Medias import Audio
 
 # Importing audio
 audio = Audio("input.mp3")
@@ -58,7 +58,7 @@ On images
 
 ```python
 # Importing library
-from videdit.Medias import Image
+from fastedit.Medias import Image
 
 # Importing images
 image = Image("input.jpeg")
