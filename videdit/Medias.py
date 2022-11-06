@@ -276,7 +276,6 @@ class Image():
 				raise ValueError("Something went wrong with FFmpeg")
 			return Video(video_temp)
 
-
 class Audio(Media):
 	def __init__(
 		self,
