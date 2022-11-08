@@ -6,7 +6,9 @@ FastEdit is based on FFmpeg which means it has to be installed on your machine b
 
 # Install
 
-TODO
+```
+pip install fastedit
+```
 
 # Examples
 
