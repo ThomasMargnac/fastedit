@@ -1,2 +1,10 @@
+# Folders
 __pycache__/
 venv/
+build/
+dist/
+
+# Files
+Dockerfile
+requirements.txt
+.DS_Store
