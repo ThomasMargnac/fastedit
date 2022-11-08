@@ -1,7 +1,8 @@
 # Folders
 __pycache__/
 venv/
-medias/
+build/
+dist/
 
 # Files
 Dockerfile
