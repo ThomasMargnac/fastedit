@@ -218,9 +218,13 @@ class Image():
 		--------------------------
 		path: Path to the Image file.
 		"""
-		# Initializing object
-		super().__init__(path)
-		self._video_temp = os.path.join(self._temp_folder.name, "video")
+		# Creating temporary folder
+		cwd = os.getcwd()
+		self._temp_folder = tempfile.TemporaryDirectory(dir=cwd)
+		# Defining temporary files
+		extension = os.path.splitext(path)[1]
+		self._main_temp = os.path.join(self._temp_folder.name, "main" + extension)
+		shutil.copy(path, self._main_temp)
 
 	def toVideo(
 		self,
@@ -386,11 +390,3 @@ class Audio(Media):
 			if run.returncode != 0:
 				raise ValueError("Something went wrong with FFmpeg")
 			return Audio(self._second_temp)
-
-if __name__ == "__main__":
-	video = Video("../media/test_video.mp4")
-	vlooped = video.clip(0,10)
-	vlooped.save("../media/test_video_cliped.mp4")
-	audio = Audio("../media/test_audio.mp3")
-	alooped = audio.clip(0,10)
-	alooped.save("../media/test_audio_cliped.mp3")
