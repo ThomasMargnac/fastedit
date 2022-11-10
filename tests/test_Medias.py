@@ -18,6 +18,30 @@ def test_video_clip():
 	generated = open(vcliped._main_temp, "rb").read()
 	assert hashlib.sha512(generated).hexdigest() == expected
 
+def test_video_add_audio_replace():
+	video = Video("../media/test_video.mp4")
+	audio = Audio("../media/test_audio.mp3")
+	video.addAudio(audio, "replace")
+	expected = open("../media/test_video_add_audio_replace.txt", "r").read()
+	generated = open(video._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
+
+def test_video_add_audio_add():
+	video = Video("../media/test_video_with_audio.mp4")
+	audio = Audio("../media/test_audio.mp3")
+	video.addAudio(audio, "add")
+	expected = open("../media/test_video_add_audio_add.txt", "r").read()
+	generated = open(video._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
+
+def test_video_add_audio_combine():
+	video = Video("../media/test_video_with_audio.mp4")
+	audio = Audio("../media/test_audio.mp3")
+	video.addAudio(audio, "combine")
+	expected = open("../media/test_video_add_audio_combine.txt", "r").read()
+	generated = open(video._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
+
 # Audio testings
 
 def test_audio_loop():

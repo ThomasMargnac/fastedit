@@ -2,6 +2,7 @@ import subprocess as sp
 import tempfile
 import shutil
 import os
+from fastedit.Errors import FFmpegError
 
 class Media():
 	def __init__(
@@ -148,11 +149,12 @@ class Video(Media):
 			]
 			# Running command
 			run = sp.run(
-				command
+				command,
+				stderr=sp.PIPE
 			)
 			# Verifying if everything went well
 			if run.returncode != 0:
-				raise ValueError("Something went wrong with FFmpeg")
+				raise FFmpegError(run.stderr.decode())
 			return Video(self._second_temp)
 	
 	def clip(
@@ -197,12 +199,96 @@ class Video(Media):
 			]
 			# Running command
 			run = sp.run(
-				command
+				command,
+				stderr=sp.PIPE
 			)
 			# Verifying if everything went well
 			if run.returncode != 0:
-				raise ValueError("Something went wrong with FFmpeg")
+				raise FFmpegError(run.stderr.decode())
 			return Video(self._second_temp)
+
+	def addAudio(
+		self,
+		audio,
+		type: str = None
+	):
+		"""
+		Description
+		--------------------------
+		Add or replace audio on the video
+
+		Argument(s)
+		--------------------------
+		audio: Audio instance you want to add.
+		type: Type 
+		"""
+		# Verifying if type is correct
+		types = ["replace", "add", "combine"]
+		if type not in types:
+			raise ValueError("Type should be one of {}, but yours is {}".format(types, type))
+		# Preparing command
+		command = [
+			"ffmpeg",
+			"-i",
+			self._main_temp,
+			"-i",
+			audio._main_temp
+		]
+		# The user wants to replace the original audio
+		if type == "replace":
+			end = [
+				"-map",
+				"0:v",
+				"-map",
+				"1:a",
+				"-vcodec",
+				"copy",
+				"-v",
+				"error",
+				self._second_temp
+			]
+			command.extend(end)
+		# The user wants to add another audio file to the video
+		elif type == "add":
+			end = [
+				"-map",
+				"0",
+				"-map",
+				"1:a",
+				"-vcodec",
+				"copy",
+				"-v",
+				"error",
+				self._second_temp
+			]
+			command.extend(end)
+		# The user wants to combine the original audio with another audio file
+		elif type == "combine":
+			end = [
+				"-filter_complex",
+				"[0:a][1:a]amerge=inputs=2[a]",
+				"-map",
+				"0:v",
+				"-map",
+				"[a]",
+				"-vcodec",
+				"copy",
+				"-ac",
+				"2",
+				"-v",
+				"error",
+				self._second_temp
+			]
+			command.extend(end)
+		# Running command
+		run = sp.run(
+			command,
+			stderr=sp.PIPE
+		)
+		# Verifying if everything went well
+		if run.returncode != 0:
+			raise FFmpegError(run.stderr.decode())
+		shutil.move(self._second_temp, self._main_temp)
 
 class Image():
 	def __init__(
@@ -273,11 +359,12 @@ class Image():
 			]
 			# Running command
 			run = sp.run(
-				command
+				command,
+				stderr=sp.PIPE
 			)
 			# Verifying if everything went well
 			if run.returncode != 0:
-				raise ValueError("Something went wrong with FFmpeg")
+				raise FFmpegError(run.stderr.decode())
 			return Video(video_temp)
 
 class Audio(Media):
@@ -335,11 +422,12 @@ class Audio(Media):
 			]
 			# Running command
 			run = sp.run(
-				command
+				command,
+				stderr=sp.PIPE
 			)
 			# Verifying if everything went well
 			if run.returncode != 0:
-				raise ValueError("Something went wrong with FFmpeg")
+				raise FFmpegError(run.stderr.decode())
 			return Audio(self._second_temp)
 	
 	def clip(
@@ -384,9 +472,10 @@ class Audio(Media):
 			]
 			# Running command
 			run = sp.run(
-				command
+				command,
+				stderr=sp.PIPE
 			)
 			# Verifying if everything went well
 			if run.returncode != 0:
-				raise ValueError("Something went wrong with FFmpeg")
+				raise FFmpegError(run.stderr.decode())
 			return Audio(self._second_temp)
