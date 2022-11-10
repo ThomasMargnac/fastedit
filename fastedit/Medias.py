@@ -290,6 +290,33 @@ class Video(Media):
 			raise FFmpegError(run.stderr.decode())
 		shutil.move(self._second_temp, self._main_temp)
 
+	def removeAudio(
+		self
+	):
+		"""
+		Description
+		--------------------------
+		Remove audio on the video
+		"""
+		command = [
+			"ffmpeg",
+			"-i",
+			self._main_temp,
+			"-c",
+			"copy",
+			"-an",
+			self._second_temp
+		]
+		# Running command
+		run = sp.run(
+			command,
+			stderr=sp.PIPE
+		)
+		# Verifying if everything went well
+		if run.returncode != 0:
+			raise FFmpegError(run.stderr.decode())
+		shutil.move(self._second_temp, self._main_temp)
+
 class Image():
 	def __init__(
 		self,

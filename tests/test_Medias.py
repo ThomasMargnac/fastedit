@@ -42,6 +42,13 @@ def test_video_add_audio_combine():
 	generated = open(video._main_temp, "rb").read()
 	assert hashlib.sha512(generated).hexdigest() == expected
 
+def test_video_remove_audio():
+	video = Video("../media/test_video_with_audio.mp4")
+	video.removeAudio()
+	expected = open("../media/test_video_remove_audio.txt", "r").read()
+	generated = open(video._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
+
 # Audio testings
 
 def test_audio_loop():
