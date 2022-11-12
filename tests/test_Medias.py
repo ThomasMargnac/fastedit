@@ -2,6 +2,14 @@ from fastedit.Medias import Video, Audio, Image
 import pytest
 import hashlib
 
+# Media testings
+
+def test_media_metadata():
+	video = Video("../media/test_video.mp4")
+	expected = open("../media/test_media_metadata.txt", "r").read()
+	generated = video.getMetadata()
+	assert expected == expected
+
 # Video testings
 
 def test_video_loop():
@@ -46,6 +54,13 @@ def test_video_remove_audio():
 	video = Video("../media/test_video_with_audio.mp4")
 	video.removeAudio()
 	expected = open("../media/test_video_remove_audio.txt", "r").read()
+	generated = open(video._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
+
+def test_video_convert():
+	video = Video("../media/test_video.mp4")
+	video.convert("mov")
+	expected = open("../media/test_video_convert.txt", "r").read()
 	generated = open(video._main_temp, "rb").read()
 	assert hashlib.sha512(generated).hexdigest() == expected
 
