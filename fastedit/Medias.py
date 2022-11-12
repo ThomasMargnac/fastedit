@@ -1,6 +1,7 @@
 import subprocess as sp
 import tempfile
 import shutil
+import json
 import os
 from fastedit.Errors import FFmpegError
 
@@ -58,6 +59,37 @@ class Media():
 			raise ValueError("Something went wrong with FFprobe")
 		duration = float(run.stdout.decode().split()[0])
 		return duration
+	
+	def getMetadata(
+		self
+	):
+		"""
+		Description
+		--------------------------
+		Get current media metadata.
+		"""
+		# Preparing command
+		command = [
+			"ffprobe",
+			"-loglevel",
+			"0",
+			"-print_format",
+			"json",
+			"-show_format",
+			"-show_streams",
+			str(self._main_temp)
+		]
+		# Running command and getting output in pipe
+		run = sp.run(
+			command,
+			stdout=sp.PIPE,
+			stderr=sp.PIPE
+		)
+		# Reading stout
+		if run.returncode != 0:
+			raise ValueError("Something went wrong with FFprobe")
+		metadata = json.loads(run.stdout.decode())
+		return metadata
 	
 	def save(
 		self,
@@ -316,6 +348,29 @@ class Video(Media):
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
 		shutil.move(self._second_temp, self._main_temp)
+
+	def convert(
+		self,
+		container: str = "mp4",
+		vcodec: str = "libx264",
+		acodec: str = "libfdk_aac"
+	):
+		"""
+		Description
+		--------------------------
+		Converting video to different container and/or codec.
+
+		Argument(s)
+		--------------------------
+		container: File format where the data streams will be embedded.
+		vcodec: The way to encode/decode video data stream. Refers to FFmpeg video codecs supported.
+		acodec: The way to encode/decode audio data stream. Refers to FFmpeg audio codecs supported.
+		"""
+		current_container = os.path.splitext(self._main_temp)[1]
+		if container != current_container:
+			print("Change")
+		# Add getMetadata() to get all metadata from a file
+		pass
 
 class Image():
 	def __init__(
