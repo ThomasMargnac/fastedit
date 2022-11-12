@@ -220,7 +220,7 @@ class Video(Media):
 		Argument(s)
 		--------------------------
 		audio: Audio instance you want to add.
-		type: Type 
+		type: Method to add audio. Available options : "replace", "add" and "combine".
 		"""
 		# Verifying if type is correct
 		types = ["replace", "add", "combine"]
