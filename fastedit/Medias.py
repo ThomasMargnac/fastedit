@@ -337,6 +337,8 @@ class Video(Media):
 			"-c",
 			"copy",
 			"-an",
+			"-v",
+			"error",
 			self._second_temp
 		]
 		# Running command
@@ -352,8 +354,8 @@ class Video(Media):
 	def convert(
 		self,
 		container: str = "mp4",
-		vcodec: str = "libx264",
-		acodec: str = "libfdk_aac"
+		vcodec: str = "copy",
+		acodec: str = "copy"
 	):
 		"""
 		Description
@@ -367,10 +369,44 @@ class Video(Media):
 		acodec: The way to encode/decode audio data stream. Refers to FFmpeg audio codecs supported.
 		"""
 		current_container = os.path.splitext(self._main_temp)[1]
+		# Verifying if current container is valid
+		main_destination = self._second_temp
 		if container != current_container:
-			print("Change")
-		# Add getMetadata() to get all metadata from a file
-		pass
+			main_destination = os.path.join(self._temp_folder.name, "main." + container)
+		# Preparing command
+		command = [
+			"ffmpeg",
+			"-i",
+			self._main_temp,
+			"-acodec",
+			acodec,
+			"-vcodec",
+			vcodec,
+			"-v",
+			"error",
+			main_destination
+		]
+		# Running command
+		run = sp.run(
+			command,
+			stderr=sp.PIPE
+		)
+		# Verifying if everything went well
+		if run.returncode != 0:
+			raise FFmpegError(run.stderr.decode())
+		# Managing file based on container type
+		if container != current_container:
+			# Remove old container files
+			if os.path.exists(self._main_temp):
+				os.remove(self._main_temp)
+			if os.path.exists(self._second_temp):
+				os.remove(self._second_temp)
+			# Affecting new container files to object
+			self._main_temp = main_destination
+			second_destination = os.path.join(self._temp_folder.name, "second." + container)
+			self._second_temp = second_destination
+		else:
+			shutil.move(self._second_temp, self._main_temp)
 
 class Image():
 	def __init__(
