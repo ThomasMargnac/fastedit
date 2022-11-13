@@ -44,7 +44,7 @@ class Media():
 			"-show_entries",
 			"format=duration",
 			"-v",
-			"quiet",
+			"error",
 			"-of",
 			"default=noprint_wrappers=1:nokey=1"
 		]
@@ -77,6 +77,8 @@ class Media():
 			"json",
 			"-show_format",
 			"-show_streams",
+			"-v",
+			"error",
 			str(self._main_temp)
 		]
 		# Running command and getting output in pipe
@@ -114,7 +116,7 @@ class Media():
 			"-c",
 			codec,
 			"-v",
-			"quiet",
+			"error",
 			path,
 			"-y"
 		]
@@ -175,7 +177,7 @@ class Video(Media):
 				"-c",
 				"copy",
 				"-v",
-				"quiet",
+				"error",
 				str(self._second_temp),
 				"-y"
 			]
@@ -225,7 +227,7 @@ class Video(Media):
 				"-c",
 				"copy",
 				"-v",
-				"quiet",
+				"error",
 				self._second_temp,
 				"-y"
 			]
@@ -539,7 +541,7 @@ class Audio(Media):
 				"-c",
 				"copy",
 				"-v",
-				"quiet",
+				"error",
 				str(self._second_temp),
 				"-y"
 			]
@@ -589,7 +591,7 @@ class Audio(Media):
 				"-c",
 				"copy",
 				"-v",
-				"quiet",
+				"error",
 				self._second_temp,
 				"-y"
 			]
