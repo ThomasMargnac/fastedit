@@ -128,6 +128,41 @@ class Media():
 		if run.returncode != 0:
 			raise ValueError("Something went wrong with FFmpeg")
 
+	def changeVolume(
+		self,
+		volume
+	):
+		"""
+		Description
+		--------------------------
+		Change the volume of the audio
+
+		Argument(s)
+		--------------------------
+		volume: Factor by which the volume will be changed
+		"""
+		# Preparing command
+		command = [
+			"ffmpeg",
+			"-i",
+			self._main_temp,
+			"-filter:a",
+			"volume=" + str(volume),
+			"-v",
+			"error",
+			self._second_temp
+		]
+		# Running command
+		run = sp.run(
+			command,
+			stderr=sp.PIPE
+		)
+		# Verifying if everything went well
+		if run.returncode != 0:
+			raise FFmpegError(run.stderr.decode())
+		# Moving generated audio to Object audio
+		shutil.move(self._second_temp, self._main_temp)
+
 class Video(Media):
 	def __init__(
 		self,

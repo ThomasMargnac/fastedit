@@ -64,6 +64,13 @@ def test_video_convert():
 	generated = open(video._main_temp, "rb").read()
 	assert hashlib.sha512(generated).hexdigest() == expected
 
+def test_video_change_volume():
+	video = Video("../media/test_video_with_audio.mp4")
+	video.changeVolume(0.5)
+	expected = open("../media/test_video_change_volume.txt", "r").read()
+	generated = open(video._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
+
 # Audio testings
 
 def test_audio_loop():
@@ -78,6 +85,13 @@ def test_audio_clip():
 	acliped = audio.clip(0, 10)
 	expected = open("../media/test_audio_cliped.txt", "r").read()
 	generated = open(acliped._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
+
+def test_audio_change_volume():
+	audio = Audio("../media/test_audio.mp3")
+	audio.changeVolume(0.5)
+	expected = open("../media/test_audio_change_volume.txt", "r").read()
+	generated = open(audio._main_temp, "rb").read()
 	assert hashlib.sha512(generated).hexdigest() == expected
 
 # Image testings
