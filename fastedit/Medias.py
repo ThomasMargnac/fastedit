@@ -289,69 +289,90 @@ class Video(Media):
 		Argument(s)
 		--------------------------
 		audio: Audio instance you want to add.
-		type: Method to add audio. Available options : "replace", "add" and "combine".
+		type: Method to add audio. Available options : "replace", "add", "combine" or "silent".
 		"""
 		# Verifying if type is correct
-		types = ["replace", "add", "combine"]
+		types = ["replace", "add", "combine", "silent"]
 		if type not in types:
 			raise ValueError("Type should be one of {}, but yours is {}".format(types, type))
 		# Preparing command
-		command = [
-			"ffmpeg",
-			"-i",
-			self._main_temp,
-			"-i",
-			audio._main_temp
-		]
-		# The user wants to replace the original audio
-		if type == "replace":
-			end = [
-				"-map",
-				"0:v",
-				"-map",
-				"1:a",
+		if audio != None:
+			command = [
+				"ffmpeg",
+				"-i",
+				self._main_temp,
+				"-i",
+				audio._main_temp
+			]
+			# The user wants to replace the original audio
+			if type == "replace":
+				end = [
+					"-map",
+					"0:v",
+					"-map",
+					"1:a",
+					"-vcodec",
+					"copy",
+					"-v",
+					"error",
+					self._second_temp,
+					"-y"
+				]
+				command.extend(end)
+			# The user wants to add another audio file to the video
+			elif type == "add":
+				end = [
+					"-map",
+					"0",
+					"-map",
+					"1:a",
+					"-vcodec",
+					"copy",
+					"-v",
+					"error",
+					self._second_temp,
+					"-y"
+				]
+				command.extend(end)
+			# The user wants to combine the original audio with another audio file
+			elif type == "combine":
+				end = [
+					"-filter_complex",
+					"[0:a][1:a]amerge=inputs=2[a]",
+					"-map",
+					"0:v",
+					"-map",
+					"[a]",
+					"-vcodec",
+					"copy",
+					"-ac",
+					"2",
+					"-v",
+					"error",
+					self._second_temp,
+					"-y"
+				]
+				command.extend(end)
+		else:
+			command = [
+				"ffmpeg",
+				"-f",
+				"lavfi",
+				"-i",
+				"anullsrc",
+				"-i",
+				self._main_temp,
 				"-vcodec",
 				"copy",
-				"-v",
-				"error",
-				self._second_temp,
-				"-y"
+				"-acodec",
+				"aac",
+				"-map",
+				"0:a",
+				"-map",
+				"1:v",
+				"-shortest",
+				self._second_temp
 			]
-			command.extend(end)
-		# The user wants to add another audio file to the video
-		elif type == "add":
-			end = [
-				"-map",
-				"0",
-				"-map",
-				"1:a",
-				"-vcodec",
-				"copy",
-				"-v",
-				"error",
-				self._second_temp,
-				"-y"
-			]
-			command.extend(end)
-		# The user wants to combine the original audio with another audio file
-		elif type == "combine":
-			end = [
-				"-filter_complex",
-				"[0:a][1:a]amerge=inputs=2[a]",
-				"-map",
-				"0:v",
-				"-map",
-				"[a]",
-				"-vcodec",
-				"copy",
-				"-ac",
-				"2",
-				"-v",
-				"error",
-				self._second_temp,
-				"-y"
-			]
-			command.extend(end)
 		# Running command
 		run = sp.run(
 			command,
