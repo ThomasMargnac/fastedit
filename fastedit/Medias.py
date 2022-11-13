@@ -3,7 +3,7 @@ import tempfile
 import shutil
 import json
 import os
-from fastedit.Errors import FFmpegError
+from fastedit.Errors import FFmpegError, FFprobeError
 
 class Media():
 	def __init__(
@@ -56,7 +56,7 @@ class Media():
 		)
 		# Reading stout
 		if run.returncode != 0:
-			raise ValueError("Something went wrong with FFprobe")
+			raise FFprobeError("Something went wrong with FFprobe")
 		duration = float(run.stdout.decode().split()[0])
 		return duration
 	
@@ -89,7 +89,7 @@ class Media():
 		)
 		# Reading stout
 		if run.returncode != 0:
-			raise ValueError("Something went wrong with FFprobe")
+			raise FFprobeError("Something went wrong with FFprobe")
 		metadata = json.loads(run.stdout.decode())
 		return metadata
 	
