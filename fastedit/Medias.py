@@ -277,7 +277,8 @@ class Video(Media):
 				"copy",
 				"-v",
 				"error",
-				self._second_temp
+				self._second_temp,
+				"-y"
 			]
 			command.extend(end)
 		# The user wants to add another audio file to the video
@@ -291,7 +292,8 @@ class Video(Media):
 				"copy",
 				"-v",
 				"error",
-				self._second_temp
+				self._second_temp,
+				"-y"
 			]
 			command.extend(end)
 		# The user wants to combine the original audio with another audio file
@@ -309,7 +311,8 @@ class Video(Media):
 				"2",
 				"-v",
 				"error",
-				self._second_temp
+				self._second_temp,
+				"-y"
 			]
 			command.extend(end)
 		# Running command
@@ -339,7 +342,8 @@ class Video(Media):
 			"-an",
 			"-v",
 			"error",
-			self._second_temp
+			self._second_temp,
+			"-y"
 		]
 		# Running command
 		run = sp.run(
@@ -384,7 +388,8 @@ class Video(Media):
 			vcodec,
 			"-v",
 			"error",
-			main_destination
+			main_destination,
+			"-y"
 		]
 		# Running command
 		run = sp.run(
