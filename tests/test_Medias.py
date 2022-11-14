@@ -85,6 +85,20 @@ def test_video_change_volume():
 	generated = open(video._main_temp, "rb").read()
 	assert hashlib.sha512(generated).hexdigest() == expected
 
+def test_video_resize_simple():
+	video = Video("../media/test_video.mp4")
+	video.resize(720, 480, "simple")
+	expected = open("../media/test_video_resize_simple.txt", "r").read()
+	generated = open(video._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
+
+def test_video_resize_aspect_ratio():
+	video = Video("../media/test_video.mp4")
+	video.resize(720, 480, "aspect_ratio")
+	expected = open("../media/test_video_resize_aspect_ratio.txt", "r").read()
+	generated = open(video._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
+
 # Audio testings
 
 def test_audio_loop():

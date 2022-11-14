@@ -471,6 +471,58 @@ class Video(Media):
 		else:
 			shutil.move(self._second_temp, self._main_temp)
 
+	def resize(
+		self,
+		width: int,
+		height: int,
+		type: str = "simple"
+	):
+		"""
+		Description
+		--------------------------
+		Resizing the video
+
+		Argument(s)
+		--------------------------
+		width: Desired width of the video.
+		height: Desired height of the video.
+		type: Type of resizing. Available options: ["simple", "aspect_ratio"]
+		"""
+		# Verifying type
+		types = ["simple", "aspect_ratio"]
+		if type not in types:
+			raise ValueError("Type should be one of {}, but yours is {}".format(types, type))
+		# Preparing command
+		command = [
+			"ffmpeg",
+			"-i",
+			self._main_temp
+		]
+		if type == "simple":
+			command.extend([
+				"-vf",
+				"scale=" + str(width) + ":" + str(height) + ":force_original_aspect_ratio=decrease,pad=" + str(width) + ":" + str(height) + ":(ow-iw)/2:(oh-ih)/2"
+			])
+		elif type == "aspect_ratio":
+			command.extend([
+				"-vf",
+				"scale=" + str(width) + ":-2"
+			])
+		command.extend([
+			"-v",
+			"error",
+			self._second_temp
+		])
+		# Running command
+		run = sp.run(
+			command,
+			stderr=sp.PIPE
+		)
+		# Verifying if everything went well
+		if run.returncode != 0:
+			raise FFmpegError(run.stderr.decode())
+		shutil.move(self._second_temp, self._main_temp)
+
 class Image():
 	def __init__(
 		self,
