@@ -523,6 +523,41 @@ class Video(Media):
 			raise FFmpegError(run.stderr.decode())
 		shutil.move(self._second_temp, self._main_temp)
 
+	def changeFrameRate(
+		self,
+		fps: int = 30
+	):
+		"""
+		Description
+		--------------------------
+		Changing frames per seconds of the video
+
+		Argument(s)
+		--------------------------
+		fps: Desired frames per seconds.
+		"""
+		# Preparing command
+		command = [
+			"ffmpeg",
+			"-i",
+			self._main_temp,
+			"-filter:v",
+			"fps=" + str(fps),
+			"-v",
+			"error",
+			self._second_temp,
+			"-y"
+		]
+		# Running command
+		run = sp.run(
+			command,
+			stderr=sp.PIPE
+		)
+		# Verifying if everything went well
+		if run.returncode != 0:
+			raise FFmpegError(run.stderr.decode())
+		shutil.move(self._second_temp, self._main_temp)
+
 class Image():
 	def __init__(
 		self,

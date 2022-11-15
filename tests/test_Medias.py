@@ -99,6 +99,12 @@ def test_video_resize_aspect_ratio():
 	generated = open(video._main_temp, "rb").read()
 	assert hashlib.sha512(generated).hexdigest() == expected
 
+def test_video_change_frame_rate():
+	video = Video("../media/test_video.mp4")
+	video.changeFrameRate(60)
+	frame_rate = video.getMetadata()['streams'][0]['r_frame_rate']
+	assert frame_rate == '60/1'
+
 # Audio testings
 
 def test_audio_loop():
