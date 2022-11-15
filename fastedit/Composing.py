@@ -1,5 +1,5 @@
 from fastedit.Medias import Video, Audio
-from fastedit.Errors import FFmpegError, VideoConcatError
+from fastedit.Errors import FFmpegError
 import subprocess as sp
 import tempfile
 import os
