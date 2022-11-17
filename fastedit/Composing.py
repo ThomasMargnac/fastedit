@@ -96,6 +96,51 @@ class VideoComposition():
 class AudioComposition():
 	def __init__(
 		self,
-		audios
+		audios,
+		container: str = "wav"
 	):
-		pass
+		# Creating temporary folder
+		cwd = os.getcwd()
+		self._temp_folder = tempfile.TemporaryDirectory(dir=cwd)
+		# Defining temporary files
+		self._output = os.path.join(self._temp_folder.name, "output." + container)
+		self._audios = audios
+
+	def get(
+		self
+	):
+		# Preparing command
+		command = [
+			"ffmpeg"
+		]
+		inputs = []
+		filter_concat = ""
+		for i in range(len(self._audios)):
+			inputs.extend([
+				"-i",
+				self._audios[i]._main_temp
+			])
+			filter_concat += "[" + str(i) + ":0]"
+		filter_concat += "concat=n=" + str(len(self._audios)) + ":v=0:a=1[out]"
+		end = [
+			"-filter_complex",
+			filter_concat,
+			"-map",
+			"[out]",
+			self._output,
+			"-v",
+			"error",
+			"-y"
+		]
+		command.extend(inputs)
+		command.extend(end)
+		print(" ".join(command))
+		# Running command
+		run = sp.run(
+			command,
+			stderr=sp.PIPE
+		)
+		# Verifying if everything went well
+		if run.returncode != 0:
+			raise FFmpegError(run.stderr.decode())
+		return Audio(self._output)
