@@ -6,8 +6,24 @@ FastEdit is based on FFmpeg which means it has to be installed on your machine b
 
 # Install
 
+### Using `pip`
+
+If `pip` is installed on your machine, you can install FastEdit by typing the following command:
+
 ```
 pip install fastedit
+```
+
+If you want a specific version of FastEdit via `pip`, type the following command:
+
+```
+pip install fastedit==VERSION
+```
+
+If you want to install FastEdit from this GitHub repository, type the following command:
+
+```
+pip install git+https://github.com/ThomasMargnac/fastedit@main
 ```
 
 # Examples
