@@ -1,0 +1,2702 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>fastedit.Medias API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>fastedit.Medias</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import subprocess as sp
+import tempfile
+import shutil
+import json
+import os
+from fastedit.Errors import FFmpegError, FFprobeError
+
+class Media():
+        def __init__(
+                self,
+                path: str
+        ):
+                &#34;&#34;&#34;
+                Initializing media.
+
+                Parameters
+                ----------
+                path : str
+                        Path to the media file.
+                &#34;&#34;&#34;
+                # Creating temporary folder
+                cwd = os.getcwd()
+                self._temp_folder = tempfile.TemporaryDirectory(dir=cwd)
+                # Defining temporary files
+                extension = os.path.splitext(path)[1]
+                self._main_temp = os.path.join(self._temp_folder.name, &#34;main&#34; + extension)
+                shutil.copy(path, self._main_temp)
+                self._second_temp = os.path.join(self._temp_folder.name, &#34;second&#34; + extension)
+        
+        def getDuration(
+                self
+        ):
+                &#34;&#34;&#34;
+                Get current media duration.
+
+                Returns
+                -------
+                float
+                        Duration of the media.
+                &#34;&#34;&#34;
+                # Preparing command
+                command = [
+                        &#34;ffprobe&#34;,
+                        &#34;-i&#34;,
+                        str(self._main_temp),
+                        &#34;-show_entries&#34;,
+                        &#34;format=duration&#34;,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        &#34;-of&#34;,
+                        &#34;default=noprint_wrappers=1:nokey=1&#34;
+                ]
+                # Running command and getting output in pipe
+                run = sp.run(
+                        command,
+                        stdout=sp.PIPE,
+                        stderr=sp.PIPE
+                )
+                # Reading stout
+                if run.returncode != 0:
+                        raise FFprobeError(&#34;Something went wrong with FFprobe&#34;)
+                duration = float(run.stdout.decode().split()[0])
+                return duration
+        
+        def getMetadata(
+                self
+        ):
+                &#34;&#34;&#34;
+                Get current media metadata.
+
+                Returns
+                -------
+                dict
+                        Metadata of the media.
+                &#34;&#34;&#34;
+                # Preparing command
+                command = [
+                        &#34;ffprobe&#34;,
+                        &#34;-loglevel&#34;,
+                        &#34;0&#34;,
+                        &#34;-print_format&#34;,
+                        &#34;json&#34;,
+                        &#34;-show_format&#34;,
+                        &#34;-show_streams&#34;,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        str(self._main_temp)
+                ]
+                # Running command and getting output in pipe
+                run = sp.run(
+                        command,
+                        stdout=sp.PIPE,
+                        stderr=sp.PIPE
+                )
+                # Reading stout
+                if run.returncode != 0:
+                        raise FFprobeError(&#34;Something went wrong with FFprobe&#34;)
+                metadata = json.loads(run.stdout.decode())
+                return metadata
+        
+        def save(
+                self,
+                path: str,
+                codec: str = &#34;copy&#34;
+        ):
+                &#34;&#34;&#34;
+                Saving the media to the file system.
+
+                Parameters
+                ----------
+                path : str
+                        Path to the file to save the media.
+                codec : str, default=&#34;copy&#34;
+                        Codec to encode the media. If &#34;copy&#34; it copies the codec from the original media.
+                &#34;&#34;&#34;
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-c&#34;,
+                        codec,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        path,
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise ValueError(&#34;Something went wrong with FFmpeg&#34;)
+
+        def changeVolume(
+                self,
+                volume
+        ):
+                &#34;&#34;&#34;
+                Change the volume of the audio.
+
+                Parameters
+                ----------
+                volume : int or float
+                        Factor by which the volume will be changed.
+                &#34;&#34;&#34;
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-filter:a&#34;,
+                        &#34;volume=&#34; + str(volume),
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        self._second_temp
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                # Moving generated audio to Object audio
+                shutil.move(self._second_temp, self._main_temp)
+
+class Video(Media):
+        def __init__(
+                self,
+                path: str
+        ):
+                &#34;&#34;&#34;
+                Initializing video.
+
+                Parameters
+                ----------
+                path : str
+                        Path to the video file.
+                &#34;&#34;&#34;
+                # Initializing object
+                super().__init__(path)
+
+        def loop(
+                self,
+                duration
+        ):
+                &#34;&#34;&#34;
+                Create a loop from a video.
+
+                Parameters
+                ----------
+                duration : int or float
+                        Duration of the loop.
+                
+                Returns
+                -------
+                Video
+                        Video containing the video looped.
+                &#34;&#34;&#34;
+                # Checking type of duration
+                if type(duration) not in [int, float]:
+                        raise TypeError(&#34;Duration has to be an Integer or Float, actual duration type is &#34; + type(duration))
+                # Getting the actual video duration
+                videoDuration = self.getDuration()
+                # Apply transformation on video based on desired duration
+                if duration != videoDuration:
+                        # Preparing command
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-stream_loop&#34;,
+                                &#34;-1&#34;,
+                                &#34;-t&#34;,
+                                str(duration),
+                                &#34;-i&#34;,
+                                str(self._main_temp),
+                                &#34;-c&#34;,
+                                &#34;copy&#34;,
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                str(self._second_temp),
+                                &#34;-y&#34;
+                        ]
+                        # Running command
+                        run = sp.run(
+                                command,
+                                stderr=sp.PIPE
+                        )
+                        # Verifying if everything went well
+                        if run.returncode != 0:
+                                raise FFmpegError(run.stderr.decode())
+                        return Video(self._second_temp)
+        
+        def clip(
+                self,
+                start,
+                end
+        ):
+                &#34;&#34;&#34;
+                Extract a part of the video.
+
+                Parameters
+                ----------
+                start : int or float
+                        Time where the clip starts in seconds.
+                end : int or float
+                        Time where the clip ends in seconds.
+                
+                Returns
+                -------
+                Video
+                        Video containing the video clipped.
+                &#34;&#34;&#34;
+                # Verifying arguments&#39; types
+                if type(start) not in [int, float]:
+                        raise TypeError(&#34;Start has to be an Integer or Float, actual start type is &#34; + type(start))
+                if type(end) not in [int, float]:
+                        raise TypeError(&#34;End has to be an Integer or Float, actual end type is &#34; + type(end))
+                # Getting video duration to verify if end is actually lower than it
+                videoDuration = self.getDuration()
+                # Applying transformation
+                if end &lt; videoDuration:
+                        # Preparing command
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-ss&#34;,
+                                str(start),
+                                &#34;-to&#34;,
+                                str(end),
+                                &#34;-i&#34;,
+                                self._main_temp,
+                                &#34;-c&#34;,
+                                &#34;copy&#34;,
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                self._second_temp,
+                                &#34;-y&#34;
+                        ]
+                        # Running command
+                        run = sp.run(
+                                command,
+                                stderr=sp.PIPE
+                        )
+                        # Verifying if everything went well
+                        if run.returncode != 0:
+                                raise FFmpegError(run.stderr.decode())
+                        return Video(self._second_temp)
+
+        def addAudio(
+                self,
+                audio,
+                type: str = None
+        ):
+                &#34;&#34;&#34;
+                Add or replace audio on the video.
+
+                Parameters
+                ----------
+                audio : Audio
+                        Audio instance you want to add.
+                type : str
+                        Method to add audio. Available options : &#34;replace&#34;, &#34;add&#34;, &#34;combine&#34; or &#34;silent&#34;.
+                &#34;&#34;&#34;
+                # Verifying if type is correct
+                types = [&#34;replace&#34;, &#34;add&#34;, &#34;combine&#34;, &#34;silent&#34;]
+                if type not in types:
+                        raise ValueError(&#34;Type should be one of {}, but yours is {}&#34;.format(types, type))
+                # Preparing command
+                if audio != None:
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-i&#34;,
+                                self._main_temp,
+                                &#34;-i&#34;,
+                                audio._main_temp
+                        ]
+                        # The user wants to replace the original audio
+                        if type == &#34;replace&#34;:
+                                end = [
+                                        &#34;-map&#34;,
+                                        &#34;0:v&#34;,
+                                        &#34;-map&#34;,
+                                        &#34;1:a&#34;,
+                                        &#34;-vcodec&#34;,
+                                        &#34;copy&#34;,
+                                        &#34;-v&#34;,
+                                        &#34;error&#34;,
+                                        self._second_temp,
+                                        &#34;-y&#34;
+                                ]
+                                command.extend(end)
+                        # The user wants to add another audio file to the video
+                        elif type == &#34;add&#34;:
+                                end = [
+                                        &#34;-map&#34;,
+                                        &#34;0&#34;,
+                                        &#34;-map&#34;,
+                                        &#34;1:a&#34;,
+                                        &#34;-vcodec&#34;,
+                                        &#34;copy&#34;,
+                                        &#34;-v&#34;,
+                                        &#34;error&#34;,
+                                        self._second_temp,
+                                        &#34;-y&#34;
+                                ]
+                                command.extend(end)
+                        # The user wants to combine the original audio with another audio file
+                        elif type == &#34;combine&#34;:
+                                end = [
+                                        &#34;-filter_complex&#34;,
+                                        &#34;[0:a][1:a]amerge=inputs=2[a]&#34;,
+                                        &#34;-map&#34;,
+                                        &#34;0:v&#34;,
+                                        &#34;-map&#34;,
+                                        &#34;[a]&#34;,
+                                        &#34;-vcodec&#34;,
+                                        &#34;copy&#34;,
+                                        &#34;-ac&#34;,
+                                        &#34;2&#34;,
+                                        &#34;-v&#34;,
+                                        &#34;error&#34;,
+                                        self._second_temp,
+                                        &#34;-y&#34;
+                                ]
+                                command.extend(end)
+                else:
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-f&#34;,
+                                &#34;lavfi&#34;,
+                                &#34;-i&#34;,
+                                &#34;anullsrc&#34;,
+                                &#34;-i&#34;,
+                                self._main_temp,
+                                &#34;-vcodec&#34;,
+                                &#34;copy&#34;,
+                                &#34;-acodec&#34;,
+                                &#34;aac&#34;,
+                                &#34;-map&#34;,
+                                &#34;0:a&#34;,
+                                &#34;-map&#34;,
+                                &#34;1:v&#34;,
+                                &#34;-shortest&#34;,
+                                self._second_temp
+                        ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                shutil.move(self._second_temp, self._main_temp)
+
+        def removeAudio(
+                self
+        ):
+                &#34;&#34;&#34;
+                Remove audio on the video.
+                &#34;&#34;&#34;
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-c&#34;,
+                        &#34;copy&#34;,
+                        &#34;-an&#34;,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        self._second_temp,
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                shutil.move(self._second_temp, self._main_temp)
+
+        def convert(
+                self,
+                container: str = &#34;mp4&#34;,
+                vcodec: str = &#34;copy&#34;,
+                acodec: str = &#34;copy&#34;
+        ):
+                &#34;&#34;&#34;
+                Convert video to different container and/or codec.
+
+                Parameters
+                ----------
+                container : str, default=&#34;mp4&#34;
+                        File format where the data streams will be embedded.
+                vcodec : str, default=&#34;copy&#34;
+                        The way to encode/decode video data stream. Refers to FFmpeg video codecs supported.
+                acodec : str, default=&#34;copy&#34;
+                        The way to encode/decode audio data stream. Refers to FFmpeg audio codecs supported.
+                &#34;&#34;&#34;
+                current_container = os.path.splitext(self._main_temp)[1]
+                # Verifying if current container is valid
+                main_destination = self._second_temp
+                if container != current_container:
+                        main_destination = os.path.join(self._temp_folder.name, &#34;main.&#34; + container)
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-acodec&#34;,
+                        acodec,
+                        &#34;-vcodec&#34;,
+                        vcodec,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        main_destination,
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                # Managing file based on container type
+                if container != current_container:
+                        # Remove old container files
+                        if os.path.exists(self._main_temp):
+                                os.remove(self._main_temp)
+                        if os.path.exists(self._second_temp):
+                                os.remove(self._second_temp)
+                        # Affecting new container files to object
+                        self._main_temp = main_destination
+                        second_destination = os.path.join(self._temp_folder.name, &#34;second.&#34; + container)
+                        self._second_temp = second_destination
+                else:
+                        shutil.move(self._second_temp, self._main_temp)
+
+        def resize(
+                self,
+                width: int,
+                height: int,
+                type: str = &#34;simple&#34;
+        ):
+                &#34;&#34;&#34;
+                Resize video.
+
+                Parameters
+                ----------
+                width : int
+                        Desired width of the video.
+                height : int
+                        Desired height of the video.
+                type : int, default=&#34;simple&#34;
+                        Type of resizing. Available options: [&#34;simple&#34;, &#34;aspect_ratio&#34;].
+                &#34;&#34;&#34;
+                # Verifying type
+                types = [&#34;simple&#34;, &#34;aspect_ratio&#34;]
+                if type not in types:
+                        raise ValueError(&#34;Type should be one of {}, but yours is {}&#34;.format(types, type))
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp
+                ]
+                if type == &#34;simple&#34;:
+                        command.extend([
+                                &#34;-vf&#34;,
+                                &#34;scale=&#34; + str(width) + &#34;:&#34; + str(height) + &#34;:force_original_aspect_ratio=decrease,pad=&#34; + str(width) + &#34;:&#34; + str(height) + &#34;:(ow-iw)/2:(oh-ih)/2&#34;
+                        ])
+                elif type == &#34;aspect_ratio&#34;:
+                        command.extend([
+                                &#34;-vf&#34;,
+                                &#34;scale=&#34; + str(width) + &#34;:-2&#34;
+                        ])
+                command.extend([
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        self._second_temp
+                ])
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                shutil.move(self._second_temp, self._main_temp)
+
+        def changeFrameRate(
+                self,
+                fps: int = 30
+        ):
+                &#34;&#34;&#34;
+                Change video&#39;s frames per seconds.
+
+                Parameters
+                ----------
+                fps : int, default=30
+                        Desired frames per seconds.
+                &#34;&#34;&#34;
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-filter:v&#34;,
+                        &#34;fps=&#34; + str(fps),
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        self._second_temp,
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                shutil.move(self._second_temp, self._main_temp)
+
+class Image():
+        def __init__(
+                self,
+                path: str
+        ):
+                &#34;&#34;&#34;
+                Initializing Image.
+
+                Parameters
+                ----------
+                path : str
+                        Path to the Image file.
+                &#34;&#34;&#34;
+                # Creating temporary folder
+                cwd = os.getcwd()
+                self._temp_folder = tempfile.TemporaryDirectory(dir=cwd)
+                # Defining temporary files
+                extension = os.path.splitext(path)[1]
+                self._main_temp = os.path.join(self._temp_folder.name, &#34;main&#34; + extension)
+                shutil.copy(path, self._main_temp)
+
+        def toVideo(
+                self,
+                duration,
+                fps: int = 30,
+                height: int = 720,
+                width: int = 1280,
+                pix_fmt: str = &#34;yuv420p&#34;,
+                format: str = &#34;mp4&#34;
+        ):
+                &#34;&#34;&#34;
+                Convert Image to Video.
+
+                Parameters
+                ----------
+                duration : int
+                        Duration of the video in seconds.
+                fps : int, default=30
+                        Framerate of the video.
+                height : int, default=720
+                        Height of the video.
+                width : int, default=1280
+                        Width of the video.
+                pix_fmt : str, default=&#34;yuv420p&#34;
+                        Pixel format of the video.
+                
+                Returns
+                -------
+                Video
+                        Video containing the image.
+                &#34;&#34;&#34;
+                if duration &gt; 0:
+                        # Prepare files
+                        video_temp = os.path.join(self._temp_folder.name, &#34;video.&#34; + format)
+                        # Preparing command
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-loop&#34;,
+                                &#34;1&#34;,
+                                &#34;-framerate&#34;,
+                                str(fps),
+                                &#34;-i&#34;,
+                                str(self._main_temp),
+                                &#34;-t&#34;,
+                                str(duration),
+                                &#34;-s&#34;,
+                                str(width) + &#34;x&#34; + str(height),
+                                &#34;-pix_fmt&#34;,
+                                pix_fmt,
+                                str(video_temp),
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                &#34;-y&#34;
+                        ]
+                        # Running command
+                        run = sp.run(
+                                command,
+                                stderr=sp.PIPE
+                        )
+                        # Verifying if everything went well
+                        if run.returncode != 0:
+                                raise FFmpegError(run.stderr.decode())
+                        return Video(video_temp)
+
+class Audio(Media):
+        def __init__(
+                self,
+                path: str
+        ):
+                &#34;&#34;&#34;
+                Initializing audio.
+
+                Parameters
+                ----------
+                path : str
+                        Path to the audio file.
+                &#34;&#34;&#34;
+                # Initializing object
+                super().__init__(path)
+        
+        def loop(
+                self,
+                duration
+        ):
+                &#34;&#34;&#34;
+                Create a loop of the audio.
+
+                Parameters
+                ----------
+                duration : int or float
+                        Duration of the loop.
+                
+                Returns
+                -------
+                Audio
+                        Audio containing the audio looped.
+                &#34;&#34;&#34;
+                # Checking type of duration
+                if type(duration) not in [int, float]:
+                        raise TypeError(&#34;Duration has to be an Integer or Float, actual duration type is &#34; + type(duration))
+                # Getting the actual video duration
+                videoDuration = self.getDuration()
+                # Apply transformation on video based on desired duration
+                if duration != videoDuration:
+                        # Preparing command
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-stream_loop&#34;,
+                                &#34;-1&#34;,
+                                &#34;-t&#34;,
+                                str(duration),
+                                &#34;-i&#34;,
+                                str(self._main_temp),
+                                &#34;-c&#34;,
+                                &#34;copy&#34;,
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                str(self._second_temp),
+                                &#34;-y&#34;
+                        ]
+                        # Running command
+                        run = sp.run(
+                                command,
+                                stderr=sp.PIPE
+                        )
+                        # Verifying if everything went well
+                        if run.returncode != 0:
+                                raise FFmpegError(run.stderr.decode())
+                        return Audio(self._second_temp)
+        
+        def clip(
+                self,
+                start,
+                end
+        ):
+                &#34;&#34;&#34;
+                Extract a part of the audio.
+
+                Parameters
+                ----------
+                start : int or float
+                        Time where the clip starts.
+                end : int or float
+                        Time where the clip ends.
+                
+                Returns
+                -------
+                Audio
+                        Audio containing the audio clipped.
+                &#34;&#34;&#34;
+                # Verifying arguments&#39; types
+                if type(start) not in [int, float]:
+                        raise TypeError(&#34;Start has to be an Integer or Float, actual start type is &#34; + type(start))
+                if type(end) not in [int, float]:
+                        raise TypeError(&#34;End has to be an Integer or Float, actual end type is &#34; + type(end))
+                # Getting video duration to verify if end is actually lower than it
+                videoDuration = self.getDuration()
+                # Applying transformation
+                if end &lt; videoDuration:
+                        # Preparing command
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-ss&#34;,
+                                str(start),
+                                &#34;-to&#34;,
+                                str(end),
+                                &#34;-i&#34;,
+                                self._main_temp,
+                                &#34;-c&#34;,
+                                &#34;copy&#34;,
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                self._second_temp,
+                                &#34;-y&#34;
+                        ]
+                        # Running command
+                        run = sp.run(
+                                command,
+                                stderr=sp.PIPE
+                        )
+                        # Verifying if everything went well
+                        if run.returncode != 0:
+                                raise FFmpegError(run.stderr.decode())
+                        return Audio(self._second_temp)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="fastedit.Medias.Audio"><code class="flex name class">
+<span>class <span class="ident">Audio</span></span>
+<span>(</span><span>path: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initializing audio.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the audio file.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Audio(Media):
+        def __init__(
+                self,
+                path: str
+        ):
+                &#34;&#34;&#34;
+                Initializing audio.
+
+                Parameters
+                ----------
+                path : str
+                        Path to the audio file.
+                &#34;&#34;&#34;
+                # Initializing object
+                super().__init__(path)
+        
+        def loop(
+                self,
+                duration
+        ):
+                &#34;&#34;&#34;
+                Create a loop of the audio.
+
+                Parameters
+                ----------
+                duration : int or float
+                        Duration of the loop.
+                
+                Returns
+                -------
+                Audio
+                        Audio containing the audio looped.
+                &#34;&#34;&#34;
+                # Checking type of duration
+                if type(duration) not in [int, float]:
+                        raise TypeError(&#34;Duration has to be an Integer or Float, actual duration type is &#34; + type(duration))
+                # Getting the actual video duration
+                videoDuration = self.getDuration()
+                # Apply transformation on video based on desired duration
+                if duration != videoDuration:
+                        # Preparing command
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-stream_loop&#34;,
+                                &#34;-1&#34;,
+                                &#34;-t&#34;,
+                                str(duration),
+                                &#34;-i&#34;,
+                                str(self._main_temp),
+                                &#34;-c&#34;,
+                                &#34;copy&#34;,
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                str(self._second_temp),
+                                &#34;-y&#34;
+                        ]
+                        # Running command
+                        run = sp.run(
+                                command,
+                                stderr=sp.PIPE
+                        )
+                        # Verifying if everything went well
+                        if run.returncode != 0:
+                                raise FFmpegError(run.stderr.decode())
+                        return Audio(self._second_temp)
+        
+        def clip(
+                self,
+                start,
+                end
+        ):
+                &#34;&#34;&#34;
+                Extract a part of the audio.
+
+                Parameters
+                ----------
+                start : int or float
+                        Time where the clip starts.
+                end : int or float
+                        Time where the clip ends.
+                
+                Returns
+                -------
+                Audio
+                        Audio containing the audio clipped.
+                &#34;&#34;&#34;
+                # Verifying arguments&#39; types
+                if type(start) not in [int, float]:
+                        raise TypeError(&#34;Start has to be an Integer or Float, actual start type is &#34; + type(start))
+                if type(end) not in [int, float]:
+                        raise TypeError(&#34;End has to be an Integer or Float, actual end type is &#34; + type(end))
+                # Getting video duration to verify if end is actually lower than it
+                videoDuration = self.getDuration()
+                # Applying transformation
+                if end &lt; videoDuration:
+                        # Preparing command
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-ss&#34;,
+                                str(start),
+                                &#34;-to&#34;,
+                                str(end),
+                                &#34;-i&#34;,
+                                self._main_temp,
+                                &#34;-c&#34;,
+                                &#34;copy&#34;,
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                self._second_temp,
+                                &#34;-y&#34;
+                        ]
+                        # Running command
+                        run = sp.run(
+                                command,
+                                stderr=sp.PIPE
+                        )
+                        # Verifying if everything went well
+                        if run.returncode != 0:
+                                raise FFmpegError(run.stderr.decode())
+                        return Audio(self._second_temp)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="fastedit.Medias.Media" href="#fastedit.Medias.Media">Media</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="fastedit.Medias.Audio.clip"><code class="name flex">
+<span>def <span class="ident">clip</span></span>(<span>self, start, end)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extract a part of the audio.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>start</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Time where the clip starts.</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Time where the clip ends.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></code></dt>
+<dd>Audio containing the audio clipped.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clip(
+        self,
+        start,
+        end
+):
+        &#34;&#34;&#34;
+        Extract a part of the audio.
+
+        Parameters
+        ----------
+        start : int or float
+                Time where the clip starts.
+        end : int or float
+                Time where the clip ends.
+        
+        Returns
+        -------
+        Audio
+                Audio containing the audio clipped.
+        &#34;&#34;&#34;
+        # Verifying arguments&#39; types
+        if type(start) not in [int, float]:
+                raise TypeError(&#34;Start has to be an Integer or Float, actual start type is &#34; + type(start))
+        if type(end) not in [int, float]:
+                raise TypeError(&#34;End has to be an Integer or Float, actual end type is &#34; + type(end))
+        # Getting video duration to verify if end is actually lower than it
+        videoDuration = self.getDuration()
+        # Applying transformation
+        if end &lt; videoDuration:
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-ss&#34;,
+                        str(start),
+                        &#34;-to&#34;,
+                        str(end),
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-c&#34;,
+                        &#34;copy&#34;,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        self._second_temp,
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                return Audio(self._second_temp)</code></pre>
+</details>
+</dd>
+<dt id="fastedit.Medias.Audio.loop"><code class="name flex">
+<span>def <span class="ident">loop</span></span>(<span>self, duration)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a loop of the audio.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>duration</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Duration of the loop.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></code></dt>
+<dd>Audio containing the audio looped.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loop(
+        self,
+        duration
+):
+        &#34;&#34;&#34;
+        Create a loop of the audio.
+
+        Parameters
+        ----------
+        duration : int or float
+                Duration of the loop.
+        
+        Returns
+        -------
+        Audio
+                Audio containing the audio looped.
+        &#34;&#34;&#34;
+        # Checking type of duration
+        if type(duration) not in [int, float]:
+                raise TypeError(&#34;Duration has to be an Integer or Float, actual duration type is &#34; + type(duration))
+        # Getting the actual video duration
+        videoDuration = self.getDuration()
+        # Apply transformation on video based on desired duration
+        if duration != videoDuration:
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-stream_loop&#34;,
+                        &#34;-1&#34;,
+                        &#34;-t&#34;,
+                        str(duration),
+                        &#34;-i&#34;,
+                        str(self._main_temp),
+                        &#34;-c&#34;,
+                        &#34;copy&#34;,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        str(self._second_temp),
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                return Audio(self._second_temp)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="fastedit.Medias.Media" href="#fastedit.Medias.Media">Media</a></b></code>:
+<ul class="hlist">
+<li><code><a title="fastedit.Medias.Media.changeVolume" href="#fastedit.Medias.Media.changeVolume">changeVolume</a></code></li>
+<li><code><a title="fastedit.Medias.Media.getDuration" href="#fastedit.Medias.Media.getDuration">getDuration</a></code></li>
+<li><code><a title="fastedit.Medias.Media.getMetadata" href="#fastedit.Medias.Media.getMetadata">getMetadata</a></code></li>
+<li><code><a title="fastedit.Medias.Media.save" href="#fastedit.Medias.Media.save">save</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="fastedit.Medias.Image"><code class="flex name class">
+<span>class <span class="ident">Image</span></span>
+<span>(</span><span>path: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initializing Image.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the Image file.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Image():
+        def __init__(
+                self,
+                path: str
+        ):
+                &#34;&#34;&#34;
+                Initializing Image.
+
+                Parameters
+                ----------
+                path : str
+                        Path to the Image file.
+                &#34;&#34;&#34;
+                # Creating temporary folder
+                cwd = os.getcwd()
+                self._temp_folder = tempfile.TemporaryDirectory(dir=cwd)
+                # Defining temporary files
+                extension = os.path.splitext(path)[1]
+                self._main_temp = os.path.join(self._temp_folder.name, &#34;main&#34; + extension)
+                shutil.copy(path, self._main_temp)
+
+        def toVideo(
+                self,
+                duration,
+                fps: int = 30,
+                height: int = 720,
+                width: int = 1280,
+                pix_fmt: str = &#34;yuv420p&#34;,
+                format: str = &#34;mp4&#34;
+        ):
+                &#34;&#34;&#34;
+                Convert Image to Video.
+
+                Parameters
+                ----------
+                duration : int
+                        Duration of the video in seconds.
+                fps : int, default=30
+                        Framerate of the video.
+                height : int, default=720
+                        Height of the video.
+                width : int, default=1280
+                        Width of the video.
+                pix_fmt : str, default=&#34;yuv420p&#34;
+                        Pixel format of the video.
+                
+                Returns
+                -------
+                Video
+                        Video containing the image.
+                &#34;&#34;&#34;
+                if duration &gt; 0:
+                        # Prepare files
+                        video_temp = os.path.join(self._temp_folder.name, &#34;video.&#34; + format)
+                        # Preparing command
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-loop&#34;,
+                                &#34;1&#34;,
+                                &#34;-framerate&#34;,
+                                str(fps),
+                                &#34;-i&#34;,
+                                str(self._main_temp),
+                                &#34;-t&#34;,
+                                str(duration),
+                                &#34;-s&#34;,
+                                str(width) + &#34;x&#34; + str(height),
+                                &#34;-pix_fmt&#34;,
+                                pix_fmt,
+                                str(video_temp),
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                &#34;-y&#34;
+                        ]
+                        # Running command
+                        run = sp.run(
+                                command,
+                                stderr=sp.PIPE
+                        )
+                        # Verifying if everything went well
+                        if run.returncode != 0:
+                                raise FFmpegError(run.stderr.decode())
+                        return Video(video_temp)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="fastedit.Medias.Image.toVideo"><code class="name flex">
+<span>def <span class="ident">toVideo</span></span>(<span>self, duration, fps: int = 30, height: int = 720, width: int = 1280, pix_fmt: str = 'yuv420p', format: str = 'mp4')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert Image to Video.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>duration</code></strong> :&ensp;<code>int</code></dt>
+<dd>Duration of the video in seconds.</dd>
+<dt><strong><code>fps</code></strong> :&ensp;<code>int</code>, default=<code>30</code></dt>
+<dd>Framerate of the video.</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>int</code>, default=<code>720</code></dt>
+<dd>Height of the video.</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>int</code>, default=<code>1280</code></dt>
+<dd>Width of the video.</dd>
+<dt><strong><code>pix_fmt</code></strong> :&ensp;<code>str</code>, default=<code>"yuv420p"</code></dt>
+<dd>Pixel format of the video.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code></dt>
+<dd>Video containing the image.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def toVideo(
+        self,
+        duration,
+        fps: int = 30,
+        height: int = 720,
+        width: int = 1280,
+        pix_fmt: str = &#34;yuv420p&#34;,
+        format: str = &#34;mp4&#34;
+):
+        &#34;&#34;&#34;
+        Convert Image to Video.
+
+        Parameters
+        ----------
+        duration : int
+                Duration of the video in seconds.
+        fps : int, default=30
+                Framerate of the video.
+        height : int, default=720
+                Height of the video.
+        width : int, default=1280
+                Width of the video.
+        pix_fmt : str, default=&#34;yuv420p&#34;
+                Pixel format of the video.
+        
+        Returns
+        -------
+        Video
+                Video containing the image.
+        &#34;&#34;&#34;
+        if duration &gt; 0:
+                # Prepare files
+                video_temp = os.path.join(self._temp_folder.name, &#34;video.&#34; + format)
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-loop&#34;,
+                        &#34;1&#34;,
+                        &#34;-framerate&#34;,
+                        str(fps),
+                        &#34;-i&#34;,
+                        str(self._main_temp),
+                        &#34;-t&#34;,
+                        str(duration),
+                        &#34;-s&#34;,
+                        str(width) + &#34;x&#34; + str(height),
+                        &#34;-pix_fmt&#34;,
+                        pix_fmt,
+                        str(video_temp),
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                return Video(video_temp)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="fastedit.Medias.Media"><code class="flex name class">
+<span>class <span class="ident">Media</span></span>
+<span>(</span><span>path: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initializing media.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the media file.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Media():
+        def __init__(
+                self,
+                path: str
+        ):
+                &#34;&#34;&#34;
+                Initializing media.
+
+                Parameters
+                ----------
+                path : str
+                        Path to the media file.
+                &#34;&#34;&#34;
+                # Creating temporary folder
+                cwd = os.getcwd()
+                self._temp_folder = tempfile.TemporaryDirectory(dir=cwd)
+                # Defining temporary files
+                extension = os.path.splitext(path)[1]
+                self._main_temp = os.path.join(self._temp_folder.name, &#34;main&#34; + extension)
+                shutil.copy(path, self._main_temp)
+                self._second_temp = os.path.join(self._temp_folder.name, &#34;second&#34; + extension)
+        
+        def getDuration(
+                self
+        ):
+                &#34;&#34;&#34;
+                Get current media duration.
+
+                Returns
+                -------
+                float
+                        Duration of the media.
+                &#34;&#34;&#34;
+                # Preparing command
+                command = [
+                        &#34;ffprobe&#34;,
+                        &#34;-i&#34;,
+                        str(self._main_temp),
+                        &#34;-show_entries&#34;,
+                        &#34;format=duration&#34;,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        &#34;-of&#34;,
+                        &#34;default=noprint_wrappers=1:nokey=1&#34;
+                ]
+                # Running command and getting output in pipe
+                run = sp.run(
+                        command,
+                        stdout=sp.PIPE,
+                        stderr=sp.PIPE
+                )
+                # Reading stout
+                if run.returncode != 0:
+                        raise FFprobeError(&#34;Something went wrong with FFprobe&#34;)
+                duration = float(run.stdout.decode().split()[0])
+                return duration
+        
+        def getMetadata(
+                self
+        ):
+                &#34;&#34;&#34;
+                Get current media metadata.
+
+                Returns
+                -------
+                dict
+                        Metadata of the media.
+                &#34;&#34;&#34;
+                # Preparing command
+                command = [
+                        &#34;ffprobe&#34;,
+                        &#34;-loglevel&#34;,
+                        &#34;0&#34;,
+                        &#34;-print_format&#34;,
+                        &#34;json&#34;,
+                        &#34;-show_format&#34;,
+                        &#34;-show_streams&#34;,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        str(self._main_temp)
+                ]
+                # Running command and getting output in pipe
+                run = sp.run(
+                        command,
+                        stdout=sp.PIPE,
+                        stderr=sp.PIPE
+                )
+                # Reading stout
+                if run.returncode != 0:
+                        raise FFprobeError(&#34;Something went wrong with FFprobe&#34;)
+                metadata = json.loads(run.stdout.decode())
+                return metadata
+        
+        def save(
+                self,
+                path: str,
+                codec: str = &#34;copy&#34;
+        ):
+                &#34;&#34;&#34;
+                Saving the media to the file system.
+
+                Parameters
+                ----------
+                path : str
+                        Path to the file to save the media.
+                codec : str, default=&#34;copy&#34;
+                        Codec to encode the media. If &#34;copy&#34; it copies the codec from the original media.
+                &#34;&#34;&#34;
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-c&#34;,
+                        codec,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        path,
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise ValueError(&#34;Something went wrong with FFmpeg&#34;)
+
+        def changeVolume(
+                self,
+                volume
+        ):
+                &#34;&#34;&#34;
+                Change the volume of the audio.
+
+                Parameters
+                ----------
+                volume : int or float
+                        Factor by which the volume will be changed.
+                &#34;&#34;&#34;
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-filter:a&#34;,
+                        &#34;volume=&#34; + str(volume),
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        self._second_temp
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                # Moving generated audio to Object audio
+                shutil.move(self._second_temp, self._main_temp)</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></li>
+<li><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="fastedit.Medias.Media.changeVolume"><code class="name flex">
+<span>def <span class="ident">changeVolume</span></span>(<span>self, volume)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Change the volume of the audio.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>volume</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Factor by which the volume will be changed.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def changeVolume(
+        self,
+        volume
+):
+        &#34;&#34;&#34;
+        Change the volume of the audio.
+
+        Parameters
+        ----------
+        volume : int or float
+                Factor by which the volume will be changed.
+        &#34;&#34;&#34;
+        # Preparing command
+        command = [
+                &#34;ffmpeg&#34;,
+                &#34;-i&#34;,
+                self._main_temp,
+                &#34;-filter:a&#34;,
+                &#34;volume=&#34; + str(volume),
+                &#34;-v&#34;,
+                &#34;error&#34;,
+                self._second_temp
+        ]
+        # Running command
+        run = sp.run(
+                command,
+                stderr=sp.PIPE
+        )
+        # Verifying if everything went well
+        if run.returncode != 0:
+                raise FFmpegError(run.stderr.decode())
+        # Moving generated audio to Object audio
+        shutil.move(self._second_temp, self._main_temp)</code></pre>
+</details>
+</dd>
+<dt id="fastedit.Medias.Media.getDuration"><code class="name flex">
+<span>def <span class="ident">getDuration</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get current media duration.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Duration of the media.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getDuration(
+        self
+):
+        &#34;&#34;&#34;
+        Get current media duration.
+
+        Returns
+        -------
+        float
+                Duration of the media.
+        &#34;&#34;&#34;
+        # Preparing command
+        command = [
+                &#34;ffprobe&#34;,
+                &#34;-i&#34;,
+                str(self._main_temp),
+                &#34;-show_entries&#34;,
+                &#34;format=duration&#34;,
+                &#34;-v&#34;,
+                &#34;error&#34;,
+                &#34;-of&#34;,
+                &#34;default=noprint_wrappers=1:nokey=1&#34;
+        ]
+        # Running command and getting output in pipe
+        run = sp.run(
+                command,
+                stdout=sp.PIPE,
+                stderr=sp.PIPE
+        )
+        # Reading stout
+        if run.returncode != 0:
+                raise FFprobeError(&#34;Something went wrong with FFprobe&#34;)
+        duration = float(run.stdout.decode().split()[0])
+        return duration</code></pre>
+</details>
+</dd>
+<dt id="fastedit.Medias.Media.getMetadata"><code class="name flex">
+<span>def <span class="ident">getMetadata</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get current media metadata.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>Metadata of the media.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getMetadata(
+        self
+):
+        &#34;&#34;&#34;
+        Get current media metadata.
+
+        Returns
+        -------
+        dict
+                Metadata of the media.
+        &#34;&#34;&#34;
+        # Preparing command
+        command = [
+                &#34;ffprobe&#34;,
+                &#34;-loglevel&#34;,
+                &#34;0&#34;,
+                &#34;-print_format&#34;,
+                &#34;json&#34;,
+                &#34;-show_format&#34;,
+                &#34;-show_streams&#34;,
+                &#34;-v&#34;,
+                &#34;error&#34;,
+                str(self._main_temp)
+        ]
+        # Running command and getting output in pipe
+        run = sp.run(
+                command,
+                stdout=sp.PIPE,
+                stderr=sp.PIPE
+        )
+        # Reading stout
+        if run.returncode != 0:
+                raise FFprobeError(&#34;Something went wrong with FFprobe&#34;)
+        metadata = json.loads(run.stdout.decode())
+        return metadata</code></pre>
+</details>
+</dd>
+<dt id="fastedit.Medias.Media.save"><code class="name flex">
+<span>def <span class="ident">save</span></span>(<span>self, path: str, codec: str = 'copy')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Saving the media to the file system.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the file to save the media.</dd>
+<dt><strong><code>codec</code></strong> :&ensp;<code>str</code>, default=<code>"copy"</code></dt>
+<dd>Codec to encode the media. If "copy" it copies the codec from the original media.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save(
+        self,
+        path: str,
+        codec: str = &#34;copy&#34;
+):
+        &#34;&#34;&#34;
+        Saving the media to the file system.
+
+        Parameters
+        ----------
+        path : str
+                Path to the file to save the media.
+        codec : str, default=&#34;copy&#34;
+                Codec to encode the media. If &#34;copy&#34; it copies the codec from the original media.
+        &#34;&#34;&#34;
+        # Preparing command
+        command = [
+                &#34;ffmpeg&#34;,
+                &#34;-i&#34;,
+                self._main_temp,
+                &#34;-c&#34;,
+                codec,
+                &#34;-v&#34;,
+                &#34;error&#34;,
+                path,
+                &#34;-y&#34;
+        ]
+        # Running command
+        run = sp.run(
+                command
+        )
+        # Verifying if everything went well
+        if run.returncode != 0:
+                raise ValueError(&#34;Something went wrong with FFmpeg&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="fastedit.Medias.Video"><code class="flex name class">
+<span>class <span class="ident">Video</span></span>
+<span>(</span><span>path: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initializing video.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the video file.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Video(Media):
+        def __init__(
+                self,
+                path: str
+        ):
+                &#34;&#34;&#34;
+                Initializing video.
+
+                Parameters
+                ----------
+                path : str
+                        Path to the video file.
+                &#34;&#34;&#34;
+                # Initializing object
+                super().__init__(path)
+
+        def loop(
+                self,
+                duration
+        ):
+                &#34;&#34;&#34;
+                Create a loop from a video.
+
+                Parameters
+                ----------
+                duration : int or float
+                        Duration of the loop.
+                
+                Returns
+                -------
+                Video
+                        Video containing the video looped.
+                &#34;&#34;&#34;
+                # Checking type of duration
+                if type(duration) not in [int, float]:
+                        raise TypeError(&#34;Duration has to be an Integer or Float, actual duration type is &#34; + type(duration))
+                # Getting the actual video duration
+                videoDuration = self.getDuration()
+                # Apply transformation on video based on desired duration
+                if duration != videoDuration:
+                        # Preparing command
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-stream_loop&#34;,
+                                &#34;-1&#34;,
+                                &#34;-t&#34;,
+                                str(duration),
+                                &#34;-i&#34;,
+                                str(self._main_temp),
+                                &#34;-c&#34;,
+                                &#34;copy&#34;,
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                str(self._second_temp),
+                                &#34;-y&#34;
+                        ]
+                        # Running command
+                        run = sp.run(
+                                command,
+                                stderr=sp.PIPE
+                        )
+                        # Verifying if everything went well
+                        if run.returncode != 0:
+                                raise FFmpegError(run.stderr.decode())
+                        return Video(self._second_temp)
+        
+        def clip(
+                self,
+                start,
+                end
+        ):
+                &#34;&#34;&#34;
+                Extract a part of the video.
+
+                Parameters
+                ----------
+                start : int or float
+                        Time where the clip starts in seconds.
+                end : int or float
+                        Time where the clip ends in seconds.
+                
+                Returns
+                -------
+                Video
+                        Video containing the video clipped.
+                &#34;&#34;&#34;
+                # Verifying arguments&#39; types
+                if type(start) not in [int, float]:
+                        raise TypeError(&#34;Start has to be an Integer or Float, actual start type is &#34; + type(start))
+                if type(end) not in [int, float]:
+                        raise TypeError(&#34;End has to be an Integer or Float, actual end type is &#34; + type(end))
+                # Getting video duration to verify if end is actually lower than it
+                videoDuration = self.getDuration()
+                # Applying transformation
+                if end &lt; videoDuration:
+                        # Preparing command
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-ss&#34;,
+                                str(start),
+                                &#34;-to&#34;,
+                                str(end),
+                                &#34;-i&#34;,
+                                self._main_temp,
+                                &#34;-c&#34;,
+                                &#34;copy&#34;,
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                self._second_temp,
+                                &#34;-y&#34;
+                        ]
+                        # Running command
+                        run = sp.run(
+                                command,
+                                stderr=sp.PIPE
+                        )
+                        # Verifying if everything went well
+                        if run.returncode != 0:
+                                raise FFmpegError(run.stderr.decode())
+                        return Video(self._second_temp)
+
+        def addAudio(
+                self,
+                audio,
+                type: str = None
+        ):
+                &#34;&#34;&#34;
+                Add or replace audio on the video.
+
+                Parameters
+                ----------
+                audio : Audio
+                        Audio instance you want to add.
+                type : str
+                        Method to add audio. Available options : &#34;replace&#34;, &#34;add&#34;, &#34;combine&#34; or &#34;silent&#34;.
+                &#34;&#34;&#34;
+                # Verifying if type is correct
+                types = [&#34;replace&#34;, &#34;add&#34;, &#34;combine&#34;, &#34;silent&#34;]
+                if type not in types:
+                        raise ValueError(&#34;Type should be one of {}, but yours is {}&#34;.format(types, type))
+                # Preparing command
+                if audio != None:
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-i&#34;,
+                                self._main_temp,
+                                &#34;-i&#34;,
+                                audio._main_temp
+                        ]
+                        # The user wants to replace the original audio
+                        if type == &#34;replace&#34;:
+                                end = [
+                                        &#34;-map&#34;,
+                                        &#34;0:v&#34;,
+                                        &#34;-map&#34;,
+                                        &#34;1:a&#34;,
+                                        &#34;-vcodec&#34;,
+                                        &#34;copy&#34;,
+                                        &#34;-v&#34;,
+                                        &#34;error&#34;,
+                                        self._second_temp,
+                                        &#34;-y&#34;
+                                ]
+                                command.extend(end)
+                        # The user wants to add another audio file to the video
+                        elif type == &#34;add&#34;:
+                                end = [
+                                        &#34;-map&#34;,
+                                        &#34;0&#34;,
+                                        &#34;-map&#34;,
+                                        &#34;1:a&#34;,
+                                        &#34;-vcodec&#34;,
+                                        &#34;copy&#34;,
+                                        &#34;-v&#34;,
+                                        &#34;error&#34;,
+                                        self._second_temp,
+                                        &#34;-y&#34;
+                                ]
+                                command.extend(end)
+                        # The user wants to combine the original audio with another audio file
+                        elif type == &#34;combine&#34;:
+                                end = [
+                                        &#34;-filter_complex&#34;,
+                                        &#34;[0:a][1:a]amerge=inputs=2[a]&#34;,
+                                        &#34;-map&#34;,
+                                        &#34;0:v&#34;,
+                                        &#34;-map&#34;,
+                                        &#34;[a]&#34;,
+                                        &#34;-vcodec&#34;,
+                                        &#34;copy&#34;,
+                                        &#34;-ac&#34;,
+                                        &#34;2&#34;,
+                                        &#34;-v&#34;,
+                                        &#34;error&#34;,
+                                        self._second_temp,
+                                        &#34;-y&#34;
+                                ]
+                                command.extend(end)
+                else:
+                        command = [
+                                &#34;ffmpeg&#34;,
+                                &#34;-f&#34;,
+                                &#34;lavfi&#34;,
+                                &#34;-i&#34;,
+                                &#34;anullsrc&#34;,
+                                &#34;-i&#34;,
+                                self._main_temp,
+                                &#34;-vcodec&#34;,
+                                &#34;copy&#34;,
+                                &#34;-acodec&#34;,
+                                &#34;aac&#34;,
+                                &#34;-map&#34;,
+                                &#34;0:a&#34;,
+                                &#34;-map&#34;,
+                                &#34;1:v&#34;,
+                                &#34;-shortest&#34;,
+                                self._second_temp
+                        ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                shutil.move(self._second_temp, self._main_temp)
+
+        def removeAudio(
+                self
+        ):
+                &#34;&#34;&#34;
+                Remove audio on the video.
+                &#34;&#34;&#34;
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-c&#34;,
+                        &#34;copy&#34;,
+                        &#34;-an&#34;,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        self._second_temp,
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                shutil.move(self._second_temp, self._main_temp)
+
+        def convert(
+                self,
+                container: str = &#34;mp4&#34;,
+                vcodec: str = &#34;copy&#34;,
+                acodec: str = &#34;copy&#34;
+        ):
+                &#34;&#34;&#34;
+                Convert video to different container and/or codec.
+
+                Parameters
+                ----------
+                container : str, default=&#34;mp4&#34;
+                        File format where the data streams will be embedded.
+                vcodec : str, default=&#34;copy&#34;
+                        The way to encode/decode video data stream. Refers to FFmpeg video codecs supported.
+                acodec : str, default=&#34;copy&#34;
+                        The way to encode/decode audio data stream. Refers to FFmpeg audio codecs supported.
+                &#34;&#34;&#34;
+                current_container = os.path.splitext(self._main_temp)[1]
+                # Verifying if current container is valid
+                main_destination = self._second_temp
+                if container != current_container:
+                        main_destination = os.path.join(self._temp_folder.name, &#34;main.&#34; + container)
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-acodec&#34;,
+                        acodec,
+                        &#34;-vcodec&#34;,
+                        vcodec,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        main_destination,
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                # Managing file based on container type
+                if container != current_container:
+                        # Remove old container files
+                        if os.path.exists(self._main_temp):
+                                os.remove(self._main_temp)
+                        if os.path.exists(self._second_temp):
+                                os.remove(self._second_temp)
+                        # Affecting new container files to object
+                        self._main_temp = main_destination
+                        second_destination = os.path.join(self._temp_folder.name, &#34;second.&#34; + container)
+                        self._second_temp = second_destination
+                else:
+                        shutil.move(self._second_temp, self._main_temp)
+
+        def resize(
+                self,
+                width: int,
+                height: int,
+                type: str = &#34;simple&#34;
+        ):
+                &#34;&#34;&#34;
+                Resize video.
+
+                Parameters
+                ----------
+                width : int
+                        Desired width of the video.
+                height : int
+                        Desired height of the video.
+                type : int, default=&#34;simple&#34;
+                        Type of resizing. Available options: [&#34;simple&#34;, &#34;aspect_ratio&#34;].
+                &#34;&#34;&#34;
+                # Verifying type
+                types = [&#34;simple&#34;, &#34;aspect_ratio&#34;]
+                if type not in types:
+                        raise ValueError(&#34;Type should be one of {}, but yours is {}&#34;.format(types, type))
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp
+                ]
+                if type == &#34;simple&#34;:
+                        command.extend([
+                                &#34;-vf&#34;,
+                                &#34;scale=&#34; + str(width) + &#34;:&#34; + str(height) + &#34;:force_original_aspect_ratio=decrease,pad=&#34; + str(width) + &#34;:&#34; + str(height) + &#34;:(ow-iw)/2:(oh-ih)/2&#34;
+                        ])
+                elif type == &#34;aspect_ratio&#34;:
+                        command.extend([
+                                &#34;-vf&#34;,
+                                &#34;scale=&#34; + str(width) + &#34;:-2&#34;
+                        ])
+                command.extend([
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        self._second_temp
+                ])
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                shutil.move(self._second_temp, self._main_temp)
+
+        def changeFrameRate(
+                self,
+                fps: int = 30
+        ):
+                &#34;&#34;&#34;
+                Change video&#39;s frames per seconds.
+
+                Parameters
+                ----------
+                fps : int, default=30
+                        Desired frames per seconds.
+                &#34;&#34;&#34;
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-filter:v&#34;,
+                        &#34;fps=&#34; + str(fps),
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        self._second_temp,
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                shutil.move(self._second_temp, self._main_temp)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="fastedit.Medias.Media" href="#fastedit.Medias.Media">Media</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="fastedit.Medias.Video.addAudio"><code class="name flex">
+<span>def <span class="ident">addAudio</span></span>(<span>self, audio, type: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add or replace audio on the video.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>audio</code></strong> :&ensp;<code><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></code></dt>
+<dd>Audio instance you want to add.</dd>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
+<dd>Method to add audio. Available options : "replace", "add", "combine" or "silent".</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def addAudio(
+        self,
+        audio,
+        type: str = None
+):
+        &#34;&#34;&#34;
+        Add or replace audio on the video.
+
+        Parameters
+        ----------
+        audio : Audio
+                Audio instance you want to add.
+        type : str
+                Method to add audio. Available options : &#34;replace&#34;, &#34;add&#34;, &#34;combine&#34; or &#34;silent&#34;.
+        &#34;&#34;&#34;
+        # Verifying if type is correct
+        types = [&#34;replace&#34;, &#34;add&#34;, &#34;combine&#34;, &#34;silent&#34;]
+        if type not in types:
+                raise ValueError(&#34;Type should be one of {}, but yours is {}&#34;.format(types, type))
+        # Preparing command
+        if audio != None:
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-i&#34;,
+                        audio._main_temp
+                ]
+                # The user wants to replace the original audio
+                if type == &#34;replace&#34;:
+                        end = [
+                                &#34;-map&#34;,
+                                &#34;0:v&#34;,
+                                &#34;-map&#34;,
+                                &#34;1:a&#34;,
+                                &#34;-vcodec&#34;,
+                                &#34;copy&#34;,
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                self._second_temp,
+                                &#34;-y&#34;
+                        ]
+                        command.extend(end)
+                # The user wants to add another audio file to the video
+                elif type == &#34;add&#34;:
+                        end = [
+                                &#34;-map&#34;,
+                                &#34;0&#34;,
+                                &#34;-map&#34;,
+                                &#34;1:a&#34;,
+                                &#34;-vcodec&#34;,
+                                &#34;copy&#34;,
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                self._second_temp,
+                                &#34;-y&#34;
+                        ]
+                        command.extend(end)
+                # The user wants to combine the original audio with another audio file
+                elif type == &#34;combine&#34;:
+                        end = [
+                                &#34;-filter_complex&#34;,
+                                &#34;[0:a][1:a]amerge=inputs=2[a]&#34;,
+                                &#34;-map&#34;,
+                                &#34;0:v&#34;,
+                                &#34;-map&#34;,
+                                &#34;[a]&#34;,
+                                &#34;-vcodec&#34;,
+                                &#34;copy&#34;,
+                                &#34;-ac&#34;,
+                                &#34;2&#34;,
+                                &#34;-v&#34;,
+                                &#34;error&#34;,
+                                self._second_temp,
+                                &#34;-y&#34;
+                        ]
+                        command.extend(end)
+        else:
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-f&#34;,
+                        &#34;lavfi&#34;,
+                        &#34;-i&#34;,
+                        &#34;anullsrc&#34;,
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-vcodec&#34;,
+                        &#34;copy&#34;,
+                        &#34;-acodec&#34;,
+                        &#34;aac&#34;,
+                        &#34;-map&#34;,
+                        &#34;0:a&#34;,
+                        &#34;-map&#34;,
+                        &#34;1:v&#34;,
+                        &#34;-shortest&#34;,
+                        self._second_temp
+                ]
+        # Running command
+        run = sp.run(
+                command,
+                stderr=sp.PIPE
+        )
+        # Verifying if everything went well
+        if run.returncode != 0:
+                raise FFmpegError(run.stderr.decode())
+        shutil.move(self._second_temp, self._main_temp)</code></pre>
+</details>
+</dd>
+<dt id="fastedit.Medias.Video.changeFrameRate"><code class="name flex">
+<span>def <span class="ident">changeFrameRate</span></span>(<span>self, fps: int = 30)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Change video's frames per seconds.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>fps</code></strong> :&ensp;<code>int</code>, default=<code>30</code></dt>
+<dd>Desired frames per seconds.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def changeFrameRate(
+        self,
+        fps: int = 30
+):
+        &#34;&#34;&#34;
+        Change video&#39;s frames per seconds.
+
+        Parameters
+        ----------
+        fps : int, default=30
+                Desired frames per seconds.
+        &#34;&#34;&#34;
+        # Preparing command
+        command = [
+                &#34;ffmpeg&#34;,
+                &#34;-i&#34;,
+                self._main_temp,
+                &#34;-filter:v&#34;,
+                &#34;fps=&#34; + str(fps),
+                &#34;-v&#34;,
+                &#34;error&#34;,
+                self._second_temp,
+                &#34;-y&#34;
+        ]
+        # Running command
+        run = sp.run(
+                command,
+                stderr=sp.PIPE
+        )
+        # Verifying if everything went well
+        if run.returncode != 0:
+                raise FFmpegError(run.stderr.decode())
+        shutil.move(self._second_temp, self._main_temp)</code></pre>
+</details>
+</dd>
+<dt id="fastedit.Medias.Video.clip"><code class="name flex">
+<span>def <span class="ident">clip</span></span>(<span>self, start, end)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extract a part of the video.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>start</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Time where the clip starts in seconds.</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Time where the clip ends in seconds.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code></dt>
+<dd>Video containing the video clipped.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clip(
+        self,
+        start,
+        end
+):
+        &#34;&#34;&#34;
+        Extract a part of the video.
+
+        Parameters
+        ----------
+        start : int or float
+                Time where the clip starts in seconds.
+        end : int or float
+                Time where the clip ends in seconds.
+        
+        Returns
+        -------
+        Video
+                Video containing the video clipped.
+        &#34;&#34;&#34;
+        # Verifying arguments&#39; types
+        if type(start) not in [int, float]:
+                raise TypeError(&#34;Start has to be an Integer or Float, actual start type is &#34; + type(start))
+        if type(end) not in [int, float]:
+                raise TypeError(&#34;End has to be an Integer or Float, actual end type is &#34; + type(end))
+        # Getting video duration to verify if end is actually lower than it
+        videoDuration = self.getDuration()
+        # Applying transformation
+        if end &lt; videoDuration:
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-ss&#34;,
+                        str(start),
+                        &#34;-to&#34;,
+                        str(end),
+                        &#34;-i&#34;,
+                        self._main_temp,
+                        &#34;-c&#34;,
+                        &#34;copy&#34;,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        self._second_temp,
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                return Video(self._second_temp)</code></pre>
+</details>
+</dd>
+<dt id="fastedit.Medias.Video.convert"><code class="name flex">
+<span>def <span class="ident">convert</span></span>(<span>self, container: str = 'mp4', vcodec: str = 'copy', acodec: str = 'copy')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert video to different container and/or codec.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>container</code></strong> :&ensp;<code>str</code>, default=<code>"mp4"</code></dt>
+<dd>File format where the data streams will be embedded.</dd>
+<dt><strong><code>vcodec</code></strong> :&ensp;<code>str</code>, default=<code>"copy"</code></dt>
+<dd>The way to encode/decode video data stream. Refers to FFmpeg video codecs supported.</dd>
+<dt><strong><code>acodec</code></strong> :&ensp;<code>str</code>, default=<code>"copy"</code></dt>
+<dd>The way to encode/decode audio data stream. Refers to FFmpeg audio codecs supported.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def convert(
+        self,
+        container: str = &#34;mp4&#34;,
+        vcodec: str = &#34;copy&#34;,
+        acodec: str = &#34;copy&#34;
+):
+        &#34;&#34;&#34;
+        Convert video to different container and/or codec.
+
+        Parameters
+        ----------
+        container : str, default=&#34;mp4&#34;
+                File format where the data streams will be embedded.
+        vcodec : str, default=&#34;copy&#34;
+                The way to encode/decode video data stream. Refers to FFmpeg video codecs supported.
+        acodec : str, default=&#34;copy&#34;
+                The way to encode/decode audio data stream. Refers to FFmpeg audio codecs supported.
+        &#34;&#34;&#34;
+        current_container = os.path.splitext(self._main_temp)[1]
+        # Verifying if current container is valid
+        main_destination = self._second_temp
+        if container != current_container:
+                main_destination = os.path.join(self._temp_folder.name, &#34;main.&#34; + container)
+        # Preparing command
+        command = [
+                &#34;ffmpeg&#34;,
+                &#34;-i&#34;,
+                self._main_temp,
+                &#34;-acodec&#34;,
+                acodec,
+                &#34;-vcodec&#34;,
+                vcodec,
+                &#34;-v&#34;,
+                &#34;error&#34;,
+                main_destination,
+                &#34;-y&#34;
+        ]
+        # Running command
+        run = sp.run(
+                command,
+                stderr=sp.PIPE
+        )
+        # Verifying if everything went well
+        if run.returncode != 0:
+                raise FFmpegError(run.stderr.decode())
+        # Managing file based on container type
+        if container != current_container:
+                # Remove old container files
+                if os.path.exists(self._main_temp):
+                        os.remove(self._main_temp)
+                if os.path.exists(self._second_temp):
+                        os.remove(self._second_temp)
+                # Affecting new container files to object
+                self._main_temp = main_destination
+                second_destination = os.path.join(self._temp_folder.name, &#34;second.&#34; + container)
+                self._second_temp = second_destination
+        else:
+                shutil.move(self._second_temp, self._main_temp)</code></pre>
+</details>
+</dd>
+<dt id="fastedit.Medias.Video.loop"><code class="name flex">
+<span>def <span class="ident">loop</span></span>(<span>self, duration)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a loop from a video.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>duration</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dd>Duration of the loop.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code></dt>
+<dd>Video containing the video looped.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loop(
+        self,
+        duration
+):
+        &#34;&#34;&#34;
+        Create a loop from a video.
+
+        Parameters
+        ----------
+        duration : int or float
+                Duration of the loop.
+        
+        Returns
+        -------
+        Video
+                Video containing the video looped.
+        &#34;&#34;&#34;
+        # Checking type of duration
+        if type(duration) not in [int, float]:
+                raise TypeError(&#34;Duration has to be an Integer or Float, actual duration type is &#34; + type(duration))
+        # Getting the actual video duration
+        videoDuration = self.getDuration()
+        # Apply transformation on video based on desired duration
+        if duration != videoDuration:
+                # Preparing command
+                command = [
+                        &#34;ffmpeg&#34;,
+                        &#34;-stream_loop&#34;,
+                        &#34;-1&#34;,
+                        &#34;-t&#34;,
+                        str(duration),
+                        &#34;-i&#34;,
+                        str(self._main_temp),
+                        &#34;-c&#34;,
+                        &#34;copy&#34;,
+                        &#34;-v&#34;,
+                        &#34;error&#34;,
+                        str(self._second_temp),
+                        &#34;-y&#34;
+                ]
+                # Running command
+                run = sp.run(
+                        command,
+                        stderr=sp.PIPE
+                )
+                # Verifying if everything went well
+                if run.returncode != 0:
+                        raise FFmpegError(run.stderr.decode())
+                return Video(self._second_temp)</code></pre>
+</details>
+</dd>
+<dt id="fastedit.Medias.Video.removeAudio"><code class="name flex">
+<span>def <span class="ident">removeAudio</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove audio on the video.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def removeAudio(
+        self
+):
+        &#34;&#34;&#34;
+        Remove audio on the video.
+        &#34;&#34;&#34;
+        command = [
+                &#34;ffmpeg&#34;,
+                &#34;-i&#34;,
+                self._main_temp,
+                &#34;-c&#34;,
+                &#34;copy&#34;,
+                &#34;-an&#34;,
+                &#34;-v&#34;,
+                &#34;error&#34;,
+                self._second_temp,
+                &#34;-y&#34;
+        ]
+        # Running command
+        run = sp.run(
+                command,
+                stderr=sp.PIPE
+        )
+        # Verifying if everything went well
+        if run.returncode != 0:
+                raise FFmpegError(run.stderr.decode())
+        shutil.move(self._second_temp, self._main_temp)</code></pre>
+</details>
+</dd>
+<dt id="fastedit.Medias.Video.resize"><code class="name flex">
+<span>def <span class="ident">resize</span></span>(<span>self, width: int, height: int, type: str = 'simple')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Resize video.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>width</code></strong> :&ensp;<code>int</code></dt>
+<dd>Desired width of the video.</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>int</code></dt>
+<dd>Desired height of the video.</dd>
+<dt><strong><code>type</code></strong> :&ensp;<code>int</code>, default=<code>"simple"</code></dt>
+<dd>Type of resizing. Available options: ["simple", "aspect_ratio"].</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def resize(
+        self,
+        width: int,
+        height: int,
+        type: str = &#34;simple&#34;
+):
+        &#34;&#34;&#34;
+        Resize video.
+
+        Parameters
+        ----------
+        width : int
+                Desired width of the video.
+        height : int
+                Desired height of the video.
+        type : int, default=&#34;simple&#34;
+                Type of resizing. Available options: [&#34;simple&#34;, &#34;aspect_ratio&#34;].
+        &#34;&#34;&#34;
+        # Verifying type
+        types = [&#34;simple&#34;, &#34;aspect_ratio&#34;]
+        if type not in types:
+                raise ValueError(&#34;Type should be one of {}, but yours is {}&#34;.format(types, type))
+        # Preparing command
+        command = [
+                &#34;ffmpeg&#34;,
+                &#34;-i&#34;,
+                self._main_temp
+        ]
+        if type == &#34;simple&#34;:
+                command.extend([
+                        &#34;-vf&#34;,
+                        &#34;scale=&#34; + str(width) + &#34;:&#34; + str(height) + &#34;:force_original_aspect_ratio=decrease,pad=&#34; + str(width) + &#34;:&#34; + str(height) + &#34;:(ow-iw)/2:(oh-ih)/2&#34;
+                ])
+        elif type == &#34;aspect_ratio&#34;:
+                command.extend([
+                        &#34;-vf&#34;,
+                        &#34;scale=&#34; + str(width) + &#34;:-2&#34;
+                ])
+        command.extend([
+                &#34;-v&#34;,
+                &#34;error&#34;,
+                self._second_temp
+        ])
+        # Running command
+        run = sp.run(
+                command,
+                stderr=sp.PIPE
+        )
+        # Verifying if everything went well
+        if run.returncode != 0:
+                raise FFmpegError(run.stderr.decode())
+        shutil.move(self._second_temp, self._main_temp)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="fastedit.Medias.Media" href="#fastedit.Medias.Media">Media</a></b></code>:
+<ul class="hlist">
+<li><code><a title="fastedit.Medias.Media.changeVolume" href="#fastedit.Medias.Media.changeVolume">changeVolume</a></code></li>
+<li><code><a title="fastedit.Medias.Media.getDuration" href="#fastedit.Medias.Media.getDuration">getDuration</a></code></li>
+<li><code><a title="fastedit.Medias.Media.getMetadata" href="#fastedit.Medias.Media.getMetadata">getMetadata</a></code></li>
+<li><code><a title="fastedit.Medias.Media.save" href="#fastedit.Medias.Media.save">save</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="fastedit" href="index.html">fastedit</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></code></h4>
+<ul class="">
+<li><code><a title="fastedit.Medias.Audio.clip" href="#fastedit.Medias.Audio.clip">clip</a></code></li>
+<li><code><a title="fastedit.Medias.Audio.loop" href="#fastedit.Medias.Audio.loop">loop</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="fastedit.Medias.Image" href="#fastedit.Medias.Image">Image</a></code></h4>
+<ul class="">
+<li><code><a title="fastedit.Medias.Image.toVideo" href="#fastedit.Medias.Image.toVideo">toVideo</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="fastedit.Medias.Media" href="#fastedit.Medias.Media">Media</a></code></h4>
+<ul class="">
+<li><code><a title="fastedit.Medias.Media.changeVolume" href="#fastedit.Medias.Media.changeVolume">changeVolume</a></code></li>
+<li><code><a title="fastedit.Medias.Media.getDuration" href="#fastedit.Medias.Media.getDuration">getDuration</a></code></li>
+<li><code><a title="fastedit.Medias.Media.getMetadata" href="#fastedit.Medias.Media.getMetadata">getMetadata</a></code></li>
+<li><code><a title="fastedit.Medias.Media.save" href="#fastedit.Medias.Media.save">save</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code></h4>
+<ul class="two-column">
+<li><code><a title="fastedit.Medias.Video.addAudio" href="#fastedit.Medias.Video.addAudio">addAudio</a></code></li>
+<li><code><a title="fastedit.Medias.Video.changeFrameRate" href="#fastedit.Medias.Video.changeFrameRate">changeFrameRate</a></code></li>
+<li><code><a title="fastedit.Medias.Video.clip" href="#fastedit.Medias.Video.clip">clip</a></code></li>
+<li><code><a title="fastedit.Medias.Video.convert" href="#fastedit.Medias.Video.convert">convert</a></code></li>
+<li><code><a title="fastedit.Medias.Video.loop" href="#fastedit.Medias.Video.loop">loop</a></code></li>
+<li><code><a title="fastedit.Medias.Video.removeAudio" href="#fastedit.Medias.Video.removeAudio">removeAudio</a></code></li>
+<li><code><a title="fastedit.Medias.Video.resize" href="#fastedit.Medias.Video.resize">resize</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
