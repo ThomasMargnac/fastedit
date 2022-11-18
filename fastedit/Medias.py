@@ -8,16 +8,15 @@ from fastedit.Errors import FFmpegError, FFprobeError
 class Media():
 	def __init__(
 		self,
-		path
+		path: str
 	):
 		"""
-		Description
-		--------------------------
-		Initializing media class
+		Initializing media.
 
-		Argument(s)
-		--------------------------
-		path: Path to the media file.
+		Parameters
+		----------
+		path : str
+			Path to the media file.
 		"""
 		# Creating temporary folder
 		cwd = os.getcwd()
@@ -32,9 +31,12 @@ class Media():
 		self
 	):
 		"""
-		Description
-		--------------------------
 		Get current media duration.
+
+		Returns
+		-------
+		float
+			Duration of the media.
 		"""
 		# Preparing command
 		command = [
@@ -64,9 +66,12 @@ class Media():
 		self
 	):
 		"""
-		Description
-		--------------------------
 		Get current media metadata.
+
+		Returns
+		-------
+		dict
+			Metadata of the media.
 		"""
 		# Preparing command
 		command = [
@@ -99,14 +104,14 @@ class Media():
 		codec: str = "copy"
 	):
 		"""
-		Description
-		--------------------------
-		Saving the media to the file system
+		Saving the media to the file system.
 
-		Argument(s)
-		--------------------------
-		path: Path to the file to save the media.
-		codec: Codec to encode the media. "copy" by default which copies the codec from the original media.
+		Parameters
+		----------
+		path : str
+			Path to the file to save the media.
+		codec : str, default="copy"
+			Codec to encode the media. If "copy" it copies the codec from the original media.
 		"""
 		# Preparing command
 		command = [
@@ -133,13 +138,12 @@ class Media():
 		volume
 	):
 		"""
-		Description
-		--------------------------
-		Change the volume of the audio
+		Change the volume of the audio.
 
-		Argument(s)
-		--------------------------
-		volume: Factor by which the volume will be changed
+		Parameters
+		----------
+		volume : int or float
+			Factor by which the volume will be changed.
 		"""
 		# Preparing command
 		command = [
@@ -166,16 +170,15 @@ class Media():
 class Video(Media):
 	def __init__(
 		self,
-		path
+		path: str
 	):
 		"""
-		Description
-		--------------------------
-		Initializing video class
+		Initializing video.
 
-		Argument(s)
-		--------------------------
-		path: Path to the video file.
+		Parameters
+		----------
+		path : str
+			Path to the video file.
 		"""
 		# Initializing object
 		super().__init__(path)
@@ -185,13 +188,17 @@ class Video(Media):
 		duration
 	):
 		"""
-		Description
-		--------------------------
-		Create a loop from a video
+		Create a loop from a video.
 
-		Argument(s)
-		--------------------------
-		duration: Duration of the loop.
+		Parameters
+		----------
+		duration : int or float
+			Duration of the loop.
+		
+		Returns
+		-------
+		Video
+			Video containing the video looped.
 		"""
 		# Checking type of duration
 		if type(duration) not in [int, float]:
@@ -232,14 +239,19 @@ class Video(Media):
 		end
 	):
 		"""
-		Description
-		--------------------------
-		Extract a part of the video
+		Extract a part of the video.
 
-		Argument(s)
-		--------------------------
-		start: Time where the clip starts.
-		end: Time where the clip ends.
+		Parameters
+		----------
+		start : int or float
+			Time where the clip starts in seconds.
+		end : int or float
+			Time where the clip ends in seconds.
+		
+		Returns
+		-------
+		Video
+			Video containing the video clipped.
 		"""
 		# Verifying arguments' types
 		if type(start) not in [int, float]:
@@ -282,14 +294,14 @@ class Video(Media):
 		type: str = None
 	):
 		"""
-		Description
-		--------------------------
-		Add or replace audio on the video
+		Add or replace audio on the video.
 
-		Argument(s)
-		--------------------------
-		audio: Audio instance you want to add.
-		type: Method to add audio. Available options : "replace", "add", "combine" or "silent".
+		Parameters
+		----------
+		audio : Audio
+			Audio instance you want to add.
+		type : str
+			Method to add audio. Available options : "replace", "add", "combine" or "silent".
 		"""
 		# Verifying if type is correct
 		types = ["replace", "add", "combine", "silent"]
@@ -387,9 +399,7 @@ class Video(Media):
 		self
 	):
 		"""
-		Description
-		--------------------------
-		Remove audio on the video
+		Remove audio on the video.
 		"""
 		command = [
 			"ffmpeg",
@@ -420,15 +430,16 @@ class Video(Media):
 		acodec: str = "copy"
 	):
 		"""
-		Description
-		--------------------------
-		Converting video to different container and/or codec.
+		Convert video to different container and/or codec.
 
-		Argument(s)
-		--------------------------
-		container: File format where the data streams will be embedded.
-		vcodec: The way to encode/decode video data stream. Refers to FFmpeg video codecs supported.
-		acodec: The way to encode/decode audio data stream. Refers to FFmpeg audio codecs supported.
+		Parameters
+		----------
+		container : str, default="mp4"
+			File format where the data streams will be embedded.
+		vcodec : str, default="copy"
+			The way to encode/decode video data stream. Refers to FFmpeg video codecs supported.
+		acodec : str, default="copy"
+			The way to encode/decode audio data stream. Refers to FFmpeg audio codecs supported.
 		"""
 		current_container = os.path.splitext(self._main_temp)[1]
 		# Verifying if current container is valid
@@ -478,15 +489,16 @@ class Video(Media):
 		type: str = "simple"
 	):
 		"""
-		Description
-		--------------------------
-		Resizing the video
+		Resize video.
 
-		Argument(s)
-		--------------------------
-		width: Desired width of the video.
-		height: Desired height of the video.
-		type: Type of resizing. Available options: ["simple", "aspect_ratio"]
+		Parameters
+		----------
+		width : int
+			Desired width of the video.
+		height : int
+			Desired height of the video.
+		type : int, default="simple"
+			Type of resizing. Available options: ["simple", "aspect_ratio"].
 		"""
 		# Verifying type
 		types = ["simple", "aspect_ratio"]
@@ -528,13 +540,12 @@ class Video(Media):
 		fps: int = 30
 	):
 		"""
-		Description
-		--------------------------
-		Changing frames per seconds of the video
+		Change video's frames per seconds.
 
-		Argument(s)
-		--------------------------
-		fps: Desired frames per seconds.
+		Parameters
+		----------
+		fps : int, default=30
+			Desired frames per seconds.
 		"""
 		# Preparing command
 		command = [
@@ -561,16 +572,15 @@ class Video(Media):
 class Image():
 	def __init__(
 		self,
-		path
+		path: str
 	):
 		"""
-		Description
-		--------------------------
-		Initializing Image class
+		Initializing Image.
 
-		Argument(s)
-		--------------------------
-		path: Path to the Image file.
+		Parameters
+		----------
+		path : str
+			Path to the Image file.
 		"""
 		# Creating temporary folder
 		cwd = os.getcwd()
@@ -590,17 +600,25 @@ class Image():
 		format: str = "mp4"
 	):
 		"""
-		Description
-		--------------------------
-		Convert Image to Video
+		Convert Image to Video.
 
-		Argument(s)
-		--------------------------
-		duration: Duration of the video in seconds.
-		fps: Framerate of the video. Default 30.
-		height: Height of the video. Default 720.
-		width: Width of the video. Default 1280.
-		pix_fmt: Pixel format of the video. Default yuv420p.
+		Parameters
+		----------
+		duration : int
+			Duration of the video in seconds.
+		fps : int, default=30
+			Framerate of the video.
+		height : int, default=720
+			Height of the video.
+		width : int, default=1280
+			Width of the video.
+		pix_fmt : str, default="yuv420p"
+			Pixel format of the video.
+		
+		Returns
+		-------
+		Video
+			Video containing the image.
 		"""
 		if duration > 0:
 			# Prepare files
@@ -638,16 +656,15 @@ class Image():
 class Audio(Media):
 	def __init__(
 		self,
-		path
+		path: str
 	):
 		"""
-		Description
-		--------------------------
-		Initializing audio class
+		Initializing audio.
 
-		Argument(s)
-		--------------------------
-		path: Path to the audio file.
+		Parameters
+		----------
+		path : str
+			Path to the audio file.
 		"""
 		# Initializing object
 		super().__init__(path)
@@ -657,13 +674,17 @@ class Audio(Media):
 		duration
 	):
 		"""
-		Description
-		--------------------------
-		Create a loop from an audio
+		Create a loop of the audio.
 
-		Argument(s)
-		--------------------------
-		duration: Duration of the loop.
+		Parameters
+		----------
+		duration : int or float
+			Duration of the loop.
+		
+		Returns
+		-------
+		Audio
+			Audio containing the audio looped.
 		"""
 		# Checking type of duration
 		if type(duration) not in [int, float]:
@@ -704,14 +725,19 @@ class Audio(Media):
 		end
 	):
 		"""
-		Description
-		--------------------------
-		Extract a part of the audio
+		Extract a part of the audio.
 
-		Argument(s)
-		--------------------------
-		start: Time where the clip starts.
-		end: Time where the clip ends.
+		Parameters
+		----------
+		start : int or float
+			Time where the clip starts.
+		end : int or float
+			Time where the clip ends.
+		
+		Returns
+		-------
+		Audio
+			Audio containing the audio clipped.
 		"""
 		# Verifying arguments' types
 		if type(start) not in [int, float]:

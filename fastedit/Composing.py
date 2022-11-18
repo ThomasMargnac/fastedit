@@ -11,14 +11,14 @@ class VideoComposition():
 		container: str = "mp4"
 	):
 		"""
-		Description
-		--------------------------
-		Initializing video compisition class
+		Initializing video composition.
 
-		Argument(s)
-		--------------------------
-		videos: List of Video to concatenate in the right order.
-		container: File format where the data streams will be embedded. Default "mp4".
+		Parameters
+		----------
+		videos : list
+			List of Video to concatenate in the right order.
+		container : str, default="mp4"
+			File format where the data streams will be embedded.
 		"""
 		# Creating temporary folder
 		cwd = os.getcwd()
@@ -34,15 +34,21 @@ class VideoComposition():
 		fps: int = 30,
 	):
 		"""
-		Description
-		--------------------------
-		Get the videos concatened
+		Get the videos concatened.
 
-		Argument(s)
-		--------------------------
-		width: Desired width of the video.
-		height: Desired height of the video.
-		fps: Desired frames per seconds.
+		Parameters
+		----------
+		width : int, default=1280
+			Desired width of the video.
+		height : int, default=720
+			Desired height of the video.
+		fps : int, default=30
+			Desired frames per seconds.
+		
+		Returns
+		-------
+		Video
+			Video containing the concatenation of the defined videos.
 		"""
 		# Setting the same dimension and frame rate
 		isAudio = False
@@ -99,6 +105,16 @@ class AudioComposition():
 		audios,
 		container: str = "wav"
 	):
+		"""
+		Initializing audio composition.
+
+		Parameters
+		----------
+		audios : list
+			List of Audio to concatenate in the right order.
+		container : str, default="wav"
+			File format where the data streams will be embedded.
+		"""
 		# Creating temporary folder
 		cwd = os.getcwd()
 		self._temp_folder = tempfile.TemporaryDirectory(dir=cwd)
@@ -109,6 +125,14 @@ class AudioComposition():
 	def get(
 		self
 	):
+		"""
+		Get the audios concatened.
+
+		Returns
+		-------
+		Audio
+			Audio containing the concatenation of the defined audios.
+		"""
 		# Preparing command
 		command = [
 			"ffmpeg"
