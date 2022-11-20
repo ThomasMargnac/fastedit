@@ -4,6 +4,7 @@ import shutil
 import json
 import os
 from fastedit.Errors import FFmpegError, FFprobeError
+from fastedit.Overlays import Subtitles
 
 class Media():
 	def __init__(
@@ -559,6 +560,61 @@ class Video(Media):
 			self._second_temp,
 			"-y"
 		]
+		# Running command
+		run = sp.run(
+			command,
+			stderr=sp.PIPE
+		)
+		# Verifying if everything went well
+		if run.returncode != 0:
+			raise FFmpegError(run.stderr.decode())
+		shutil.move(self._second_temp, self._main_temp)
+
+	def addSubtitles(
+		self,
+		subtitles: Subtitles,
+		type: str
+	):
+		"""
+		Add subtitles to the video.
+
+		Parameters
+		----------
+		subtitles : Subtitles
+			Subtitles instance containing the subtitles.
+		type : str
+			Type of subtitles. Available options : ["hard", "soft"]. "hard" means subtitles are hard coded to the video. "soft" means subtitles are not burned into a video, they can be enabled and disabled during the video playback.
+		"""
+		# Verifying type parameter
+		if type not in ["hard", "soft"]:
+			raise ValueError("Type of subtitles should be in [\"hard\", \"soft\"] but yours is {}".format(type))
+		# Preparing command
+		command = [
+			"ffmpeg",
+			"-i",
+			self._main_temp,
+			"-vf"
+		]
+		filter = []
+		if subtitles._container == ".srt":
+			filter = [
+				"subtitles=" + "'" + subtitles.getPath() + "'"
+			]
+		elif subtitles._container == ".ass":
+			filter = [
+				"ass=" + "'" + subtitles.getPath() + "'"
+			]
+		else:
+			raise TypeError("File format should be .srt or .ass, yours is {}".format(subtitles._container))
+		end = [
+			self._second_temp,
+			"-v",
+			"error",
+			"-y"
+		]
+		# Concatenating command with filter and end
+		command.extend(filter)
+		command.extend(end)
 		# Running command
 		run = sp.run(
 			command,

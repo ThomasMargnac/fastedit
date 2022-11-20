@@ -1,4 +1,5 @@
 from fastedit.Medias import Video, Audio, Image
+from fastedit.Overlays import Subtitles
 import pytest
 import hashlib
 
@@ -8,7 +9,7 @@ def test_media_metadata():
 	video = Video("../media/test_video.mp4")
 	expected = open("../media/test_media_metadata.txt", "r").read()
 	generated = video.getMetadata()
-	assert expected == expected
+	assert expected == generated
 
 # Video testings
 
@@ -104,6 +105,22 @@ def test_video_change_frame_rate():
 	video.changeFrameRate(60)
 	frame_rate = video.getMetadata()['streams'][0]['r_frame_rate']
 	assert frame_rate == '60/1'
+
+def test_add_subtitles_srt_hard():
+	video = Video("../media/test_video.mp4")
+	subtitles = Subtitles("../media/test_subtitles.srt")
+	video.addSubtitles(subtitles, "hard")
+	expected = open("../media/test_add_subtitles_srt_hard.txt", "r").read()
+	generated = open(video._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
+
+def test_add_subtitles_ass_hard():
+	video = Video("../media/test_video.mp4")
+	subtitles = Subtitles("../media/test_subtitles.ass")
+	video.addSubtitles(subtitles, "hard")
+	expected = open("../media/test_add_subtitles_ass_hard.txt", "r").read()
+	generated = open(video._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
 
 # Audio testings
 
