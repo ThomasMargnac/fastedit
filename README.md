@@ -2,9 +2,9 @@
 
 FastEdit is a Python library to edit videos. Thanks to it you can manipulate videos and/or audios with actions such as cut, loop, or concatenate.
 
-FastEdit is based on FFmpeg which means it has to be installed on your machine before using FastEdit.
+# Installation
 
-# Install
+FastEdit is based on FFmpeg which means it has to be installed on your machine before using FastEdit.
 
 ### Using `pip`
 
@@ -25,6 +25,13 @@ If you want to install FastEdit from this GitHub repository, type the following 
 ```
 pip install git+https://github.com/ThomasMargnac/fastedit@main
 ```
+
+# Resources
+
+|Type|Link|
+|---|:---:|
+|🚨 **Bug Reports**|[GitHub Issue Tracker](https://github.com/ThomasMargnac/fastedit/issues)|
+|🛠 **API Reference**|[thomasmargnac.github.io/fastedit/](https://thomasmargnac.github.io/fastedit/)|
 
 # Examples
 
