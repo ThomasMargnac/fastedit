@@ -114,25 +114,7 @@ class Media():
 		codec : str, default="copy"
 			Codec to encode the media. If "copy" it copies the codec from the original media.
 		"""
-		# Preparing command
-		command = [
-			"ffmpeg",
-			"-i",
-			self._main_temp,
-			"-c",
-			codec,
-			"-v",
-			"error",
-			path,
-			"-y"
-		]
-		# Running command
-		run = sp.run(
-			command
-		)
-		# Verifying if everything went well
-		if run.returncode != 0:
-			raise ValueError("Something went wrong with FFmpeg")
+		shutil.copy(self._main_temp, path)
 
 	def changeVolume(
 		self,
@@ -573,7 +555,9 @@ class Video(Media):
 	def addSubtitles(
 		self,
 		subtitles: Subtitles,
-		type: str
+		type: str,
+		channel: int = 0,
+		lang: str = "eng",
 	):
 		"""
 		Add subtitles to the video.
@@ -584,6 +568,10 @@ class Video(Media):
 			Subtitles instance containing the subtitles.
 		type : str
 			Type of subtitles. Available options : ["hard", "soft"]. "hard" means subtitles are hard coded to the video. "soft" means subtitles are not burned into a video, they can be enabled and disabled during the video playback.
+		channel : int, default=0
+			If type is "soft", you have to specify the stream subtitle number of these subtitles.
+		lang : str, default="eng"
+			If type is "soft", you haveto specify the subtitle language using the ISO 639 language code with 3 letters.
 		"""
 		# Verifying type parameter
 		if type not in ["hard", "soft"]:
@@ -592,20 +580,36 @@ class Video(Media):
 		command = [
 			"ffmpeg",
 			"-i",
-			self._main_temp,
-			"-vf"
+			self._main_temp
 		]
 		filter = []
-		if subtitles._container == ".srt":
+		if type == "hard" and subtitles._container == ".srt":
 			filter = [
+				"-vf",
 				"subtitles=" + "'" + subtitles.getPath() + "'"
 			]
-		elif subtitles._container == ".ass":
+		elif type == "hard" and subtitles._container == ".ass":
 			filter = [
+				"-vf",
 				"ass=" + "'" + subtitles.getPath() + "'"
 			]
+		elif type == "soft":
+			filter = [
+				"-i",
+				subtitles.getPath(),
+				"-metadata:s:s:" + str(channel),
+				"language=" + str(lang),
+				"-map",
+				"0",
+				"-map",
+				"1",
+				"-c",
+				"copy",
+				"-c:s",
+				"mov_text"
+			]
 		else:
-			raise TypeError("File format should be .srt or .ass, yours is {}".format(subtitles._container))
+			raise TypeError("Something went wrong")
 		end = [
 			self._second_temp,
 			"-v",
@@ -615,6 +619,7 @@ class Video(Media):
 		# Concatenating command with filter and end
 		command.extend(filter)
 		command.extend(end)
+		print(" ".join(command))
 		# Running command
 		run = sp.run(
 			command,
