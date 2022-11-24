@@ -2,14 +2,15 @@ from fastedit.Medias import Video, Audio, Image
 from fastedit.Overlays import Subtitles, Text
 import pytest
 import hashlib
+import json
 
 # Media testings
 
-"""def test_media_metadata():
+def test_media_metadata():
 	video = Video("../media/test_video.mp4")
-	expected = open("../media/test_media_metadata.txt", "r").read()
+	expected = json.loads(open("../media/test_media_metadata.txt", "r").read())
 	generated = video.getMetadata()
-	assert expected == generated"""
+	assert expected["streams"] == generated["streams"]
 
 # Video testings
 
