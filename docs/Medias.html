@@ -187,7 +187,7 @@
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Media.save"><code class="name flex">
-<span>def <span class="ident">save</span></span>(<span>self, path: str, codec: str = 'copy')</span>
+<span>def <span class="ident">save</span></span>(<span>self, path: str)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Saving the media to the file system.</p>
@@ -195,8 +195,6 @@
 <dl>
 <dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
 <dd>Path to the file to save the media.</dd>
-<dt><strong><code>codec</code></strong> :&ensp;<code>str</code>, default=<code>"copy"</code></dt>
-<dd>Codec to encode the media. If "copy" it copies the codec from the original media.</dd>
 </dl></div>
 </dd>
 </dl>
@@ -229,6 +227,34 @@
 <dd>Audio instance you want to add.</dd>
 <dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
 <dd>Method to add audio. Available options : "replace", "add", "combine" or "silent".</dd>
+</dl></div>
+</dd>
+<dt id="fastedit.Medias.Video.addSubtitles"><code class="name flex">
+<span>def <span class="ident">addSubtitles</span></span>(<span>self, subtitles: <a title="fastedit.Overlays.Subtitles" href="Overlays.html#fastedit.Overlays.Subtitles">Subtitles</a>, type: str, channel: int = 0, lang: str = 'eng')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add subtitles to the video.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>subtitles</code></strong> :&ensp;<code>Subtitles</code></dt>
+<dd>Subtitles instance containing the subtitles.</dd>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
+<dd>Type of subtitles. Available options : ["hard", "soft"]. "hard" means subtitles are hard coded to the video. "soft" means subtitles are not burned into a video, they can be enabled and disabled during the video playback.</dd>
+<dt><strong><code>channel</code></strong> :&ensp;<code>int</code>, default=<code>0</code></dt>
+<dd>If type is "soft", you have to specify the stream subtitle number of these subtitles.</dd>
+<dt><strong><code>lang</code></strong> :&ensp;<code>str</code>, default=<code>"eng"</code></dt>
+<dd>If type is "soft", you haveto specify the subtitle language using the ISO 639 language code with 3 letters.</dd>
+</dl></div>
+</dd>
+<dt id="fastedit.Medias.Video.addText"><code class="name flex">
+<span>def <span class="ident">addText</span></span>(<span>self, texts: list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add text(s) in the video.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>text</code></strong> :&ensp;<code>list[Texts]</code></dt>
+<dd>List of text(s) to display on the video.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.changeFrameRate"><code class="name flex">
@@ -367,6 +393,8 @@
 <h4><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code></h4>
 <ul class="two-column">
 <li><code><a title="fastedit.Medias.Video.addAudio" href="#fastedit.Medias.Video.addAudio">addAudio</a></code></li>
+<li><code><a title="fastedit.Medias.Video.addSubtitles" href="#fastedit.Medias.Video.addSubtitles">addSubtitles</a></code></li>
+<li><code><a title="fastedit.Medias.Video.addText" href="#fastedit.Medias.Video.addText">addText</a></code></li>
 <li><code><a title="fastedit.Medias.Video.changeFrameRate" href="#fastedit.Medias.Video.changeFrameRate">changeFrameRate</a></code></li>
 <li><code><a title="fastedit.Medias.Video.clip" href="#fastedit.Medias.Video.clip">clip</a></code></li>
 <li><code><a title="fastedit.Medias.Video.convert" href="#fastedit.Medias.Video.convert">convert</a></code></li>
