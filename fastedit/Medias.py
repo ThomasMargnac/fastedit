@@ -101,8 +101,7 @@ class Media():
 	
 	def save(
 		self,
-		path: str,
-		codec: str = "copy"
+		path: str
 	):
 		"""
 		Saving the media to the file system.
@@ -111,10 +110,29 @@ class Media():
 		----------
 		path : str
 			Path to the file to save the media.
-		codec : str, default="copy"
-			Codec to encode the media. If "copy" it copies the codec from the original media.
 		"""
-		shutil.copy(self._main_temp, path)
+		# Preparing command
+		command = [
+			"ffmpeg",
+			"-i",
+			self._main_temp,
+			"-c",
+			"copy",
+			"-c:s",
+			"copy",
+			"-v",
+			"error",
+			path,
+			"-y"
+		]
+		# Running command
+		run = sp.run(
+			command,
+			stderr=sp.PIPE
+		)
+		# Verifying if everything went well
+		if run.returncode != 0:
+			raise FFmpegError(run.stderr.decode())
 
 	def changeVolume(
 		self,
