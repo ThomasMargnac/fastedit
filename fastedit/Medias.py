@@ -4,7 +4,7 @@ import shutil
 import json
 import os
 from fastedit.Errors import FFmpegError, FFprobeError
-from fastedit.Overlays import Subtitles
+from fastedit.Overlays import Subtitles, Text
 
 class Media():
 	def __init__(
@@ -619,7 +619,61 @@ class Video(Media):
 		# Concatenating command with filter and end
 		command.extend(filter)
 		command.extend(end)
-		print(" ".join(command))
+		# Running command
+		run = sp.run(
+			command,
+			stderr=sp.PIPE
+		)
+		# Verifying if everything went well
+		if run.returncode != 0:
+			raise FFmpegError(run.stderr.decode())
+		shutil.move(self._second_temp, self._main_temp)
+
+	def addText(
+		self,
+		texts: list[Text]
+	):
+		"""
+		Add text(s) in the video.
+
+		Parameters
+		----------
+		text : list[Texts]
+			List of text(s) to display on the video.
+		"""
+		# Verifying texts type
+		if all(isinstance(item, Text) for item in texts) == False:
+			raise TypeError("texts' items should be Text object, at least one of yours is not a Text object")
+		# Preparing command
+		command = [
+			"ffmpeg",
+			"-i",
+			self._main_temp,
+			"-vf"
+		]
+		# Adding all the texts in the list
+		filters = ""
+		for i in range(len(texts)):
+			parameters = texts[i].getText()
+			filters += "drawtext=text='{}':x={}:y={}:fontsize={}:fontcolor={}:enable='between(t,{},{})'".format(
+				parameters["text"],
+				parameters["x"],
+				parameters["y"],
+				parameters["fontSize"],
+				parameters["fontColor"],
+				parameters["start"],
+				parameters["end"]
+			)
+			if i < len(texts) - 1:
+				filters += ","
+		# Concatenating filters
+		command.extend([
+			filters,
+			self._second_temp,
+			"-v",
+			"error",
+			"-y"
+		])
 		# Running command
 		run = sp.run(
 			command,

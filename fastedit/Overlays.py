@@ -38,3 +38,75 @@ class Subtitles():
 			Path to the subtitles file.
 		"""
 		return self._path
+
+class Text():
+	def __init__(
+		self,
+		text: str,
+		x,
+		y,
+		start,
+		end,
+		fontSize: int = 18,
+		fontColor: str = "white"
+	):
+		"""
+		Initialize text.
+
+		Parameters
+		----------
+		text : str
+			String to display.
+		x : int or str
+			x-axis of the text.
+		y : int or str
+			y-axis of the text.
+		start : int or float
+			Start timestamp to start displaying the text.
+		end : int or float
+			End timestamp to end displaying the text.
+		fontSize : int, default=18
+			Size of the text's font.
+		fontColor : str, default="white"
+			Color of the text's font.
+		"""
+		# Verifying parameters' types
+		coordinates = (int, str)
+		timestamps = (int, float)
+		if isinstance(text, str) == False:
+			raise TypeError("text should be str, yours is {}".format(type(text)))
+		if isinstance(x, coordinates) == False:
+			raise TypeError("x should be in {}, yours is {}".format(coordinates, type(x)))
+		if isinstance(y, coordinates) == False:
+			raise TypeError("y should be in {}, yours is {}".format(coordinates, type(y)))
+		if isinstance(start, timestamps) == False:
+			raise TypeError("start should be in {}, yours is {}".format(timestamps,type(start)))
+		if isinstance(end, timestamps) == False:
+			raise TypeError("end should be in {}, yours is {}".format(timestamps,type(end)))
+		if isinstance(fontSize, int) == False:
+			raise TypeError("fontSize should be int, yours is {}".format(type(fontSize)))
+		if isinstance(fontColor, str) == False:
+			raise TypeError("fontSize should be str, yours is {}".format(type(fontColor)))
+		# Initializing Text
+		self._text = {
+			"text": text,
+			"x": str(x),
+			"y": str(y),
+			"start": str(start),
+			"end": str(end),
+			"fontSize": str(fontSize),
+			"fontColor": fontColor
+		}
+
+	def getText(
+		self
+	):
+		"""
+		Getting text with parameters.
+
+		Returns
+		-------
+		dict
+			Dictionnary containing the text and its parameters.
+		"""
+		return self._text
