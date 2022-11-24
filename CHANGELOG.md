@@ -1,3 +1,15 @@
+## v0.5.0 (2022-11-24)
+
+### Feat
+
+- **Video,Overlays**: Adding Text Object and addText() method
+- **Video**: Improving addSubtitles() with soft subtitles
+- **Video,Subtitles**: Adding method to add hard subtitles to a video
+
+### Fix
+
+- **Media**: Fixing saving problem with subtitles
+
 ## v0.4.0 (2022-11-17)
 
 ### Feat
