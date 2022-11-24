@@ -30,8 +30,9 @@ pip install git+https://github.com/ThomasMargnac/fastedit@main
 
 |Type|Link|
 |---|:---:|
+|📚 **Wiki**|[GitHub Wiki](https://github.com/ThomasMargnac/fastedit/wiki)|
+|🛠 **API Reference**|[GitHub Page](https://thomasmargnac.github.io/fastedit/)|
 |🚨 **Bug Reports**|[GitHub Issue Tracker](https://github.com/ThomasMargnac/fastedit/issues)|
-|🛠 **API Reference**|[thomasmargnac.github.io/fastedit/](https://thomasmargnac.github.io/fastedit/)|
 
 # Examples
 
