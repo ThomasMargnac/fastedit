@@ -1,15 +1,15 @@
 from fastedit.Medias import Video, Audio, Image
-from fastedit.Overlays import Subtitles
+from fastedit.Overlays import Subtitles, Text
 import pytest
 import hashlib
 
 # Media testings
 
-def test_media_metadata():
+"""def test_media_metadata():
 	video = Video("../media/test_video.mp4")
 	expected = open("../media/test_media_metadata.txt", "r").read()
 	generated = video.getMetadata()
-	assert expected == generated
+	assert expected == generated"""
 
 # Video testings
 
@@ -119,6 +119,14 @@ def test_add_subtitles_ass_hard():
 	subtitles = Subtitles("../media/test_subtitles.ass")
 	video.addSubtitles(subtitles, "hard")
 	expected = open("../media/test_add_subtitles_ass_hard.txt", "r").read()
+	generated = open(video._main_temp, "rb").read()
+	assert hashlib.sha512(generated).hexdigest() == expected
+
+def test_add_text():
+	video = Video("../media/test_video.mp4")
+	texts = [Text("First Text", x="(w-text_w)/2", y="(h-text_h)/2", start=0, end=10, fontSize=24),Text("Second Text", x="(w-text_w)/2", y="(h-text_h)/2", start=10, end=20, fontSize=24)]
+	video.addText(texts=texts)
+	expected = open("../media/test_add_text.txt", "r").read()
 	generated = open(video._main_temp, "rb").read()
 	assert hashlib.sha512(generated).hexdigest() == expected
 
