@@ -1,3 +1,9 @@
+## v0.5.1 (2022-11-26)
+
+### Fix
+
+- **Video**: Fixing problem that did not keep subtitles during video changes
+
 ## v0.5.0 (2022-11-24)
 
 ### Feat
