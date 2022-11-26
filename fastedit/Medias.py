@@ -153,6 +153,8 @@ class Media():
 			self._main_temp,
 			"-filter:a",
 			"volume=" + str(volume),
+			"-c:s",
+			"copy",
 			"-v",
 			"error",
 			self._second_temp
@@ -219,6 +221,8 @@ class Video(Media):
 				str(self._main_temp),
 				"-c",
 				"copy",
+				"-c:s",
+				"copy",
 				"-v",
 				"error",
 				str(self._second_temp),
@@ -274,6 +278,8 @@ class Video(Media):
 				self._main_temp,
 				"-c",
 				"copy",
+				"-c:s",
+				"copy",
 				"-v",
 				"error",
 				self._second_temp,
@@ -325,6 +331,8 @@ class Video(Media):
 					"-map",
 					"1:a",
 					"-vcodec",
+					"copy",
+					"-c:s",
 					"copy",
 					"-v",
 					"error",
@@ -408,6 +416,8 @@ class Video(Media):
 			self._main_temp,
 			"-c",
 			"copy",
+			"-c:s",
+			"copy",
 			"-an",
 			"-v",
 			"error",
@@ -456,6 +466,8 @@ class Video(Media):
 			acodec,
 			"-vcodec",
 			vcodec,
+			"-c:s",
+			"copy",
 			"-v",
 			"error",
 			main_destination,
@@ -522,6 +534,8 @@ class Video(Media):
 				"scale=" + str(width) + ":-2"
 			])
 		command.extend([
+			"-c:s",
+			"copy",
 			"-v",
 			"error",
 			self._second_temp
@@ -555,6 +569,8 @@ class Video(Media):
 			self._main_temp,
 			"-filter:v",
 			"fps=" + str(fps),
+			"-c:s",
+			"copy",
 			"-v",
 			"error",
 			self._second_temp,
@@ -688,6 +704,8 @@ class Video(Media):
 		command.extend([
 			filters,
 			self._second_temp,
+			"-c:s",
+			"copy",
 			"-v",
 			"error",
 			"-y"
