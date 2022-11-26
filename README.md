@@ -1,6 +1,6 @@
 # FastEdit
 
-[![PyPI version](https://badge.fury.io/py/fastedit.svg)](https://badge.fury.io/py/fastedit)
+[![PyPI version](https://badge.fury.io/py/fastedit.svg?kill_cache=1)](https://badge.fury.io/py/fastedit)
 
 FastEdit is a Python library to edit videos. Thanks to it you can manipulate videos and/or audios with actions such as cut, loop, or concatenate.
 
