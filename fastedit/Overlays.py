@@ -2,6 +2,7 @@ import tempfile
 import os
 import shutil
 
+
 class Subtitles():
 	def __init__(
 		self,
@@ -25,7 +26,7 @@ class Subtitles():
 		# Defining temporary files
 		self._path = os.path.join(self._temp_folder.name, "subtitles_" + str(id(self)) + self._container)
 		shutil.copy(subtitles, self._path)
-	
+
 	def getPath(
 		self
 	):
@@ -38,6 +39,7 @@ class Subtitles():
 			Path to the subtitles file.
 		"""
 		return self._path
+
 
 class Text():
 	def __init__(
@@ -73,19 +75,19 @@ class Text():
 		# Verifying parameters' types
 		coordinates = (int, str)
 		timestamps = (int, float)
-		if isinstance(text, str) == False:
+		if isinstance(text, str) is False:
 			raise TypeError("text should be str, yours is {}".format(type(text)))
-		if isinstance(x, coordinates) == False:
+		if isinstance(x, coordinates) is False:
 			raise TypeError("x should be in {}, yours is {}".format(coordinates, type(x)))
-		if isinstance(y, coordinates) == False:
+		if isinstance(y, coordinates) is False:
 			raise TypeError("y should be in {}, yours is {}".format(coordinates, type(y)))
-		if isinstance(start, timestamps) == False:
-			raise TypeError("start should be in {}, yours is {}".format(timestamps,type(start)))
-		if isinstance(end, timestamps) == False:
-			raise TypeError("end should be in {}, yours is {}".format(timestamps,type(end)))
-		if isinstance(fontSize, int) == False:
+		if isinstance(start, timestamps) is False:
+			raise TypeError("start should be in {}, yours is {}".format(timestamps, type(start)))
+		if isinstance(end, timestamps) is False:
+			raise TypeError("end should be in {}, yours is {}".format(timestamps, type(end)))
+		if isinstance(fontSize, int) is False:
 			raise TypeError("fontSize should be int, yours is {}".format(type(fontSize)))
-		if isinstance(fontColor, str) == False:
+		if isinstance(fontColor, str) is False:
 			raise TypeError("fontSize should be str, yours is {}".format(type(fontColor)))
 		# Initializing Text
 		self._text = {

@@ -6,6 +6,7 @@ import os
 from fastedit.Errors import FFmpegError, FFprobeError
 from fastedit.Overlays import Subtitles, Text
 
+
 class Media():
 	def __init__(
 		self,
@@ -27,7 +28,7 @@ class Media():
 		self._main_temp = os.path.join(self._temp_folder.name, "main" + extension)
 		shutil.copy(path, self._main_temp)
 		self._second_temp = os.path.join(self._temp_folder.name, "second" + extension)
-	
+
 	def getDuration(
 		self
 	):
@@ -62,7 +63,7 @@ class Media():
 			raise FFprobeError("Something went wrong with FFprobe")
 		duration = float(run.stdout.decode().split()[0])
 		return duration
-	
+
 	def getMetadata(
 		self
 	):
@@ -98,7 +99,7 @@ class Media():
 			raise FFprobeError("Something went wrong with FFprobe")
 		metadata = json.loads(run.stdout.decode())
 		return metadata
-	
+
 	def save(
 		self,
 		path: str
@@ -170,6 +171,7 @@ class Media():
 		# Moving generated audio to Object audio
 		shutil.move(self._second_temp, self._main_temp)
 
+
 class Video(Media):
 	def __init__(
 		self,
@@ -197,7 +199,7 @@ class Video(Media):
 		----------
 		duration : int or float
 			Duration of the loop.
-		
+
 		Returns
 		-------
 		Video
@@ -237,7 +239,7 @@ class Video(Media):
 			if run.returncode != 0:
 				raise FFmpegError(run.stderr.decode())
 			return Video(self._second_temp)
-	
+
 	def clip(
 		self,
 		start,
@@ -252,7 +254,7 @@ class Video(Media):
 			Time where the clip starts in seconds.
 		end : int or float
 			Time where the clip ends in seconds.
-		
+
 		Returns
 		-------
 		Video
@@ -315,7 +317,7 @@ class Video(Media):
 		if type not in types:
 			raise ValueError("Type should be one of {}, but yours is {}".format(types, type))
 		# Preparing command
-		if audio != None:
+		if audio is not None:
 			command = [
 				"ffmpeg",
 				"-i",
@@ -676,7 +678,7 @@ class Video(Media):
 			List of text(s) to display on the video.
 		"""
 		# Verifying texts type
-		if all(isinstance(item, Text) for item in texts) == False:
+		if all(isinstance(item, Text) for item in texts) is False:
 			raise TypeError("texts' items should be Text object, at least one of yours is not a Text object")
 		# Preparing command
 		command = [
@@ -719,6 +721,7 @@ class Video(Media):
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
 		shutil.move(self._second_temp, self._main_temp)
+
 
 class Image():
 	def __init__(
@@ -765,7 +768,7 @@ class Image():
 			Width of the video.
 		pix_fmt : str, default="yuv420p"
 			Pixel format of the video.
-		
+
 		Returns
 		-------
 		Video
@@ -804,6 +807,7 @@ class Image():
 				raise FFmpegError(run.stderr.decode())
 			return Video(video_temp)
 
+
 class Audio(Media):
 	def __init__(
 		self,
@@ -819,7 +823,7 @@ class Audio(Media):
 		"""
 		# Initializing object
 		super().__init__(path)
-	
+
 	def loop(
 		self,
 		duration
@@ -831,7 +835,7 @@ class Audio(Media):
 		----------
 		duration : int or float
 			Duration of the loop.
-		
+
 		Returns
 		-------
 		Audio
@@ -869,7 +873,7 @@ class Audio(Media):
 			if run.returncode != 0:
 				raise FFmpegError(run.stderr.decode())
 			return Audio(self._second_temp)
-	
+
 	def clip(
 		self,
 		start,
@@ -884,7 +888,7 @@ class Audio(Media):
 			Time where the clip starts.
 		end : int or float
 			Time where the clip ends.
-		
+
 		Returns
 		-------
 		Audio

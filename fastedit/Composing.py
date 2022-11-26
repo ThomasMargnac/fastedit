@@ -4,6 +4,7 @@ import subprocess as sp
 import tempfile
 import os
 
+
 class VideoComposition():
 	def __init__(
 		self,
@@ -44,7 +45,7 @@ class VideoComposition():
 			Desired height of the video.
 		fps : int, default=30
 			Desired frames per seconds.
-		
+
 		Returns
 		-------
 		Video
@@ -60,7 +61,7 @@ class VideoComposition():
 					isAudio = True
 			i.resize(width, height)
 			i.changeFrameRate(fps)
-			if isAudio == False:
+			if isAudio is False:
 				i.addAudio(None, "silent")
 		# Preparing command
 		command = [
@@ -98,6 +99,7 @@ class VideoComposition():
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
 		return Video(self._output)
+
 
 class AudioComposition():
 	def __init__(
