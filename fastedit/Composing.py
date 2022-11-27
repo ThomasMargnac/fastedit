@@ -75,7 +75,8 @@ class VideoComposition():
 				self._videos[i]._main_temp
 			])
 			filter_concat += "[" + str(i) + ":v][" + str(i) + ":a]"
-		filter_concat += "concat=n=" + str(len(self._videos)) + ":v=1:a=1[outv][outa]"
+		filter_concat += "concat=n=" + \
+			str(len(self._videos)) + ":v=1:a=1[outv][outa]"
 		end = [
 			"-filter_complex",
 			filter_concat,

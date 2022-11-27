@@ -27,7 +27,10 @@ class Media():
 		extension = os.path.splitext(path)[1]
 		self._main_temp = os.path.join(self._temp_folder.name, "main" + extension)
 		shutil.copy(path, self._main_temp)
-		self._second_temp = os.path.join(self._temp_folder.name, "second" + extension)
+		self._second_temp = os.path.join(
+			self._temp_folder.name,
+			"second" + extension
+		)
 
 	def getDuration(
 		self
@@ -206,8 +209,11 @@ class Video(Media):
 			Video containing the video looped.
 		"""
 		# Checking type of duration
-		if type(duration) not in [int, float]:
-			raise TypeError("Duration has to be an Integer or Float, actual duration type is " + type(duration))
+		if isinstance(duration, (int, float)) is False:
+			raise TypeError(
+				"Duration has to be an Integer or Float, "
+				"actual duration type is " + type(duration)
+			)
 		# Getting the actual video duration
 		videoDuration = self.getDuration()
 		# Apply transformation on video based on desired duration
@@ -262,9 +268,15 @@ class Video(Media):
 		"""
 		# Verifying arguments' types
 		if type(start) not in [int, float]:
-			raise TypeError("Start has to be an Integer or Float, actual start type is " + type(start))
+			raise TypeError(
+				"Start has to be an Integer or Float, "
+				"actual start type is " + type(start)
+			)
 		if type(end) not in [int, float]:
-			raise TypeError("End has to be an Integer or Float, actual end type is " + type(end))
+			raise TypeError(
+				"End has to be an Integer or Float, "
+				"actual end type is " + type(end)
+			)
 		# Getting video duration to verify if end is actually lower than it
 		videoDuration = self.getDuration()
 		# Applying transformation
@@ -310,12 +322,15 @@ class Video(Media):
 		audio : Audio
 			Audio instance you want to add.
 		type : str
-			Method to add audio. Available options : "replace", "add", "combine" or "silent".
+			Method to add audio. Available options : \
+			"replace", "add", "combine" or "silent".
 		"""
 		# Verifying if type is correct
 		types = ["replace", "add", "combine", "silent"]
 		if type not in types:
-			raise ValueError("Type should be one of {}, but yours is {}".format(types, type))
+			raise ValueError(
+				"Type should be one of {}, but yours is {}".format(types, type)
+			)
 		# Preparing command
 		if audio is not None:
 			command = [
@@ -450,9 +465,11 @@ class Video(Media):
 		container : str, default="mp4"
 			File format where the data streams will be embedded.
 		vcodec : str, default="copy"
-			The way to encode/decode video data stream. Refers to FFmpeg video codecs supported.
+			The way to encode/decode video data stream. \
+			Refers to FFmpeg video codecs supported.
 		acodec : str, default="copy"
-			The way to encode/decode audio data stream. Refers to FFmpeg audio codecs supported.
+			The way to encode/decode audio data stream. \
+			Refers to FFmpeg audio codecs supported.
 		"""
 		current_container = os.path.splitext(self._main_temp)[1]
 		# Verifying if current container is valid
@@ -492,7 +509,10 @@ class Video(Media):
 				os.remove(self._second_temp)
 			# Affecting new container files to object
 			self._main_temp = main_destination
-			second_destination = os.path.join(self._temp_folder.name, "second." + container)
+			second_destination = os.path.join(
+				self._temp_folder.name,
+				"second." + container
+			)
 			self._second_temp = second_destination
 		else:
 			shutil.move(self._second_temp, self._main_temp)
@@ -518,7 +538,9 @@ class Video(Media):
 		# Verifying type
 		types = ["simple", "aspect_ratio"]
 		if type not in types:
-			raise ValueError("Type should be one of {}, but yours is {}".format(types, type))
+			raise ValueError(
+				"Type should be one of {}, but yours is {}".format(types, type)
+			)
 		# Preparing command
 		command = [
 			"ffmpeg",
@@ -528,7 +550,9 @@ class Video(Media):
 		if type == "simple":
 			command.extend([
 				"-vf",
-				"scale=" + str(width) + ":" + str(height) + ":force_original_aspect_ratio=decrease,pad=" + str(width) + ":" + str(height) + ":(ow-iw)/2:(oh-ih)/2"
+				"scale=" + str(width) + ":" + str(height)
+				+ ":force_original_aspect_ratio=decrease,pad="
+				+ str(width) + ":" + str(height) + ":(ow-iw)/2:(oh-ih)/2"
 			])
 		elif type == "aspect_ratio":
 			command.extend([
@@ -603,15 +627,23 @@ class Video(Media):
 		subtitles : Subtitles
 			Subtitles instance containing the subtitles.
 		type : str
-			Type of subtitles. Available options : ["hard", "soft"]. "hard" means subtitles are hard coded to the video. "soft" means subtitles are not burned into a video, they can be enabled and disabled during the video playback.
+			Type of subtitles. Available options : ["hard", "soft"].\
+			"hard" means subtitles are hard coded to the video.\
+			"soft" means subtitles are not burned into a video, \
+			they can be enabled and disabled during the video playback.
 		channel : int, default=0
-			If type is "soft", you have to specify the stream subtitle number of these subtitles.
+			If type is "soft", you have to specify the stream subtitle number\
+			of these subtitles.
 		lang : str, default="eng"
-			If type is "soft", you haveto specify the subtitle language using the ISO 639 language code with 3 letters.
+			If type is "soft", you have to specify the subtitle language \
+			using the ISO 639 language code with 3 letters.
 		"""
 		# Verifying type parameter
-		if type not in ["hard", "soft"]:
-			raise ValueError("Type of subtitles should be in [\"hard\", \"soft\"] but yours is {}".format(type))
+		types = ["hard", "soft"]
+		if type not in types:
+			raise ValueError(
+				"Type of subtitles should be in {} but yours is {}".format(types, type)
+			)
 		# Preparing command
 		command = [
 			"ffmpeg",
@@ -679,7 +711,8 @@ class Video(Media):
 		"""
 		# Verifying texts type
 		if all(isinstance(item, Text) for item in texts) is False:
-			raise TypeError("texts' items should be Text object, at least one of yours is not a Text object")
+			raise TypeError("texts' items should be Text object, at least one of \
+				yours is not a Text object")
 		# Preparing command
 		command = [
 			"ffmpeg",
@@ -691,7 +724,8 @@ class Video(Media):
 		filters = ""
 		for i in range(len(texts)):
 			parameters = texts[i].getText()
-			filters += "drawtext=text='{}':x={}:y={}:fontsize={}:fontcolor={}:enable='between(t,{},{})'".format(
+			filters += "drawtext=text='{}':x={}:y={}:fontsize={}:fontcolor={}\
+				:enable='between(t,{},{})'".format(
 				parameters["text"],
 				parameters["x"],
 				parameters["y"],
@@ -843,7 +877,10 @@ class Audio(Media):
 		"""
 		# Checking type of duration
 		if type(duration) not in [int, float]:
-			raise TypeError("Duration has to be an Integer or Float, actual duration type is " + type(duration))
+			raise TypeError(
+				"Duration has to be an Integer or Float, "
+				"actual duration type is " + type(duration)
+			)
 		# Getting the actual video duration
 		videoDuration = self.getDuration()
 		# Apply transformation on video based on desired duration
@@ -896,9 +933,13 @@ class Audio(Media):
 		"""
 		# Verifying arguments' types
 		if type(start) not in [int, float]:
-			raise TypeError("Start has to be an Integer or Float, actual start type is " + type(start))
+			raise TypeError(
+				"Start has to be an Integer or Float, actual start type is " + type(start)
+			)
 		if type(end) not in [int, float]:
-			raise TypeError("End has to be an Integer or Float, actual end type is " + type(end))
+			raise TypeError(
+				"End has to be an Integer or Float, actual end type is " + type(end)
+			)
 		# Getting video duration to verify if end is actually lower than it
 		videoDuration = self.getDuration()
 		# Applying transformation

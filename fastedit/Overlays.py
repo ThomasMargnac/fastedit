@@ -19,12 +19,17 @@ class Subtitles():
 		# Verifying subtitles file format
 		self._container = os.path.splitext(subtitles)[1]
 		if self._container not in [".srt", ".ass"]:
-			raise TypeError("File format should be .srt or .ass, yours is {}".format(self._container))
+			raise TypeError(
+				"File format should be .srt or .ass, yours is {}".format(self._container)
+			)
 		# Creating temporary folder
 		cwd = os.getcwd()
 		self._temp_folder = tempfile.TemporaryDirectory(dir=cwd)
 		# Defining temporary files
-		self._path = os.path.join(self._temp_folder.name, "subtitles_" + str(id(self)) + self._container)
+		self._path = os.path.join(
+			self._temp_folder.name,
+			"subtitles_" + str(id(self)) + self._container
+		)
 		shutil.copy(subtitles, self._path)
 
 	def getPath(
@@ -76,19 +81,33 @@ class Text():
 		coordinates = (int, str)
 		timestamps = (int, float)
 		if isinstance(text, str) is False:
-			raise TypeError("text should be str, yours is {}".format(type(text)))
+			raise TypeError(
+				"text should be str, yours is {}".format(type(text))
+			)
 		if isinstance(x, coordinates) is False:
-			raise TypeError("x should be in {}, yours is {}".format(coordinates, type(x)))
+			raise TypeError(
+				"x should be in {}, yours is {}".format(coordinates, type(x))
+			)
 		if isinstance(y, coordinates) is False:
-			raise TypeError("y should be in {}, yours is {}".format(coordinates, type(y)))
+			raise TypeError(
+				"y should be in {}, yours is {}".format(coordinates, type(y))
+			)
 		if isinstance(start, timestamps) is False:
-			raise TypeError("start should be in {}, yours is {}".format(timestamps, type(start)))
+			raise TypeError(
+				"start should be in {}, yours is {}".format(timestamps, type(start))
+			)
 		if isinstance(end, timestamps) is False:
-			raise TypeError("end should be in {}, yours is {}".format(timestamps, type(end)))
+			raise TypeError(
+				"end should be in {}, yours is {}".format(timestamps, type(end))
+			)
 		if isinstance(fontSize, int) is False:
-			raise TypeError("fontSize should be int, yours is {}".format(type(fontSize)))
+			raise TypeError(
+				"fontSize should be int, yours is {}".format(type(fontSize))
+			)
 		if isinstance(fontColor, str) is False:
-			raise TypeError("fontSize should be str, yours is {}".format(type(fontColor)))
+			raise TypeError(
+				"fontSize should be str, yours is {}".format(type(fontColor))
+			)
 		# Initializing Text
 		self._text = {
 			"text": text,
