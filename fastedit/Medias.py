@@ -474,7 +474,8 @@ class Video(Media):
 		current_container = os.path.splitext(self._main_temp)[1]
 		# Verifying if current container is valid
 		main_destination = self._second_temp
-		if container != current_container:
+		video_format = "." + container
+		if video_format != current_container:
 			main_destination = os.path.join(self._temp_folder.name, "main." + container)
 		# Preparing command
 		command = [
@@ -501,7 +502,7 @@ class Video(Media):
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
 		# Managing file based on container type
-		if container != current_container:
+		if video_format != current_container:
 			# Remove old container files
 			if os.path.exists(self._main_temp):
 				os.remove(self._main_temp)
@@ -509,11 +510,10 @@ class Video(Media):
 				os.remove(self._second_temp)
 			# Affecting new container files to object
 			self._main_temp = main_destination
-			second_destination = os.path.join(
+			self._second_temp = os.path.join(
 				self._temp_folder.name,
 				"second." + container
 			)
-			self._second_temp = second_destination
 		else:
 			shutil.move(self._second_temp, self._main_temp)
 
