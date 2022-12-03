@@ -1,5 +1,6 @@
 from fastedit.Medias import Video, Audio, Image
 from fastedit.Overlays import Subtitles, Text
+from fastedit.Errors import FFmpegError
 import pytest
 import hashlib
 import json
@@ -14,9 +15,24 @@ test_subtitles = "../../media/test_subtitles.srt"
 
 # Video generation
 
-def add_audio_video():
+def add_audio_replace_video():
 	video = Video(test_video)
 	video.addAudio(Audio(test_audio), "replace")
+	return video
+
+def add_audio_add_video():
+	video = Video(test_video)
+	video.addAudio(Audio(test_audio), "add")
+	return video
+
+def add_audio_combine_video():
+	video = Video(test_video)
+	video.addAudio(Audio(test_audio), "combine")
+	return video
+
+def add_audio_silent_video():
+	video = Video(test_video)
+	video.addAudio(None, "silent")
 	return video
 
 def add_subtitles_video():
@@ -35,9 +51,14 @@ def change_volume_video():
 	video.changeVolume(0.5)
 	return video
 
-def convert_video():
+def convert_container_video():
 	video = Video(test_video)
 	video.convert("mov")
+	return video
+
+def convert_codec_video():
+	video = Video(test_video)
+	video.convert(vcodec="libx264")
 	return video
 
 def remove_audio_video():
@@ -55,15 +76,110 @@ def resize_video():
 @pytest.mark.parametrize(
 	'video',
 	[
-		add_audio_video(),
+		add_audio_replace_video(),
+		add_audio_add_video(),
+		add_audio_combine_video(),
+		add_audio_silent_video(),
 		add_subtitles_video(),
 		change_frame_rate_video(),
 		change_volume_video(),
-		convert_video(),
+		convert_container_video(),
+		convert_codec_video(),
 		remove_audio_video()
 	]
 )
 class TestVideo:
+	def test_add_audio_replace(
+		self,
+		video: Video
+	):
+		# Copying video
+		video = Video(video._main_temp)
+		metadata_before = video.getMetadata()
+		# Replacing audio
+		video.addAudio(Audio(test_audio), "replace")
+		metadata_after = video.getMetadata()
+		# Verifying changes
+		nb_streams_before = len(metadata_before["streams"])
+		for item in metadata_before["streams"]:
+			if item["codec_type"] == "audio":
+				nb_streams_before -= 1
+		nb_streams_audio_after = 0
+		for item in metadata_after["streams"]:
+			if item["codec_type"] == "audio":
+				nb_streams_audio_after += 1
+		assert len(metadata_after["streams"]) == nb_streams_before + 1
+		assert nb_streams_audio_after == 1
+
+	def test_add_audio_add(
+		self,
+		video: Video
+	):
+		# Copying video
+		video = Video(video._main_temp)
+		metadata_before = video.getMetadata()
+		# Replacing audio
+		video.addAudio(Audio(test_audio), "add")
+		metadata_after = video.getMetadata()
+		# Verifying changes
+		nb_audio_streams_before = 0
+		for item in metadata_before["streams"]:
+			if item["codec_type"] == "audio":
+				nb_audio_streams_before += 1
+		nb_audio_streams_after = 0
+		for item in metadata_after["streams"]:
+			if item["codec_type"] == "audio":
+				nb_audio_streams_after += 1
+		assert len(metadata_after["streams"]) == len(metadata_before["streams"]) + 1
+		assert nb_audio_streams_after == nb_audio_streams_before + 1
+
+	def test_add_audio_combine(
+		self,
+		video: Video
+	):
+		# Copying video
+		video = Video(video._main_temp)
+		metadata_before = video.getMetadata()
+		nb_streams_audio_before = 0
+		for item in metadata_before["streams"]:
+			if item["codec_type"] == "audio":
+				nb_streams_audio_before += 1
+		if nb_streams_audio_before == 0:
+			with pytest.raises(FFmpegError):
+				video.addAudio(Audio(test_audio), "combine")
+		else:
+			# Replacing audio
+			video.addAudio(Audio(test_audio), "combine")
+			metadata_after = video.getMetadata()
+			# Verifying changes
+			nb_streams_before = 0
+			for item in metadata_before["streams"]:
+				if item["codec_type"] != "audio":
+					nb_streams_before += 1
+			nb_streams_audio_after = 0
+			for item in metadata_after["streams"]:
+				if item["codec_type"] == "audio":
+					nb_streams_audio_after += 1
+			assert len(metadata_after["streams"]) == nb_streams_before + 1
+			assert nb_streams_audio_after == 1
+
+	def test_add_audio_silent(
+		self,
+		video: Video
+	):
+		# Copying video
+		video = Video(video._main_temp)
+		metadata_before = video.getMetadata()
+		# Replacing audio
+		video.addAudio(None, "silent")
+		metadata_after = video.getMetadata()
+		# Verifying changes
+		nb_streams_audio_after = 0
+		for item in metadata_after["streams"]:
+			if item["codec_type"] == "audio":
+				nb_streams_audio_after += 1
+		assert nb_streams_audio_after == 1
+
 	def test_add_subtitles(
 		self,
 		video: Video
@@ -133,7 +249,20 @@ class TestVideo:
 		assert duration_before != duration_after
 		assert duration_after == 10
 
-	def test_convert(
+	def test_convert_container(
+		self,
+		video: Video
+	):
+		# Copying video
+		video = Video(video._main_temp)
+		# Converting video
+		video.convert("mov")
+		metadata_after = video.getMetadata()
+		# Verifying changes
+		container_after = os.path.splitext(os.path.basename(metadata_after["format"]["filename"]))[1]
+		assert container_after == ".mov"
+
+	def test_convert_codec(
 		self,
 		video: Video
 	):
@@ -144,7 +273,6 @@ class TestVideo:
 		video.convert(vcodec="libx265")
 		metadata_after = video.getMetadata()
 		# Verifying changes
-		assert metadata_before["streams"][0]["codec_name"] == "h264"
 		assert metadata_before["streams"][0]["codec_name"] != metadata_after["streams"][0]["codec_name"]
 		assert metadata_after["streams"][0]["codec_name"] == "hevc"
 
