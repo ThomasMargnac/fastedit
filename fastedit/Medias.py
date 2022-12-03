@@ -341,6 +341,16 @@ class Video(Media):
 				end = [
 					"-map",
 					"0:v",
+				]
+				# Checking if there's subtitles
+				isThereSubs = False
+				for item in self.getMetadata()["streams"]:
+					if item['codec_type'] == 'subtitle':
+						end.extend([
+							"-map",
+							"0:s"
+						])
+				end.extend([
 					"-map",
 					"1:a",
 					"-vcodec",
@@ -351,7 +361,7 @@ class Video(Media):
 					"error",
 					self._second_temp,
 					"-y"
-				]
+				])
 				command.extend(end)
 			# The user wants to add another audio file to the video
 			elif type == "add":
