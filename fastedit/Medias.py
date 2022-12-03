@@ -342,14 +342,14 @@ class Video(Media):
 					"-map",
 					"0:v",
 				]
-				# Checking if there's subtitles
-				isThereSubs = False
+				# Checking if there's subtitles and if needed map them
 				for item in self.getMetadata()["streams"]:
 					if item['codec_type'] == 'subtitle':
 						end.extend([
 							"-map",
 							"0:s"
 						])
+						break
 				end.extend([
 					"-map",
 					"1:a",
@@ -372,6 +372,8 @@ class Video(Media):
 					"1:a",
 					"-vcodec",
 					"copy",
+					"-c:s",
+					"copy",
 					"-v",
 					"error",
 					self._second_temp,
@@ -384,10 +386,22 @@ class Video(Media):
 					"-filter_complex",
 					"[0:a][1:a]amerge=inputs=2[a]",
 					"-map",
-					"0:v",
+					"0:v"
+				]
+				# Checking if there's subtitles and if needed map them
+				for item in self.getMetadata()["streams"]:
+					if item['codec_type'] == 'subtitle':
+						end.extend([
+							"-map",
+							"0:s"
+						])
+						break
+				end.extend([
 					"-map",
 					"[a]",
 					"-vcodec",
+					"copy",
+					"-c:s",
 					"copy",
 					"-ac",
 					"2",
@@ -395,7 +409,7 @@ class Video(Media):
 					"error",
 					self._second_temp,
 					"-y"
-				]
+				])
 				command.extend(end)
 		else:
 			command = [
@@ -410,13 +424,25 @@ class Video(Media):
 				"copy",
 				"-acodec",
 				"aac",
+				"-c:s",
+				"copy",
 				"-map",
 				"0:a",
 				"-map",
 				"1:v",
+			]
+			# Checking if there's subtitles and if needed map them
+			for item in self.getMetadata()["streams"]:
+				if item['codec_type'] == 'subtitle':
+					command.extend([
+						"-map",
+						"1:s"
+					])
+					break
+			command.extend([
 				"-shortest",
 				self._second_temp
-			]
+			])
 		# Running command
 		run = sp.run(
 			command,
