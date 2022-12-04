@@ -1,3 +1,18 @@
+## v0.5.2 (2022-12-04)
+
+### Fix
+
+- **Video**: Fixing bug on addAudio() related to subtitles
+- **Video**: Mapping subtitles (if they exist) to the destination file
+- **Video**: Removing copy of subtitles while looping or clipping
+- **Video**: Fixing convert() bug related to file format
+
+### Refactor
+
+- Refactoring code to respect PEP8
+- Refactoring code to repect more PEP8
+- **tests**: Refactoring tests folder
+
 ## v0.5.1 (2022-11-26)
 
 ### Fix
