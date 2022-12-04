@@ -8,7 +8,6 @@ import json
 
 test_video = "../media/test_video.mp4"
 test_video_audio = "../media/test_video_with_audio.mp4"
-#test_video_subtitled = "../media/test_video_subtitled.mp4"
 
 # Media testings
 
