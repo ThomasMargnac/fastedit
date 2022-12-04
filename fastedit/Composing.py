@@ -35,7 +35,7 @@ class VideoComposition():
 		fps: int = 30,
 	):
 		"""
-		Get the videos concatened.
+		Get the videos concatenated.
 
 		Parameters
 		----------
@@ -129,7 +129,7 @@ class AudioComposition():
 		self
 	):
 		"""
-		Get the audios concatened.
+		Get the audios concatenated.
 
 		Returns
 		-------
