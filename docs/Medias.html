@@ -226,7 +226,8 @@
 <dt><strong><code>audio</code></strong> :&ensp;<code><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></code></dt>
 <dd>Audio instance you want to add.</dd>
 <dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
-<dd>Method to add audio. Available options : "replace", "add", "combine" or "silent".</dd>
+<dd>Method to add audio. Available options :
+"replace", "add", "combine" or "silent".</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.addSubtitles"><code class="name flex">
@@ -239,11 +240,16 @@
 <dt><strong><code>subtitles</code></strong> :&ensp;<code>Subtitles</code></dt>
 <dd>Subtitles instance containing the subtitles.</dd>
 <dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
-<dd>Type of subtitles. Available options : ["hard", "soft"]. "hard" means subtitles are hard coded to the video. "soft" means subtitles are not burned into a video, they can be enabled and disabled during the video playback.</dd>
+<dd>Type of subtitles. Available options : ["hard", "soft"].
+"hard" means subtitles are hard coded to the video.
+"soft" means subtitles are not burned into a video,
+they can be enabled and disabled during the video playback.</dd>
 <dt><strong><code>channel</code></strong> :&ensp;<code>int</code>, default=<code>0</code></dt>
-<dd>If type is "soft", you have to specify the stream subtitle number of these subtitles.</dd>
+<dd>If type is "soft", you have to specify the stream subtitle number
+of these subtitles.</dd>
 <dt><strong><code>lang</code></strong> :&ensp;<code>str</code>, default=<code>"eng"</code></dt>
-<dd>If type is "soft", you haveto specify the subtitle language using the ISO 639 language code with 3 letters.</dd>
+<dd>If type is "soft", you have to specify the subtitle language
+using the ISO 639 language code with 3 letters.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.addText"><code class="name flex">
@@ -296,9 +302,11 @@
 <dt><strong><code>container</code></strong> :&ensp;<code>str</code>, default=<code>"mp4"</code></dt>
 <dd>File format where the data streams will be embedded.</dd>
 <dt><strong><code>vcodec</code></strong> :&ensp;<code>str</code>, default=<code>"copy"</code></dt>
-<dd>The way to encode/decode video data stream. Refers to FFmpeg video codecs supported.</dd>
+<dd>The way to encode/decode video data stream.
+Refers to FFmpeg video codecs supported.</dd>
 <dt><strong><code>acodec</code></strong> :&ensp;<code>str</code>, default=<code>"copy"</code></dt>
-<dd>The way to encode/decode audio data stream. Refers to FFmpeg audio codecs supported.</dd>
+<dd>The way to encode/decode audio data stream.
+Refers to FFmpeg audio codecs supported.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.loop"><code class="name flex">
