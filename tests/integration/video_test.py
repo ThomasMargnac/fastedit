@@ -170,6 +170,10 @@ class TestVideo:
 		# Copying video
 		video = Video(video._main_temp)
 		metadata_before = video.getMetadata()
+		nb_streams_no_audio_before = 0
+		for item in metadata_before["streams"]:
+			if item["codec_type"] != "audio":
+				nb_streams_no_audio_before += 1
 		# Replacing audio
 		video.addAudio(None, "silent")
 		metadata_after = video.getMetadata()
@@ -178,6 +182,11 @@ class TestVideo:
 		for item in metadata_after["streams"]:
 			if item["codec_type"] == "audio":
 				nb_streams_audio_after += 1
+		nb_streams_no_audio_after = 0
+		for item in metadata_after["streams"]:
+			if item["codec_type"] != "audio":
+				nb_streams_no_audio_after += 1
+		assert nb_streams_no_audio_after == nb_streams_no_audio_before
 		assert nb_streams_audio_after == 1
 
 	def test_add_subtitles(
