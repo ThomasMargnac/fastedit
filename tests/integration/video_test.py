@@ -1,10 +1,7 @@
-from fastedit.Medias import Video, Audio, Image
+from fastedit.Medias import Video, Audio
 from fastedit.Overlays import Subtitles, Text
 from fastedit.Errors import FFmpegError
 import pytest
-import hashlib
-import json
-import copy
 import os
 
 # Global variables
