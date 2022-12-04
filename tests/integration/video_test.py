@@ -9,9 +9,9 @@ import os
 
 # Global variables
 
-test_video = "../../media/test_video.mp4"
-test_audio = "../../media/test_audio.mp3"
-test_subtitles = "../../media/test_subtitles.srt"
+test_video = "../media/test_video.mp4"
+test_audio = "../media/test_audio.mp3"
+test_subtitles = "../media/test_subtitles.srt"
 
 # Video generation
 
