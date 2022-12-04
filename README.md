@@ -1,7 +1,7 @@
 # FastEdit
 
 [![GitHub](https://img.shields.io/github/license/ThomasMargnac/fastedit?color=blue)](https://www.apache.org/licenses/LICENSE-2.0)
-[![PyPI version](https://badge.fury.io/py/fastedit.svg?kill_cache=1)](https://badge.fury.io/py/fastedit)
+[![PyPI](https://badge.fury.io/py/fastedit.svg)](https://badge.fury.io/py/fastedit)
 
 FastEdit is a Python library to edit videos. Thanks to it you can manipulate videos and/or audios with actions such as cut, loop, or concatenate.
 
@@ -29,10 +29,22 @@ If you want to install FastEdit from this GitHub repository, type the following 
 pip install git+https://github.com/ThomasMargnac/fastedit@main
 ```
 
+### Try your first FastEdit program
+
+```python
+from fastedit.Medias import Video
+
+video = Video("video.mp4")
+clip = video.clip(0, 10)
+clip.save("new_video.mp4")
+```
+
+For more information and examples, checkout the [wiki](https://github.com/ThomasMargnac/fastedit/wiki/Getting-started).
+
 # Resources
 
 |Type|Link|
-|---|:---:|
+|:---:|:---:|
 |📚 **Wiki**|[GitHub Wiki](https://github.com/ThomasMargnac/fastedit/wiki)|
 |🛠 **API Reference**|[GitHub Page](https://thomasmargnac.github.io/fastedit/)|
 |🚨 **Bug Reports**|[GitHub Issue Tracker](https://github.com/ThomasMargnac/fastedit/issues)|
