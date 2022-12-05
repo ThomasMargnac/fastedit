@@ -731,7 +731,7 @@ class Video(Media):
 
 	def addText(
 		self,
-		texts: list[Text]
+		texts: list
 	):
 		"""
 		Add text(s) in the video.
