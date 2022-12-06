@@ -1,6 +1,7 @@
 # FastEdit
 
 [![GitHub](https://img.shields.io/github/license/ThomasMargnac/fastedit?color=blue)](https://www.apache.org/licenses/LICENSE-2.0)
+[![build](https://github.com/ThomasMargnac/fastedit/actions/workflows/ci.yml/badge.svg)](https://github.com/ThomasMargnac/fastedit/actions/workflows/ci.yml)
 [![PyPI](https://badge.fury.io/py/fastedit.svg)](https://badge.fury.io/py/fastedit)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/fastedit)
 
