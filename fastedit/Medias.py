@@ -209,8 +209,9 @@ class Video(Media):
 
 		Returns
 		-------
-		Video
-			Video containing the video looped.
+		Video or None
+			If "inplace" is False, it returns a Video containing the video looped. \
+			If "inplace" is True, it returns nothing.
 		"""
 		# Checking type of duration
 		if isinstance(duration, (int, float)) is False:
@@ -247,7 +248,7 @@ class Video(Media):
 			if run.returncode != 0:
 				raise FFmpegError(run.stderr.decode())
 			# Managing files
-			if inplace == False:
+			if inplace is False:
 				return Video(self._second_temp)
 			else:
 				shutil.move(self._second_temp, self._main_temp)
@@ -273,8 +274,9 @@ class Video(Media):
 
 		Returns
 		-------
-		Video
-			Video containing the video clipped.
+		Video or None
+			If "inplace" is False, it returns a Video containing the video clipped. \
+			If "inplace" is True, it returns nothing.
 		"""
 		# Verifying arguments' types
 		if type(start) not in [int, float]:
@@ -316,7 +318,7 @@ class Video(Media):
 			if run.returncode != 0:
 				raise FFmpegError(run.stderr.decode())
 			# Managing files
-			if inplace == False:
+			if inplace is False:
 				return Video(self._second_temp)
 			else:
 				shutil.move(self._second_temp, self._main_temp)
@@ -340,6 +342,12 @@ class Video(Media):
 		inplace : bool, default=True
 			If True, applying changes to the current object. \
 			If False, create a new Video to apply changes.
+
+		Returns
+		-------
+		Video or None
+			If "inplace" is False, it returns a Video containing the new audio. \
+			If "inplace" is True, it returns nothing.
 		"""
 		# Verifying if type is correct
 		types = ["replace", "add", "combine", "silent"]
@@ -472,7 +480,7 @@ class Video(Media):
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
 		# Managing files
-		if inplace == False:
+		if inplace is False:
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
@@ -489,6 +497,13 @@ class Video(Media):
 		inplace : bool, default=True
 			If True, applying changes to the current object. \
 			If False, create a new Video to apply changes.
+
+		Returns
+		-------
+		Video or None
+			If "inplace" is False, it returns a Video \
+			containing the video without audio. \
+			If "inplace" is True, it returns nothing.
 		"""
 		command = [
 			"ffmpeg",
@@ -513,7 +528,7 @@ class Video(Media):
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
 		# Managing files
-		if inplace == False:
+		if inplace is False:
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
@@ -541,6 +556,12 @@ class Video(Media):
 		inplace : bool, default=True
 			If True, applying changes to the current object. \
 			If False, create a new Video to apply changes.
+
+		Returns
+		-------
+		Video or None
+			If "inplace" is False, it returns a Video containing the video converted. \
+			If "inplace" is True, it returns nothing.
 		"""
 		current_container = os.path.splitext(self._main_temp)[1]
 		# Verifying if current container is valid
@@ -575,7 +596,7 @@ class Video(Media):
 		# Managing file based on container type
 		if video_format != current_container:
 			# Managing files
-			if inplace == False:
+			if inplace is False:
 				return Video(main_destination)
 			else:
 				# Remove old container files
@@ -591,7 +612,7 @@ class Video(Media):
 				)
 		else:
 			# Managing files
-			if inplace == False:
+			if inplace is False:
 				return Video(self._second_temp)
 			else:
 				shutil.move(self._second_temp, self._main_temp)
@@ -617,6 +638,12 @@ class Video(Media):
 		inplace : bool, default=True
 			If True, applying changes to the current object. \
 			If False, create a new Video to apply changes.
+
+		Returns
+		-------
+		Video or None
+			If "inplace" is False, it returns a Video containing the video resized. \
+			If "inplace" is True, it returns nothing.
 		"""
 		# Verifying type
 		types = ["simple", "aspect_ratio"]
@@ -658,7 +685,7 @@ class Video(Media):
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
 		# Managing files
-		if inplace == False:
+		if inplace is False:
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
@@ -678,6 +705,13 @@ class Video(Media):
 		inplace : bool, default=True
 			If True, applying changes to the current object. \
 			If False, create a new Video to apply changes.
+
+		Returns
+		-------
+		Video or None
+			If "inplace" is False, it returns a Video \
+			containing the video with the new frame rate. \
+			If "inplace" is True, it returns nothing.
 		"""
 		# Preparing command
 		command = [
@@ -702,7 +736,7 @@ class Video(Media):
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
 		# Managing files
-		if inplace == False:
+		if inplace is False:
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
@@ -736,6 +770,13 @@ class Video(Media):
 		inplace : bool, default=True
 			If True, applying changes to the current object. \
 			If False, create a new Video to apply changes.
+
+		Returns
+		-------
+		Video or None
+			If "inplace" is False, it returns a Video \
+			containing the video with the subtitles. \
+			If "inplace" is True, it returns nothing.
 		"""
 		# Verifying type parameter
 		types = ["hard", "soft"]
@@ -795,7 +836,7 @@ class Video(Media):
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
 		# Managing files
-		if inplace == False:
+		if inplace is False:
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
@@ -815,6 +856,12 @@ class Video(Media):
 		inplace : bool, default=True
 			If True, applying changes to the current object. \
 			If False, create a new Video to apply changes.
+
+		Returns
+		-------
+		Video or None
+			If "inplace" is False, it returns a Video containing the video with texts. \
+			If "inplace" is True, it returns nothing.
 		"""
 		# Verifying texts type
 		if all(isinstance(item, Text) for item in texts) is False:
@@ -862,7 +909,7 @@ class Video(Media):
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
 		# Managing files
-		if inplace == False:
+		if inplace is False:
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
@@ -987,8 +1034,9 @@ class Audio(Media):
 
 		Returns
 		-------
-		Audio
-			Audio containing the audio looped.
+		Audio or None
+			If "inplace" is False, it returns an Audio containing the audio looped. \
+			If "inplace" is True, it returns nothing.
 		"""
 		# Checking type of duration
 		if type(duration) not in [int, float]:
@@ -1025,7 +1073,7 @@ class Audio(Media):
 			if run.returncode != 0:
 				raise FFmpegError(run.stderr.decode())
 			# Managing files
-			if inplace == False:
+			if inplace is False:
 				return Audio(self._second_temp)
 			else:
 				shutil.move(self._second_temp, self._main_temp)
@@ -1051,8 +1099,9 @@ class Audio(Media):
 
 		Returns
 		-------
-		Audio
-			Audio containing the audio clipped.
+		Audio or None
+			If "inplace" is False, it returns an Audio containing the audio clipped. \
+			If "inplace" is True, it returns nothing.
 		"""
 		# Verifying arguments' types
 		if type(start) not in [int, float]:
@@ -1092,7 +1141,7 @@ class Audio(Media):
 			if run.returncode != 0:
 				raise FFmpegError(run.stderr.decode())
 			# Managing files
-			if inplace == False:
+			if inplace is False:
 				return Audio(self._second_temp)
 			else:
 				shutil.move(self._second_temp, self._main_temp)
