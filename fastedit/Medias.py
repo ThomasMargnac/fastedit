@@ -193,7 +193,8 @@ class Video(Media):
 
 	def loop(
 		self,
-		duration
+		duration,
+		inplace: bool = False
 	):
 		"""
 		Create a loop from a video.
@@ -202,6 +203,9 @@ class Video(Media):
 		----------
 		duration : int or float
 			Duration of the loop.
+		inplace : bool, default=False
+			If True, applying changes to the current object. \
+			If False, create a new Video to apply changes.
 
 		Returns
 		-------
@@ -242,12 +246,17 @@ class Video(Media):
 			# Verifying if everything went well
 			if run.returncode != 0:
 				raise FFmpegError(run.stderr.decode())
-			return Video(self._second_temp)
+			# Managing files
+			if inplace == False:
+				return Video(self._second_temp)
+			else:
+				shutil.move(self._second_temp, self._main_temp)
 
 	def clip(
 		self,
 		start,
-		end
+		end,
+		inplace: bool = False
 	):
 		"""
 		Extract a part of the video.
@@ -258,6 +267,9 @@ class Video(Media):
 			Time where the clip starts in seconds.
 		end : int or float
 			Time where the clip ends in seconds.
+		inplace : bool, default=False
+			If True, applying changes to the current object. \
+			If False, create a new Video to apply changes.
 
 		Returns
 		-------
@@ -303,12 +315,17 @@ class Video(Media):
 			# Verifying if everything went well
 			if run.returncode != 0:
 				raise FFmpegError(run.stderr.decode())
-			return Video(self._second_temp)
+			# Managing files
+			if inplace == False:
+				return Video(self._second_temp)
+			else:
+				shutil.move(self._second_temp, self._main_temp)
 
 	def addAudio(
 		self,
 		audio,
-		type: str = None
+		type: str = None,
+		inplace: bool = True
 	):
 		"""
 		Add or replace audio on the video.
@@ -320,6 +337,9 @@ class Video(Media):
 		type : str
 			Method to add audio. Available options : \
 			"replace", "add", "combine" or "silent".
+		inplace : bool, default=True
+			If True, applying changes to the current object. \
+			If False, create a new Video to apply changes.
 		"""
 		# Verifying if type is correct
 		types = ["replace", "add", "combine", "silent"]
@@ -451,13 +471,24 @@ class Video(Media):
 		# Verifying if everything went well
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
-		shutil.move(self._second_temp, self._main_temp)
+		# Managing files
+		if inplace == False:
+			return Video(self._second_temp)
+		else:
+			shutil.move(self._second_temp, self._main_temp)
 
 	def removeAudio(
-		self
+		self,
+		inplace: bool = True
 	):
 		"""
 		Remove audio on the video.
+
+		Parameters
+		----------
+		inplace : bool, default=True
+			If True, applying changes to the current object. \
+			If False, create a new Video to apply changes.
 		"""
 		command = [
 			"ffmpeg",
@@ -481,13 +512,18 @@ class Video(Media):
 		# Verifying if everything went well
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
-		shutil.move(self._second_temp, self._main_temp)
+		# Managing files
+		if inplace == False:
+			return Video(self._second_temp)
+		else:
+			shutil.move(self._second_temp, self._main_temp)
 
 	def convert(
 		self,
 		container: str = "mp4",
 		vcodec: str = "copy",
-		acodec: str = "copy"
+		acodec: str = "copy",
+		inplace: bool = True
 	):
 		"""
 		Convert video to different container and/or codec.
@@ -502,6 +538,9 @@ class Video(Media):
 		acodec : str, default="copy"
 			The way to encode/decode audio data stream. \
 			Refers to FFmpeg audio codecs supported.
+		inplace : bool, default=True
+			If True, applying changes to the current object. \
+			If False, create a new Video to apply changes.
 		"""
 		current_container = os.path.splitext(self._main_temp)[1]
 		# Verifying if current container is valid
@@ -535,25 +574,34 @@ class Video(Media):
 			raise FFmpegError(run.stderr.decode())
 		# Managing file based on container type
 		if video_format != current_container:
-			# Remove old container files
-			if os.path.exists(self._main_temp):
-				os.remove(self._main_temp)
-			if os.path.exists(self._second_temp):
-				os.remove(self._second_temp)
-			# Affecting new container files to object
-			self._main_temp = main_destination
-			self._second_temp = os.path.join(
-				self._temp_folder.name,
-				"second." + container
-			)
+			# Managing files
+			if inplace == False:
+				return Video(main_destination)
+			else:
+				# Remove old container files
+				if os.path.exists(self._main_temp):
+					os.remove(self._main_temp)
+				if os.path.exists(self._second_temp):
+					os.remove(self._second_temp)
+				# Affecting new container files to object
+				self._main_temp = main_destination
+				self._second_temp = os.path.join(
+					self._temp_folder.name,
+					"second." + container
+				)
 		else:
-			shutil.move(self._second_temp, self._main_temp)
+			# Managing files
+			if inplace == False:
+				return Video(self._second_temp)
+			else:
+				shutil.move(self._second_temp, self._main_temp)
 
 	def resize(
 		self,
 		width: int,
 		height: int,
-		type: str = "simple"
+		type: str = "simple",
+		inplace: bool = True
 	):
 		"""
 		Resize video.
@@ -566,6 +614,9 @@ class Video(Media):
 			Desired height of the video.
 		type : int, default="simple"
 			Type of resizing. Available options: ["simple", "aspect_ratio"].
+		inplace : bool, default=True
+			If True, applying changes to the current object. \
+			If False, create a new Video to apply changes.
 		"""
 		# Verifying type
 		types = ["simple", "aspect_ratio"]
@@ -606,11 +657,16 @@ class Video(Media):
 		# Verifying if everything went well
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
-		shutil.move(self._second_temp, self._main_temp)
+		# Managing files
+		if inplace == False:
+			return Video(self._second_temp)
+		else:
+			shutil.move(self._second_temp, self._main_temp)
 
 	def changeFrameRate(
 		self,
-		fps: int = 30
+		fps: int = 30,
+		inplace: bool = True
 	):
 		"""
 		Change video's frames per seconds.
@@ -619,6 +675,9 @@ class Video(Media):
 		----------
 		fps : int, default=30
 			Desired frames per seconds.
+		inplace : bool, default=True
+			If True, applying changes to the current object. \
+			If False, create a new Video to apply changes.
 		"""
 		# Preparing command
 		command = [
@@ -642,7 +701,11 @@ class Video(Media):
 		# Verifying if everything went well
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
-		shutil.move(self._second_temp, self._main_temp)
+		# Managing files
+		if inplace == False:
+			return Video(self._second_temp)
+		else:
+			shutil.move(self._second_temp, self._main_temp)
 
 	def addSubtitles(
 		self,
@@ -650,6 +713,7 @@ class Video(Media):
 		type: str,
 		channel: int = 0,
 		lang: str = "eng",
+		inplace: bool = True
 	):
 		"""
 		Add subtitles to the video.
@@ -669,6 +733,9 @@ class Video(Media):
 		lang : str, default="eng"
 			If type is "soft", you have to specify the subtitle language \
 			using the ISO 639 language code with 3 letters.
+		inplace : bool, default=True
+			If True, applying changes to the current object. \
+			If False, create a new Video to apply changes.
 		"""
 		# Verifying type parameter
 		types = ["hard", "soft"]
@@ -727,11 +794,16 @@ class Video(Media):
 		# Verifying if everything went well
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
-		shutil.move(self._second_temp, self._main_temp)
+		# Managing files
+		if inplace == False:
+			return Video(self._second_temp)
+		else:
+			shutil.move(self._second_temp, self._main_temp)
 
 	def addText(
 		self,
-		texts: list
+		texts: list,
+		inplace: bool = True
 	):
 		"""
 		Add text(s) in the video.
@@ -740,6 +812,9 @@ class Video(Media):
 		----------
 		text : list[Texts]
 			List of text(s) to display on the video.
+		inplace : bool, default=True
+			If True, applying changes to the current object. \
+			If False, create a new Video to apply changes.
 		"""
 		# Verifying texts type
 		if all(isinstance(item, Text) for item in texts) is False:
@@ -786,7 +861,11 @@ class Video(Media):
 		# Verifying if everything went well
 		if run.returncode != 0:
 			raise FFmpegError(run.stderr.decode())
-		shutil.move(self._second_temp, self._main_temp)
+		# Managing files
+		if inplace == False:
+			return Video(self._second_temp)
+		else:
+			shutil.move(self._second_temp, self._main_temp)
 
 
 class Image():
@@ -892,7 +971,8 @@ class Audio(Media):
 
 	def loop(
 		self,
-		duration
+		duration,
+		inplace: bool = False
 	):
 		"""
 		Create a loop of the audio.
@@ -901,6 +981,9 @@ class Audio(Media):
 		----------
 		duration : int or float
 			Duration of the loop.
+		inplace : bool, default=False
+			If True, applying changes to the current object. \
+			If False, create a new Audio to apply changes.
 
 		Returns
 		-------
@@ -941,12 +1024,17 @@ class Audio(Media):
 			# Verifying if everything went well
 			if run.returncode != 0:
 				raise FFmpegError(run.stderr.decode())
-			return Audio(self._second_temp)
+			# Managing files
+			if inplace == False:
+				return Audio(self._second_temp)
+			else:
+				shutil.move(self._second_temp, self._main_temp)
 
 	def clip(
 		self,
 		start,
-		end
+		end,
+		inplace: bool = False
 	):
 		"""
 		Extract a part of the audio.
@@ -957,6 +1045,9 @@ class Audio(Media):
 			Time where the clip starts.
 		end : int or float
 			Time where the clip ends.
+		inplace : bool, default=False
+			If True, applying changes to the current object. \
+			If False, create a new Audio to apply changes.
 
 		Returns
 		-------
@@ -1000,4 +1091,8 @@ class Audio(Media):
 			# Verifying if everything went well
 			if run.returncode != 0:
 				raise FFmpegError(run.stderr.decode())
-			return Audio(self._second_temp)
+			# Managing files
+			if inplace == False:
+				return Audio(self._second_temp)
+			else:
+				shutil.move(self._second_temp, self._main_temp)
