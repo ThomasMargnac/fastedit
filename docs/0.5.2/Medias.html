@@ -50,7 +50,7 @@
 <h3>Methods</h3>
 <dl>
 <dt id="fastedit.Medias.Audio.clip"><code class="name flex">
-<span>def <span class="ident">clip</span></span>(<span>self, start, end, inplace: bool = False)</span>
+<span>def <span class="ident">clip</span></span>(<span>self, start, end)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Extract a part of the audio.</p>
@@ -60,19 +60,15 @@
 <dd>Time where the clip starts.</dd>
 <dt><strong><code>end</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
 <dd>Time where the clip ends.</dd>
-<dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>False</code></dt>
-<dd>If True, applying changes to the current object.
-If False, create a new Audio to apply changes.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></code> or <code>None</code></dt>
-<dd>If "inplace" is False, it returns an Audio containing the audio clipped.
-If "inplace" is True, it returns nothing.</dd>
+<dt><code><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></code></dt>
+<dd>Audio containing the audio clipped.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Audio.loop"><code class="name flex">
-<span>def <span class="ident">loop</span></span>(<span>self, duration, inplace: bool = False)</span>
+<span>def <span class="ident">loop</span></span>(<span>self, duration)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a loop of the audio.</p>
@@ -80,15 +76,11 @@ If "inplace" is True, it returns nothing.</dd>
 <dl>
 <dt><strong><code>duration</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
 <dd>Duration of the loop.</dd>
-<dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>False</code></dt>
-<dd>If True, applying changes to the current object.
-If False, create a new Audio to apply changes.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></code> or <code>None</code></dt>
-<dd>If "inplace" is False, it returns an Audio containing the audio looped.
-If "inplace" is True, it returns nothing.</dd>
+<dt><code><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></code></dt>
+<dd>Audio containing the audio looped.</dd>
 </dl></div>
 </dd>
 </dl>
@@ -124,7 +116,7 @@ If "inplace" is True, it returns nothing.</dd>
 <div class="desc"><p>Convert Image to Video.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>duration</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
+<dt><strong><code>duration</code></strong> :&ensp;<code>int</code></dt>
 <dd>Duration of the video in seconds.</dd>
 <dt><strong><code>fps</code></strong> :&ensp;<code>int</code>, default=<code>30</code></dt>
 <dd>Framerate of the video.</dd>
@@ -225,30 +217,21 @@ If "inplace" is True, it returns nothing.</dd>
 <h3>Methods</h3>
 <dl>
 <dt id="fastedit.Medias.Video.addAudio"><code class="name flex">
-<span>def <span class="ident">addAudio</span></span>(<span>self, audio, strategy: str = None, inplace: bool = True)</span>
+<span>def <span class="ident">addAudio</span></span>(<span>self, audio, type: str = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Add or replace audio on the video.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>audio</code></strong> :&ensp;<code><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></code> or <code>None</code></dt>
+<dt><strong><code>audio</code></strong> :&ensp;<code><a title="fastedit.Medias.Audio" href="#fastedit.Medias.Audio">Audio</a></code></dt>
 <dd>Audio instance you want to add.</dd>
-<dt><strong><code>strategy</code></strong> :&ensp;<code>str</code></dt>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
 <dd>Method to add audio. Available options :
 "replace", "add", "combine" or "silent".</dd>
-<dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
-<dd>If True, applying changes to the current object.
-If False, create a new Video to apply changes.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code> or <code>None</code></dt>
-<dd>If "inplace" is False, it returns a Video containing the new audio.
-If "inplace" is True, it returns nothing.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.addSubtitles"><code class="name flex">
-<span>def <span class="ident">addSubtitles</span></span>(<span>self, subtitles: <a title="fastedit.Overlays.Subtitles" href="Overlays.html#fastedit.Overlays.Subtitles">Subtitles</a>, strategy: str, channel: int = 0, lang: str = 'eng', inplace: bool = True)</span>
+<span>def <span class="ident">addSubtitles</span></span>(<span>self, subtitles: <a title="fastedit.Overlays.Subtitles" href="Overlays.html#fastedit.Overlays.Subtitles">Subtitles</a>, type: str, channel: int = 0, lang: str = 'eng')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Add subtitles to the video.</p>
@@ -256,7 +239,7 @@ If "inplace" is True, it returns nothing.</dd>
 <dl>
 <dt><strong><code>subtitles</code></strong> :&ensp;<code>Subtitles</code></dt>
 <dd>Subtitles instance containing the subtitles.</dd>
-<dt><strong><code>strategy</code></strong> :&ensp;<code>str</code></dt>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
 <dd>Type of subtitles. Available options : ["hard", "soft"].
 "hard" means subtitles are hard coded to the video.
 "soft" means subtitles are not burned into a video,
@@ -267,20 +250,10 @@ of these subtitles.</dd>
 <dt><strong><code>lang</code></strong> :&ensp;<code>str</code>, default=<code>"eng"</code></dt>
 <dd>If type is "soft", you have to specify the subtitle language
 using the ISO 639 language code with 3 letters.</dd>
-<dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
-<dd>If True, applying changes to the current object.
-If False, create a new Video to apply changes.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code> or <code>None</code></dt>
-<dd>If "inplace" is False, it returns a Video
-containing the video with the subtitles.
-If "inplace" is True, it returns nothing.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.addText"><code class="name flex">
-<span>def <span class="ident">addText</span></span>(<span>self, texts: list, inplace: bool = True)</span>
+<span>def <span class="ident">addText</span></span>(<span>self, texts: list)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Add text(s) in the video.</p>
@@ -288,19 +261,10 @@ If "inplace" is True, it returns nothing.</dd>
 <dl>
 <dt><strong><code>text</code></strong> :&ensp;<code>list[Texts]</code></dt>
 <dd>List of text(s) to display on the video.</dd>
-<dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
-<dd>If True, applying changes to the current object.
-If False, create a new Video to apply changes.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code> or <code>None</code></dt>
-<dd>If "inplace" is False, it returns a Video containing the video with texts.
-If "inplace" is True, it returns nothing.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.changeFrameRate"><code class="name flex">
-<span>def <span class="ident">changeFrameRate</span></span>(<span>self, fps: int = 30, inplace: bool = True)</span>
+<span>def <span class="ident">changeFrameRate</span></span>(<span>self, fps: int = 30)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Change video's frames per seconds.</p>
@@ -308,20 +272,10 @@ If "inplace" is True, it returns nothing.</dd>
 <dl>
 <dt><strong><code>fps</code></strong> :&ensp;<code>int</code>, default=<code>30</code></dt>
 <dd>Desired frames per seconds.</dd>
-<dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
-<dd>If True, applying changes to the current object.
-If False, create a new Video to apply changes.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code> or <code>None</code></dt>
-<dd>If "inplace" is False, it returns a Video
-containing the video with the new frame rate.
-If "inplace" is True, it returns nothing.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.clip"><code class="name flex">
-<span>def <span class="ident">clip</span></span>(<span>self, start, end, inplace: bool = False)</span>
+<span>def <span class="ident">clip</span></span>(<span>self, start, end)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Extract a part of the video.</p>
@@ -331,19 +285,15 @@ If "inplace" is True, it returns nothing.</dd>
 <dd>Time where the clip starts in seconds.</dd>
 <dt><strong><code>end</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
 <dd>Time where the clip ends in seconds.</dd>
-<dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>False</code></dt>
-<dd>If True, applying changes to the current object.
-If False, create a new Video to apply changes.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code> or <code>None</code></dt>
-<dd>If "inplace" is False, it returns a Video containing the video clipped.
-If "inplace" is True, it returns nothing.</dd>
+<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code></dt>
+<dd>Video containing the video clipped.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.convert"><code class="name flex">
-<span>def <span class="ident">convert</span></span>(<span>self, container: str = 'mp4', vcodec: str = 'copy', acodec: str = 'copy', inplace: bool = True)</span>
+<span>def <span class="ident">convert</span></span>(<span>self, container: str = 'mp4', vcodec: str = 'copy', acodec: str = 'copy')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Convert video to different container and/or codec.</p>
@@ -357,19 +307,10 @@ Refers to FFmpeg video codecs supported.</dd>
 <dt><strong><code>acodec</code></strong> :&ensp;<code>str</code>, default=<code>"copy"</code></dt>
 <dd>The way to encode/decode audio data stream.
 Refers to FFmpeg audio codecs supported.</dd>
-<dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
-<dd>If True, applying changes to the current object.
-If False, create a new Video to apply changes.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code> or <code>None</code></dt>
-<dd>If "inplace" is False, it returns a Video containing the video converted.
-If "inplace" is True, it returns nothing.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.loop"><code class="name flex">
-<span>def <span class="ident">loop</span></span>(<span>self, duration, inplace: bool = False)</span>
+<span>def <span class="ident">loop</span></span>(<span>self, duration)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a loop from a video.</p>
@@ -377,38 +318,21 @@ If "inplace" is True, it returns nothing.</dd>
 <dl>
 <dt><strong><code>duration</code></strong> :&ensp;<code>int</code> or <code>float</code></dt>
 <dd>Duration of the loop.</dd>
-<dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>False</code></dt>
-<dd>If True, applying changes to the current object.
-If False, create a new Video to apply changes.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code> or <code>None</code></dt>
-<dd>If "inplace" is False, it returns a Video containing the video looped.
-If "inplace" is True, it returns nothing.</dd>
+<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code></dt>
+<dd>Video containing the video looped.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.removeAudio"><code class="name flex">
-<span>def <span class="ident">removeAudio</span></span>(<span>self, inplace: bool = True)</span>
+<span>def <span class="ident">removeAudio</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Remove audio on the video.</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
-<dd>If True, applying changes to the current object.
-If False, create a new Video to apply changes.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code> or <code>None</code></dt>
-<dd>If "inplace" is False, it returns a Video
-containing the video without audio.
-If "inplace" is True, it returns nothing.</dd>
-</dl></div>
+<div class="desc"><p>Remove audio on the video.</p></div>
 </dd>
 <dt id="fastedit.Medias.Video.resize"><code class="name flex">
-<span>def <span class="ident">resize</span></span>(<span>self, width: int, height: int, strategy: str = 'simple', inplace: bool = True)</span>
+<span>def <span class="ident">resize</span></span>(<span>self, width: int, height: int, type: str = 'simple')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Resize video.</p>
@@ -418,17 +342,8 @@ If "inplace" is True, it returns nothing.</dd>
 <dd>Desired width of the video.</dd>
 <dt><strong><code>height</code></strong> :&ensp;<code>int</code></dt>
 <dd>Desired height of the video.</dd>
-<dt><strong><code>strategy</code></strong> :&ensp;<code>int</code>, default=<code>"simple"</code></dt>
+<dt><strong><code>type</code></strong> :&ensp;<code>int</code>, default=<code>"simple"</code></dt>
 <dd>Type of resizing. Available options: ["simple", "aspect_ratio"].</dd>
-<dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
-<dd>If True, applying changes to the current object.
-If False, create a new Video to apply changes.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code><a title="fastedit.Medias.Video" href="#fastedit.Medias.Video">Video</a></code> or <code>None</code></dt>
-<dd>If "inplace" is False, it returns a Video containing the video resized.
-If "inplace" is True, it returns nothing.</dd>
 </dl></div>
 </dd>
 </dl>
