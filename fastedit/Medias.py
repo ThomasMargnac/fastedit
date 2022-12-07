@@ -20,6 +20,15 @@ class Media():
 		path : str
 			Path to the media file.
 		"""
+		# Verifying parameters
+		if not isinstance(path, str):
+			raise TypeError(
+				"path must be str, yours is {}".format(type(path))
+			)
+		if not os.path.exists(path):
+			raise ValueError(
+				"{} is not a valid path".format(path)
+			)
 		# Creating temporary folder
 		cwd = os.getcwd()
 		self._temp_folder = tempfile.TemporaryDirectory(dir=cwd)
@@ -115,6 +124,11 @@ class Media():
 		path : str
 			Path to the file to save the media.
 		"""
+		# Verifying parameters
+		if not isinstance(path, str):
+			raise TypeError(
+				"path must be str, yours is {}".format(type(path))
+			)
 		# Preparing command
 		command = [
 			"ffmpeg",
@@ -150,6 +164,11 @@ class Media():
 		volume : int or float
 			Factor by which the volume will be changed.
 		"""
+		# Verifying parameters
+		if not isinstance(volume, (int, float)):
+			raise TypeError(
+				"volume must be int or float, yours is {}".format(type(volume))
+			)
 		# Preparing command
 		command = [
 			"ffmpeg",
@@ -213,11 +232,15 @@ class Video(Media):
 			If "inplace" is False, it returns a Video containing the video looped. \
 			If "inplace" is True, it returns nothing.
 		"""
-		# Checking type of duration
-		if isinstance(duration, (int, float)) is False:
+		# Verifying parameters
+		if not isinstance(duration, (int, float)):
 			raise TypeError(
-				"Duration has to be an Integer or Float, "
-				"actual duration type is " + type(duration)
+				"Duration must be int or float, "
+				"yours is {}".format(type(duration))
+			)
+		if not isinstance(inplace, bool):
+			raise TypeError(
+				"inplace must be bool, yours is {}".format(type(inplace))
 			)
 		# Getting the actual video duration
 		videoDuration = self.getDuration()
@@ -278,16 +301,20 @@ class Video(Media):
 			If "inplace" is False, it returns a Video containing the video clipped. \
 			If "inplace" is True, it returns nothing.
 		"""
-		# Verifying arguments' types
-		if type(start) not in [int, float]:
+		# Verifying parameters
+		if not isinstance(start, (int, float)):
 			raise TypeError(
-				"Start has to be an Integer or Float, "
-				"actual start type is " + type(start)
+				"start must be int or float, "
+				"yours is {}".format(type(start))
 			)
-		if type(end) not in [int, float]:
+		if not isinstance(end, (int, float)):
 			raise TypeError(
-				"End has to be an Integer or Float, "
-				"actual end type is " + type(end)
+				"end must be int or float, "
+				"yours is {}".format(type(end))
+			)
+		if not isinstance(inplace, bool):
+			raise TypeError(
+				"inplace must be bool, yours is {}".format(type(inplace))
 			)
 		# Getting video duration to verify if end is actually lower than it
 		videoDuration = self.getDuration()
@@ -326,7 +353,7 @@ class Video(Media):
 	def addAudio(
 		self,
 		audio,
-		type: str = None,
+		strategy: str = None,
 		inplace: bool = True
 	):
 		"""
@@ -334,9 +361,9 @@ class Video(Media):
 
 		Parameters
 		----------
-		audio : Audio
+		audio : Audio or None
 			Audio instance you want to add.
-		type : str
+		strategy : str
 			Method to add audio. Available options : \
 			"replace", "add", "combine" or "silent".
 		inplace : bool, default=True
@@ -349,11 +376,19 @@ class Video(Media):
 			If "inplace" is False, it returns a Video containing the new audio. \
 			If "inplace" is True, it returns nothing.
 		"""
-		# Verifying if type is correct
+		# Verifying parameters
+		if not isinstance(audio, (Audio, type(None))):
+			raise TypeError(
+				"audio must be Audio, yours is {}".format(type(audio))
+			)
 		types = ["replace", "add", "combine", "silent"]
-		if type not in types:
+		if strategy not in types:
 			raise ValueError(
-				"Type should be one of {}, but yours is {}".format(types, type)
+				"Type should be one of {}, but yours is {}".format(types, strategy)
+			)
+		if not isinstance(inplace, bool):
+			raise TypeError(
+				"inplace must be bool, yours is {}".format(type(inplace))
 			)
 		# Preparing command
 		if audio is not None:
@@ -365,7 +400,7 @@ class Video(Media):
 				audio._main_temp
 			]
 			# The user wants to replace the original audio
-			if type == "replace":
+			if strategy == "replace":
 				end = [
 					"-map",
 					"0:v",
@@ -392,7 +427,7 @@ class Video(Media):
 				])
 				command.extend(end)
 			# The user wants to add another audio file to the video
-			elif type == "add":
+			elif strategy == "add":
 				end = [
 					"-map",
 					"0",
@@ -409,7 +444,7 @@ class Video(Media):
 				]
 				command.extend(end)
 			# The user wants to combine the original audio with another audio file
-			elif type == "combine":
+			elif strategy == "combine":
 				end = [
 					"-filter_complex",
 					"[0:a][1:a]amerge=inputs=2[a]",
@@ -505,6 +540,12 @@ class Video(Media):
 			containing the video without audio. \
 			If "inplace" is True, it returns nothing.
 		"""
+		# Verifying parameters
+		if not isinstance(inplace, bool):
+			raise TypeError(
+				"inplace must be bool, yours is {}".format(type(inplace))
+			)
+		# Preparing command
 		command = [
 			"ffmpeg",
 			"-i",
@@ -563,6 +604,23 @@ class Video(Media):
 			If "inplace" is False, it returns a Video containing the video converted. \
 			If "inplace" is True, it returns nothing.
 		"""
+		# Verifying parameters
+		if not isinstance(container, str):
+			raise TypeError(
+				"container must be str, yours is {}".format(type(container))
+			)
+		if not isinstance(vcodec, str):
+			raise TypeError(
+				"vcodec must be str, yours is {}".format(type(vcodec))
+			)
+		if not isinstance(acodec, str):
+			raise TypeError(
+				"acodec must be str, yours is {}".format(type(acodec))
+			)
+		if not isinstance(inplace, bool):
+			raise TypeError(
+				"inplace must be bool, yours is {}".format(type(inplace))
+			)
 		current_container = os.path.splitext(self._main_temp)[1]
 		# Verifying if current container is valid
 		main_destination = self._second_temp
@@ -621,7 +679,7 @@ class Video(Media):
 		self,
 		width: int,
 		height: int,
-		type: str = "simple",
+		strategy: str = "simple",
 		inplace: bool = True
 	):
 		"""
@@ -633,7 +691,7 @@ class Video(Media):
 			Desired width of the video.
 		height : int
 			Desired height of the video.
-		type : int, default="simple"
+		strategy : int, default="simple"
 			Type of resizing. Available options: ["simple", "aspect_ratio"].
 		inplace : bool, default=True
 			If True, applying changes to the current object. \
@@ -645,11 +703,27 @@ class Video(Media):
 			If "inplace" is False, it returns a Video containing the video resized. \
 			If "inplace" is True, it returns nothing.
 		"""
-		# Verifying type
+		# Verifying parameters
+		if not isinstance(width, int):
+			raise TypeError(
+				"width must be int, yours is {}".format(type(width))
+			)
+		if not isinstance(height, int):
+			raise TypeError(
+				"height must be int, yours is {}".format(type(height))
+			)
+		if not isinstance(strategy, str):
+			raise TypeError(
+				"strategy must be str, yours is {}".format(type(strategy))
+			)
 		types = ["simple", "aspect_ratio"]
-		if type not in types:
+		if strategy not in types:
 			raise ValueError(
-				"Type should be one of {}, but yours is {}".format(types, type)
+				"Type should be one of {}, but yours is {}".format(types, strategy)
+			)
+		if not isinstance(inplace, bool):
+			raise TypeError(
+				"inplace must be bool, yours is {}".format(type(inplace))
 			)
 		# Preparing command
 		command = [
@@ -657,14 +731,14 @@ class Video(Media):
 			"-i",
 			self._main_temp
 		]
-		if type == "simple":
+		if strategy == "simple":
 			command.extend([
 				"-vf",
 				"scale=" + str(width) + ":" + str(height)
 				+ ":force_original_aspect_ratio=decrease,pad="
 				+ str(width) + ":" + str(height) + ":(ow-iw)/2:(oh-ih)/2"
 			])
-		elif type == "aspect_ratio":
+		elif strategy == "aspect_ratio":
 			command.extend([
 				"-vf",
 				"scale=" + str(width) + ":-2"
@@ -713,6 +787,15 @@ class Video(Media):
 			containing the video with the new frame rate. \
 			If "inplace" is True, it returns nothing.
 		"""
+		# Verifying parameters
+		if not isinstance(fps, int):
+			raise TypeError(
+				"fps must be int, yours is {}".format(type(fps))
+			)
+		if not isinstance(inplace, bool):
+			raise TypeError(
+				"inplace must be bool, yours is {}".format(type(inplace))
+			)
 		# Preparing command
 		command = [
 			"ffmpeg",
@@ -744,7 +827,7 @@ class Video(Media):
 	def addSubtitles(
 		self,
 		subtitles: Subtitles,
-		type: str,
+		strategy: str,
 		channel: int = 0,
 		lang: str = "eng",
 		inplace: bool = True
@@ -756,7 +839,7 @@ class Video(Media):
 		----------
 		subtitles : Subtitles
 			Subtitles instance containing the subtitles.
-		type : str
+		strategy : str
 			Type of subtitles. Available options : ["hard", "soft"].\
 			"hard" means subtitles are hard coded to the video.\
 			"soft" means subtitles are not burned into a video, \
@@ -778,11 +861,31 @@ class Video(Media):
 			containing the video with the subtitles. \
 			If "inplace" is True, it returns nothing.
 		"""
-		# Verifying type parameter
+		# Verifying parameters
+		if not isinstance(subtitles, Subtitles):
+			raise TypeError(
+				"subtitles must be Subtitles, yours is {}".format(type(subtitles))
+			)
+		if not isinstance(strategy, str):
+			raise TypeError(
+				"strategy must be str, yours is {}".format(type(strategy))
+			)
 		types = ["hard", "soft"]
-		if type not in types:
+		if strategy not in types:
 			raise ValueError(
-				"Type of subtitles should be in {} but yours is {}".format(types, type)
+				"Type of subtitles should be in {} but yours is {}".format(types, strategy)
+			)
+		if not isinstance(channel, int):
+			raise TypeError(
+				"channel must be int, yours is {}".format(type(channel))
+			)
+		if not isinstance(lang, str):
+			raise TypeError(
+				"lang must be str, yours is {}".format(type(lang))
+			)
+		if not isinstance(inplace, bool):
+			raise TypeError(
+				"inplace must be bool, yours is {}".format(type(inplace))
 			)
 		# Preparing command
 		command = [
@@ -791,17 +894,17 @@ class Video(Media):
 			self._main_temp
 		]
 		filter = []
-		if type == "hard" and subtitles._container == ".srt":
+		if strategy == "hard" and subtitles._container == ".srt":
 			filter = [
 				"-vf",
 				"subtitles=" + "'" + subtitles.getPath() + "'"
 			]
-		elif type == "hard" and subtitles._container == ".ass":
+		elif strategy == "hard" and subtitles._container == ".ass":
 			filter = [
 				"-vf",
 				"ass=" + "'" + subtitles.getPath() + "'"
 			]
-		elif type == "soft":
+		elif strategy == "soft":
 			filter = [
 				"-i",
 				subtitles.getPath(),
@@ -863,10 +966,14 @@ class Video(Media):
 			If "inplace" is False, it returns a Video containing the video with texts. \
 			If "inplace" is True, it returns nothing.
 		"""
-		# Verifying texts type
-		if all(isinstance(item, Text) for item in texts) is False:
+		# Verifying parameters
+		if not all(isinstance(item, Text) for item in texts):
 			raise TypeError("texts' items should be Text object, at least one of \
 				yours is not a Text object")
+		if not isinstance(inplace, bool):
+			raise TypeError(
+				"inplace must be bool, yours is {}".format(type(inplace))
+			)
 		# Preparing command
 		command = [
 			"ffmpeg",
@@ -950,7 +1057,7 @@ class Image():
 
 		Parameters
 		----------
-		duration : int
+		duration : int or float
 			Duration of the video in seconds.
 		fps : int, default=30
 			Framerate of the video.
@@ -966,6 +1073,27 @@ class Image():
 		Video
 			Video containing the image.
 		"""
+		# Verifying parameters
+		if not isinstance(duration, (int, float)):
+			raise TypeError(
+				"duration must be int or float, yours is {}".format(type(duration))
+			)
+		if not isinstance(fps, int):
+			raise TypeError(
+				"fps must be int, yours is {}".format(type(fps))
+			)
+		if not isinstance(height, int):
+			raise TypeError(
+				"height must be int, yours is {}".format(type(height))
+			)
+		if not isinstance(width, int):
+			raise TypeError(
+				"width must be int, yours is {}".format(type(width))
+			)
+		if not isinstance(pix_fmt, str):
+			raise TypeError(
+				"pix_fmt must be str, yours is {}".format(type(pix_fmt))
+			)
 		if duration > 0:
 			# Prepare files
 			video_temp = os.path.join(self._temp_folder.name, "video." + format)
@@ -1038,11 +1166,15 @@ class Audio(Media):
 			If "inplace" is False, it returns an Audio containing the audio looped. \
 			If "inplace" is True, it returns nothing.
 		"""
-		# Checking type of duration
-		if type(duration) not in [int, float]:
+		# Verifying parameters
+		if not isinstance(duration, (int, float)):
 			raise TypeError(
-				"Duration has to be an Integer or Float, "
-				"actual duration type is " + type(duration)
+				"duration must be int or float, "
+				"yours is {}".format(type(duration))
+			)
+		if not isinstance(inplace, bool):
+			raise TypeError(
+				"inplace must be bool, yours is {}".format(type(inplace))
 			)
 		# Getting the actual video duration
 		videoDuration = self.getDuration()
@@ -1103,14 +1235,18 @@ class Audio(Media):
 			If "inplace" is False, it returns an Audio containing the audio clipped. \
 			If "inplace" is True, it returns nothing.
 		"""
-		# Verifying arguments' types
-		if type(start) not in [int, float]:
+		# Verifying parameters
+		if not isinstance(start, (int, float)):
 			raise TypeError(
-				"Start has to be an Integer or Float, actual start type is " + type(start)
+				"start must be int or float, yours is {}".format(type(start))
 			)
-		if type(end) not in [int, float]:
+		if not isinstance(end, (int, float)):
 			raise TypeError(
-				"End has to be an Integer or Float, actual end type is " + type(end)
+				"end must be int or float, yours is {}".format(type(end))
+			)
+		if not isinstance(inplace, bool):
+			raise TypeError(
+				"inplace must be bool, yours is {}".format(type(inplace))
 			)
 		# Getting video duration to verify if end is actually lower than it
 		videoDuration = self.getDuration()
