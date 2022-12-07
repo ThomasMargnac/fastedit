@@ -95,7 +95,7 @@ def test_video_add_audio_silent():
 		if item["codec_type"] != "audio":
 			nb_streams_no_audio_before += 1
 	# Adding audio
-	video.addAudio(None, type="silent")
+	video.addAudio(None, "silent")
 	meta_after = video.getMetadata()
 	nb_streams_audio_after = 0
 	nb_streams_no_audio_after = 0
