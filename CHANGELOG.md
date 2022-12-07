@@ -1,3 +1,10 @@
+## v0.6.0 (2022-12-07)
+
+### Feat
+
+- **Medias**: Verifying parameters type
+- **Video**: Adding inplace parameter
+
 ## v0.5.2 (2022-12-04)
 
 ### Fix
