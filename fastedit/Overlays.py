@@ -106,7 +106,7 @@ class Text():
 			)
 		if isinstance(fontColor, str) is False:
 			raise TypeError(
-				"fontSize should be str, yours is {}".format(type(fontColor))
+				"fontColor should be str, yours is {}".format(type(fontColor))
 			)
 		# Initializing Text
 		self._text = {
