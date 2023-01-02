@@ -953,7 +953,6 @@ class Video(Media):
 			filter = [
 				"-vf",
 				"ass=" + "'" + subtitles.getPath() + "'"
-				":force_style=\'Alignment=" + str(alignments[alignment]) + "\'"
 			]
 		elif strategy == "soft":
 			filter = [
