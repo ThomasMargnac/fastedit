@@ -918,12 +918,14 @@ class Video(Media):
 		if strategy == "hard" and subtitles._container == ".srt":
 			filter = [
 				"-vf",
-				"subtitles=" + "'" + subtitles.getPath() + "'" + ":force_style=\'Alignment=" + str(alignments[alignment]) + "\'"
+				"subtitles=" + "'" + subtitles.getPath() + "'" + \
+				":force_style=\'Alignment=" + str(alignments[alignment]) + "\'"
 			]
 		elif strategy == "hard" and subtitles._container == ".ass":
 			filter = [
 				"-vf",
-				"ass=" + "'" + subtitles.getPath() + "'" + ":force_style=\'Alignment=" + str(alignments[alignment]) + "\'"
+				"ass=" + "'" + subtitles.getPath() + "'" + \
+				":force_style=\'Alignment=" + str(alignments[alignment]) + "\'"
 			]
 		elif strategy == "soft":
 			filter = [
