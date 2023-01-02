@@ -13,24 +13,20 @@ test_video_audio = "../media/test_video_with_audio.mp4"
 def test_video_loop():
 	# Defining video
 	video = Video(test_video)
-	meta_before = video.getMetadata()
 	# Looping video
 	vlooped = video.loop(40)
-	meta_after = vlooped.getMetadata()
 	# Verifying changes
-	assert int(float(meta_before["format"]["duration"])) == 30
-	assert int(float(meta_after["format"]["duration"])) == 40
+	assert int(video.duration) == 30
+	assert int(vlooped.duration) == 40
 
 def test_video_clip():
 	# Defining video
 	video = Video(test_video)
-	meta_before = video.getMetadata()
 	# Clipping video
 	vcliped = video.clip(0, 10)
-	meta_after = vcliped.getMetadata()
 	# Verifying changes
-	assert int(float(meta_before["format"]["duration"])) == 30
-	assert int(float(meta_after["format"]["duration"])) == 10
+	assert int(video.duration) == 30
+	assert int(vcliped.duration) == 10
 
 def test_video_add_audio_replace():
 	# Defining video and audio
@@ -50,7 +46,7 @@ def test_video_add_audio_replace():
 			nb_streams_audio_after += 1
 	# Verifying changes
 	assert nb_streams_audio_after == 1
-	assert len(meta_after["streams"]) - nb_streams_audio_after == nb_streams_before
+	assert video.nb_streams - nb_streams_audio_after == nb_streams_before
 
 def test_video_add_audio_add():
 	# Defining video and audio

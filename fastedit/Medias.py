@@ -40,6 +40,8 @@ class Media():
 			self._temp_folder.name,
 			"second" + extension
 		)
+		# Metadata recovering
+		self._parsing_metadata()
 
 	def getDuration(
 		self
@@ -192,6 +194,18 @@ class Media():
 			raise FFmpegError(run.stderr.decode())
 		# Moving generated audio to Object audio
 		shutil.move(self._second_temp, self._main_temp)
+		# Metadata recovering
+		self._parsing_metadata()
+
+	def _parsing_metadata(
+		self
+	):
+		# Get metadata
+		metadata = self.getMetadata()
+		# Binding relevant data to variables
+		self.duration = float(metadata["format"]["duration"])
+		self.size = int(metadata["format"]["size"])
+		self.nb_streams = len(metadata["streams"])
 
 
 class Video(Media):
@@ -275,6 +289,8 @@ class Video(Media):
 				return Video(self._second_temp)
 			else:
 				shutil.move(self._second_temp, self._main_temp)
+				# Metadata recovering
+				self._parsing_metadata()
 
 	def clip(
 		self,
@@ -349,6 +365,8 @@ class Video(Media):
 				return Video(self._second_temp)
 			else:
 				shutil.move(self._second_temp, self._main_temp)
+				# Metadata recovering
+				self._parsing_metadata()
 
 	def addAudio(
 		self,
@@ -519,6 +537,8 @@ class Video(Media):
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
+			# Metadata recovering
+			self._parsing_metadata()
 
 	def removeAudio(
 		self,
@@ -573,6 +593,8 @@ class Video(Media):
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
+			# Metadata recovering
+			self._parsing_metadata()
 
 	def convert(
 		self,
@@ -674,6 +696,8 @@ class Video(Media):
 				return Video(self._second_temp)
 			else:
 				shutil.move(self._second_temp, self._main_temp)
+				# Metadata recovering
+				self._parsing_metadata()
 
 	def resize(
 		self,
@@ -763,6 +787,8 @@ class Video(Media):
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
+			# Metadata recovering
+			self._parsing_metadata()
 
 	def changeFrameRate(
 		self,
@@ -823,6 +849,8 @@ class Video(Media):
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
+			# Metadata recovering
+			self._parsing_metadata()
 
 	def addSubtitles(
 		self,
@@ -918,13 +946,13 @@ class Video(Media):
 		if strategy == "hard" and subtitles._container == ".srt":
 			filter = [
 				"-vf",
-				"subtitles=" + "'" + subtitles.getPath() + "'" + \
+				"subtitles=" + "'" + subtitles.getPath() + "'"
 				":force_style=\'Alignment=" + str(alignments[alignment]) + "\'"
 			]
 		elif strategy == "hard" and subtitles._container == ".ass":
 			filter = [
 				"-vf",
-				"ass=" + "'" + subtitles.getPath() + "'" + \
+				"ass=" + "'" + subtitles.getPath() + "'"
 				":force_style=\'Alignment=" + str(alignments[alignment]) + "\'"
 			]
 		elif strategy == "soft":
@@ -953,7 +981,6 @@ class Video(Media):
 		# Concatenating command with filter and end
 		command.extend(filter)
 		command.extend(end)
-		print(" ".join(command))
 		# Running command
 		run = sp.run(
 			command,
@@ -967,6 +994,8 @@ class Video(Media):
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
+			# Metadata recovering
+			self._parsing_metadata()
 
 	def addText(
 		self,
@@ -1044,6 +1073,8 @@ class Video(Media):
 			return Video(self._second_temp)
 		else:
 			shutil.move(self._second_temp, self._main_temp)
+			# Metadata recovering
+			self._parsing_metadata()
 
 
 class Image():
@@ -1233,6 +1264,8 @@ class Audio(Media):
 				return Audio(self._second_temp)
 			else:
 				shutil.move(self._second_temp, self._main_temp)
+				# Metadata recovering
+				self._parsing_metadata()
 
 	def clip(
 		self,
@@ -1305,3 +1338,5 @@ class Audio(Media):
 				return Audio(self._second_temp)
 			else:
 				shutil.move(self._second_temp, self._main_temp)
+				# Metadata recovering
+				self._parsing_metadata()
