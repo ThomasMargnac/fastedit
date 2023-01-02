@@ -830,6 +830,7 @@ class Video(Media):
 		strategy: str,
 		channel: int = 0,
 		lang: str = "eng",
+		alignment: str = "bc",
 		inplace: bool = True
 	):
 		"""
@@ -840,8 +841,8 @@ class Video(Media):
 		subtitles : Subtitles
 			Subtitles instance containing the subtitles.
 		strategy : str
-			Type of subtitles. Available options : ["hard", "soft"].\
-			"hard" means subtitles are hard coded to the video.\
+			Type of subtitles. Available options : ["hard", "soft"]. \
+			"hard" means subtitles are hard coded to the video. \
 			"soft" means subtitles are not burned into a video, \
 			they can be enabled and disabled during the video playback.
 		channel : int, default=0
@@ -850,6 +851,11 @@ class Video(Media):
 		lang : str, default="eng"
 			If type is "soft", you have to specify the subtitle language \
 			using the ISO 639 language code with 3 letters.
+		alignment : str, default="bc"
+			Alignment of subtitles. Available options: ["tl" (Top Left), \
+			"tc" (Top Center), "tr" (Top Right), "ml" (Middle Left), "mc" \
+			(Middle Center), "mr" (Middle Right), "bl" (Bottom Left), "bc" \
+			(Bottom Center), "br" (Bottom Right)]
 		inplace : bool, default=True
 			If True, applying changes to the current object. \
 			If False, create a new Video to apply changes.
@@ -883,10 +889,25 @@ class Video(Media):
 			raise TypeError(
 				"lang must be str, yours is {}".format(type(lang))
 			)
+		if not isinstance(alignment, str):
+			raise TypeError(
+				"alignment must be str, yours is {}".format(type(alignment))
+			)
 		if not isinstance(inplace, bool):
 			raise TypeError(
 				"inplace must be bool, yours is {}".format(type(inplace))
 			)
+		alignments = {
+			"tl": 4,
+			"tc": 6,
+			"tr": 7,
+			"ml": 8,
+			"mc": 10,
+			"mr": 11,
+			"bl": 1,
+			"bc": 2,
+			"br": 3
+		}
 		# Preparing command
 		command = [
 			"ffmpeg",
@@ -897,12 +918,12 @@ class Video(Media):
 		if strategy == "hard" and subtitles._container == ".srt":
 			filter = [
 				"-vf",
-				"subtitles=" + "'" + subtitles.getPath() + "'"
+				"subtitles=" + "'" + subtitles.getPath() + "'" + ":force_style=\'Alignment=" + str(alignments[alignment]) + "\'"
 			]
 		elif strategy == "hard" and subtitles._container == ".ass":
 			filter = [
 				"-vf",
-				"ass=" + "'" + subtitles.getPath() + "'"
+				"ass=" + "'" + subtitles.getPath() + "'" + ":force_style=\'Alignment=" + str(alignments[alignment]) + "\'"
 			]
 		elif strategy == "soft":
 			filter = [
@@ -930,6 +951,7 @@ class Video(Media):
 		# Concatenating command with filter and end
 		command.extend(filter)
 		command.extend(end)
+		print(" ".join(command))
 		# Running command
 		run = sp.run(
 			command,
