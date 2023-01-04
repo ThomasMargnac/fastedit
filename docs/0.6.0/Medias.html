@@ -248,7 +248,7 @@ If "inplace" is True, it returns nothing.</dd>
 </dl></div>
 </dd>
 <dt id="fastedit.Medias.Video.addSubtitles"><code class="name flex">
-<span>def <span class="ident">addSubtitles</span></span>(<span>self, subtitles: <a title="fastedit.Overlays.Subtitles" href="Overlays.html#fastedit.Overlays.Subtitles">Subtitles</a>, strategy: str, channel: int = 0, lang: str = 'eng', fontName: str = 'Arial', fontSize: int = 16, fontPrimaryColor: str = '#ffffff', fontSecondaryColor: str = '#ffffff', outlineColor: str = '#00ffffff', backColor: str = '#00ffffff', bold: bool = False, italic: bool = False, underline: bool = False, borderStyle: int = 1, outline: int = 1, shadow: int = 0, alignment: str = 'bc', inplace: bool = True)</span>
+<span>def <span class="ident">addSubtitles</span></span>(<span>self, subtitles: <a title="fastedit.Overlays.Subtitles" href="Overlays.html#fastedit.Overlays.Subtitles">Subtitles</a>, strategy: str, channel: int = 0, lang: str = 'eng', inplace: bool = True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Add subtitles to the video.</p>
@@ -267,43 +267,6 @@ of these subtitles.</dd>
 <dt><strong><code>lang</code></strong> :&ensp;<code>str</code>, default=<code>"eng"</code></dt>
 <dd>If type is "soft", you have to specify the subtitle language
 using the ISO 639 language code with 3 letters.</dd>
-<dt><strong><code>fontName</code></strong> :&ensp;<code>str</code>, default=<code>"Arial"</code></dt>
-<dd>The subtitle font as identified by operating systems
-(only available for hard subtitles).</dd>
-<dt><strong><code>fontSize</code></strong> :&ensp;<code>int</code>, default=<code>16</code></dt>
-<dd>The point size of the font (only available for hard subtitles).</dd>
-<dt><strong><code>fontPrimaryColor</code></strong> :&ensp;<code>str</code>, default=<code>"#ffffff"</code></dt>
-<dd>The font color (only available for hard subtitles).</dd>
-<dt><strong><code>fontSecondaryColor</code></strong> :&ensp;<code>str</code>, default=<code>"#ffffff"</code></dt>
-<dd>A secondary font color (only available for hard subtitles).</dd>
-<dt><strong><code>outlineColor</code></strong> :&ensp;<code>str</code>, default=<code>"#00ffffff"</code></dt>
-<dd>The color used to outline the font (only available for hard subtitles).</dd>
-<dt><strong><code>backColor</code></strong> :&ensp;<code>str</code>, default=<code>"#00ffffff"</code></dt>
-<dd>The color of the subtitle shadow (only available for hard subtitles).</dd>
-<dt><strong><code>bold</code></strong> :&ensp;<code>bool</code>, default=<code>False</code></dt>
-<dd>Bold creates the appearance of darker text by applying
-a thicker stroke weight to the letters (only available
-for hard subtitles).</dd>
-<dt><strong><code>italic</code></strong> :&ensp;<code>bool</code>, default=<code>False</code></dt>
-<dd>Letters are slanted slightly to the right (only available
-for hard subtitles).</dd>
-<dt><strong><code>underline</code></strong> :&ensp;<code>bool</code>, default=<code>False</code></dt>
-<dd>One horizontal line immediately below a portion of writing
-(only available for hard subtitles).</dd>
-<dt><strong><code>borderStyle</code></strong> :&ensp;<code>int</code>, default=<code>1</code></dt>
-<dd>1 -&gt; Outline with shadow, 3 -&gt; Rendered with an opaque box
-(only available for hard subtitles).</dd>
-<dt><strong><code>outline</code></strong> :&ensp;<code>int</code>, default=<code>1</code></dt>
-<dd>The width of the text outline, in pixels
-(only available for hard subtitles).</dd>
-<dt><strong><code>shadow</code></strong> :&ensp;<code>int</code>, default=<code>0</code></dt>
-<dd>The depth of the text shadow, in pixels (only available for hard subtitles).</dd>
-<dt><strong><code>alignment</code></strong> :&ensp;<code>str</code>, default=<code>"bc"</code></dt>
-<dd>Alignment of subtitles (only available for hard subtitles).
-Available options: ["tl" (Top Left), "tc" (Top Center), "tr"
-(Top Right), "ml" (Middle Left), "mc" (Middle Center), "mr"
-(Middle Right), "bl" (Bottom Left), "bc" (Bottom Center),
-"br" (Bottom Right)]</dd>
 <dt><strong><code>inplace</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
 <dd>If True, applying changes to the current object.
 If False, create a new Video to apply changes.</dd>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>fastedit API documentation</title>
+<title>fastedit.Composing API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,40 +19,85 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Package <code>fastedit</code></h1>
+<h1 class="title">Module <code>fastedit.Composing</code></h1>
 </header>
 <section id="section-intro">
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt><code class="name"><a title="fastedit.Composing" href="Composing.html">fastedit.Composing</a></code></dt>
+<dt id="fastedit.Composing.AudioComposition"><code class="flex name class">
+<span>class <span class="ident">AudioComposition</span></span>
+<span>(</span><span>audios, container: str = 'wav')</span>
+</code></dt>
 <dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="fastedit.Errors" href="Errors.html">fastedit.Errors</a></code></dt>
+<div class="desc"><p>Initializing audio composition.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>audios</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of Audio to concatenate in the right order.</dd>
+<dt><strong><code>container</code></strong> :&ensp;<code>str</code>, default=<code>"wav"</code></dt>
+<dd>File format where the data streams will be embedded.</dd>
+</dl></div>
+<h3>Methods</h3>
+<dl>
+<dt id="fastedit.Composing.AudioComposition.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>self)</span>
+</code></dt>
 <dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="fastedit.Medias" href="Medias.html">fastedit.Medias</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="fastedit.Overlays" href="Overlays.html">fastedit.Overlays</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="fastedit.utils" href="utils.html">fastedit.utils</a></code></dt>
-<dd>
-<div class="desc"></div>
+<div class="desc"><p>Get the audios concatenated.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Audio</code></dt>
+<dd>Audio containing the concatenation of the defined audios.</dd>
+</dl></div>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
+</dd>
+<dt id="fastedit.Composing.VideoComposition"><code class="flex name class">
+<span>class <span class="ident">VideoComposition</span></span>
+<span>(</span><span>videos, container: str = 'mp4')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initializing video composition.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>videos</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of Video to concatenate in the right order.</dd>
+<dt><strong><code>container</code></strong> :&ensp;<code>str</code>, default=<code>"mp4"</code></dt>
+<dd>File format where the data streams will be embedded.</dd>
+</dl></div>
+<h3>Methods</h3>
+<dl>
+<dt id="fastedit.Composing.VideoComposition.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>self, width: int = 1280, height: int = 720, fps: int = 30)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the videos concatenated.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>width</code></strong> :&ensp;<code>int</code>, default=<code>1280</code></dt>
+<dd>Desired width of the video.</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>int</code>, default=<code>720</code></dt>
+<dd>Desired height of the video.</dd>
+<dt><strong><code>fps</code></strong> :&ensp;<code>int</code>, default=<code>30</code></dt>
+<dd>Desired frames per seconds.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Video</code></dt>
+<dd>Video containing the concatenation of the defined videos.</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -61,13 +106,25 @@
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="fastedit.Composing" href="Composing.html">fastedit.Composing</a></code></li>
-<li><code><a title="fastedit.Errors" href="Errors.html">fastedit.Errors</a></code></li>
-<li><code><a title="fastedit.Medias" href="Medias.html">fastedit.Medias</a></code></li>
-<li><code><a title="fastedit.Overlays" href="Overlays.html">fastedit.Overlays</a></code></li>
-<li><code><a title="fastedit.utils" href="utils.html">fastedit.utils</a></code></li>
+<li><code><a title="fastedit" href="index.html">fastedit</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="fastedit.Composing.AudioComposition" href="#fastedit.Composing.AudioComposition">AudioComposition</a></code></h4>
+<ul class="">
+<li><code><a title="fastedit.Composing.AudioComposition.get" href="#fastedit.Composing.AudioComposition.get">get</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="fastedit.Composing.VideoComposition" href="#fastedit.Composing.VideoComposition">VideoComposition</a></code></h4>
+<ul class="">
+<li><code><a title="fastedit.Composing.VideoComposition.get" href="#fastedit.Composing.VideoComposition.get">get</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
