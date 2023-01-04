@@ -1039,14 +1039,19 @@ class Video(Media):
 			filter = [
 				"-vf",
 				"subtitles='" + subtitles.getPath() + "'" +
-				":force_style='Fontname=" + fontName + ",Fontsize=" + str(fontSize) +
+				":force_style='Fontname=" + fontName +
+				",Fontsize=" + str(fontSize) +
 				",PrimaryColour=" + font_primary_bgr +
 				",SecondaryColour=" + font_secondary_bgr +
-				",OutlineColour=" + outline_bgr + ",BackColour=" + back_bgr +
-				",Bold=" + str(int(bold)) + ",Italic=" + str(int(italic)) +
+				",OutlineColour=" + outline_bgr +
+				",BackColour=" + back_bgr +
+				",Bold=" + str(int(bold)) +
+				",Italic=" + str(int(italic)) +
 				",Underline=" + str(int(underline)) +
-				",BorderStyle=" + str(borderStyle) + ",Outline=" + str(outline) +
-				",Shadow=" + str(shadow) + ",Alignment=" + str(alignments[alignment]) + "'"
+				",BorderStyle=" + str(borderStyle) +
+				",Outline=" + str(outline) +
+				",Shadow=" + str(shadow) +
+				",Alignment=" + str(alignments[alignment]) + "'"
 			]
 		elif strategy == "hard" and subtitles._container == ".ass":
 			filter = [
