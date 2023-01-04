@@ -906,8 +906,15 @@ class Video(Media):
 		backColor : str, default="#00ffffff"
 			The color of the subtitle shadow (only available for hard subtitles).
 		bold : bool, default=False
+			Bold creates the appearance of darker text by applying \
+			a thicker stroke weight to the letters (only available \
+			for hard subtitles).
 		italic : bool, default=False
+			Letters are slanted slightly to the right (only available \
+			for hard subtitles).
 		underline : bool, default=False
+			One horizontal line immediately below a portion of writing \
+			(only available for hard subtitles).
 		borderStyle : int, default=1
 			1 -> Outline with shadow, 3 -> Rendered with an opaque box \
 			(only available for hard subtitles).
