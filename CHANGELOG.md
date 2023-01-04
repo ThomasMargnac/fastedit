@@ -1,3 +1,16 @@
+## v0.7.0 (2023-01-04)
+
+### Feat
+
+- **Video**: Adding more functionalities to hard subtitles
+- **Medias**: Adding variables to get metadata easily
+- **Video**: Adding alignment parameter to addSubtitles()
+
+### Fix
+
+- **Video**: Removing alignment parameter in addSubtitles for .ass files
+- **Overlays**: Fixing Text error about fontColor
+
 ## v0.6.0 (2022-12-07)
 
 ### Feat
