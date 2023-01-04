@@ -5,6 +5,7 @@ import json
 import os
 from fastedit.Errors import FFmpegError, FFprobeError
 from fastedit.Overlays import Subtitles, Text
+from fastedit.utils import rgb_to_bgr
 
 
 class Media():
@@ -858,6 +859,18 @@ class Video(Media):
 		strategy: str,
 		channel: int = 0,
 		lang: str = "eng",
+		fontName: str = "Arial",
+		fontSize: int = 16,
+		fontPrimaryColor: str = "#ffffff",
+		fontSecondaryColor: str = "#ffffff",
+		outlineColor: str = "#00ffffff",
+		backColor: str = "#00ffffff",
+		bold: bool = False,
+		italic: bool = False,
+		underline: bool = False,
+		borderStyle: int = 1,
+		outline: int = 1,
+		shadow: int = 0,
 		alignment: str = "bc",
 		inplace: bool = True
 	):
@@ -879,11 +892,36 @@ class Video(Media):
 		lang : str, default="eng"
 			If type is "soft", you have to specify the subtitle language \
 			using the ISO 639 language code with 3 letters.
+		fontName : str, default="Arial"
+			The subtitle font as identified by operating systems \
+			(only available for hard subtitles).
+		fontSize : int, default=16
+			The point size of the font (only available for hard subtitles).
+		fontPrimaryColor : str, default="#ffffff"
+			The font color (only available for hard subtitles).
+		fontSecondaryColor : str, default="#ffffff"
+			A secondary font color (only available for hard subtitles).
+		outlineColor : str, default="#00ffffff"
+			The color used to outline the font (only available for hard subtitles).
+		backColor : str, default="#00ffffff"
+			The color of the subtitle shadow (only available for hard subtitles).
+		bold : bool, default=False
+		italic : bool, default=False
+		underline : bool, default=False
+		borderStyle : int, default=1
+			1 -> Outline with shadow, 3 -> Rendered with an opaque box \
+			(only available for hard subtitles).
+		outline : int, default=1
+			The width of the text outline, in pixels \
+			(only available for hard subtitles).
+		shadow : int, default=0
+			The depth of the text shadow, in pixels (only available for hard subtitles).
 		alignment : str, default="bc"
-			Alignment of subtitles. Available options: ["tl" (Top Left), \
-			"tc" (Top Center), "tr" (Top Right), "ml" (Middle Left), "mc" \
-			(Middle Center), "mr" (Middle Right), "bl" (Bottom Left), "bc" \
-			(Bottom Center), "br" (Bottom Right)]
+			Alignment of subtitles (only available for hard subtitles). \
+			Available options: ["tl" (Top Left), "tc" (Top Center), "tr" \
+			(Top Right), "ml" (Middle Left), "mc" (Middle Center), "mr" \
+			(Middle Right), "bl" (Bottom Left), "bc" (Bottom Center), \
+			"br" (Bottom Right)]
 		inplace : bool, default=True
 			If True, applying changes to the current object. \
 			If False, create a new Video to apply changes.
@@ -917,6 +955,56 @@ class Video(Media):
 			raise TypeError(
 				"lang must be str, yours is {}".format(type(lang))
 			)
+		if not isinstance(fontName, str):
+			raise TypeError(
+				"fontName must be str, yours is {}".format(type(fontName))
+			)
+		if not isinstance(fontSize, int):
+			raise TypeError(
+				"fontSize must be int, yours is {}".format(type(fontSize))
+			)
+		if not isinstance(fontPrimaryColor, str):
+			raise TypeError(
+				"fontPrimaryColor must be str, yours is {}".format(type(fontPrimaryColor))
+			)
+		if not isinstance(fontSecondaryColor, str):
+			raise TypeError(
+				"fontSecondaryColor must be str, yours is {}".format(
+					type(fontSecondaryColor)
+				)
+			)
+		if not isinstance(outlineColor, str):
+			raise TypeError(
+				"outlineColor must be str, yours is {}".format(type(outlineColor))
+			)
+		if not isinstance(backColor, str):
+			raise TypeError(
+				"backColor must be str, yours is {}".format(type(backColor))
+			)
+		if not isinstance(bold, bool):
+			raise TypeError(
+				"bold must be bool, yours is {}".format(type(bold))
+			)
+		if not isinstance(italic, bool):
+			raise TypeError(
+				"italic must be bool, yours is {}".format(type(italic))
+			)
+		if not isinstance(underline, bool):
+			raise TypeError(
+				"underline must be bool, yours is {}".format(type(underline))
+			)
+		if not isinstance(borderStyle, int):
+			raise TypeError(
+				"borderStyle must be int, yours is {}".format(type(borderStyle))
+			)
+		if not isinstance(outline, int):
+			raise TypeError(
+				"outline must be int, yours is {}".format(type(outline))
+			)
+		if not isinstance(shadow, int):
+			raise TypeError(
+				"shadow must be int, yours is {}".format(type(shadow))
+			)
 		if not isinstance(alignment, str):
 			raise TypeError(
 				"alignment must be str, yours is {}".format(type(alignment))
@@ -944,10 +1032,21 @@ class Video(Media):
 		]
 		filter = []
 		if strategy == "hard" and subtitles._container == ".srt":
+			font_primary_bgr = rgb_to_bgr(fontPrimaryColor)
+			font_secondary_bgr = rgb_to_bgr(fontSecondaryColor)
+			outline_bgr = rgb_to_bgr(outlineColor)
+			back_bgr = rgb_to_bgr(backColor)
 			filter = [
 				"-vf",
-				"subtitles=" + "'" + subtitles.getPath() + "'"
-				":force_style=\'Alignment=" + str(alignments[alignment]) + "\'"
+				"subtitles='" + subtitles.getPath() + "'" +
+				":force_style='Fontname=" + fontName + ",Fontsize=" + str(fontSize) +
+				",PrimaryColour=" + font_primary_bgr +
+				",SecondaryColour=" + font_secondary_bgr +
+				",OutlineColour=" + outline_bgr + ",BackColour=" + back_bgr +
+				",Bold=" + str(int(bold)) + ",Italic=" + str(int(italic)) +
+				",Underline=" + str(int(underline)) +
+				",BorderStyle=" + str(borderStyle) + ",Outline=" + str(outline) +
+				",Shadow=" + str(shadow) + ",Alignment=" + str(alignments[alignment]) + "'"
 			]
 		elif strategy == "hard" and subtitles._container == ".ass":
 			filter = [
